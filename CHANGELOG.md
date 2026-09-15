@@ -1,23 +1,38 @@
 # Changelog
 
-## V8.1 — 2026-09-15
-- Sustitución de imágenes decorativas por fotografías auténticas de los destinos y POIs.
-- Nueva capa `photos-v8.1.js` para centralizar las fotografías.
-- Actualización del Service Worker a `filipinas-v8-1`.
-- Caché de fotografías de Wikimedia tras su primera carga para mejorar el uso offline.
-- Actualización del README y documentación de fotografías/licencias.
+## V8.2.0 — 2026-09-15
+- Migración definitiva de las fotografías a archivos locales dentro de `images/`.
+- Nueva capa `photos.js` para centralizar las rutas locales de destinos y POIs.
+- Eliminada la dependencia de Wikimedia para la carga de imágenes de la aplicación.
+- Service Worker actualizado a `filipinas-v8-2-0`.
+- Las 17 fotografías locales se precargan junto con el App Shell para mejorar el funcionamiento offline.
+- Eliminada la antigua capa `photos-v8.1.js`.
+- Eliminadas referencias y dependencias del antiguo `assets.js`.
+- Añadido crédito visible en el pie: «Creado por NachHR con la ayuda de ChatGPT».
+- CSS de imágenes consolidado y limpiado.
+- README actualizado con la arquitectura final y las instrucciones de uso.
+- Mantenimiento de `PHOTO-CREDITS.md` para documentar las fuentes y licencias de las fotografías utilizadas.
 
-## V8 — 2026-09-15
+## V8.1.1 — 2026-09-15
+- Corrección de un problema por el que algunos días seguían mostrando imágenes SVG decorativas heredadas.
+- Las fotografías reales sobrescriben también las referencias `day.loc` del itinerario.
+- Actualización de cache-busting de los recursos principales.
+
+## V8.1 — 2026-09-15
+- Sustitución de imágenes decorativas por fotografías auténticas de destinos y POIs.
+- Nueva capa fotográfica para centralizar las imágenes.
+- Actualización del Service Worker para mejorar la caché de fotografías.
+- Documentación de fuentes y licencias.
+
+## V8
 - Incorporación de fotografías auténticas de destinos mediante Wikimedia Commons.
 - Eliminación de la dependencia de `assets.js` para la carga principal de imágenes.
-- Añadida documentación de atribución y licencias.
 - Correcciones de carga y compatibilidad con GitHub Pages.
 
 ## V7
 - Revisión de la carga de imágenes y recursos locales.
 - Presupuesto y sección documental visibles incluso después de activar «Solo itinerario».
 - Service Worker actualizado para recursos de la aplicación.
-- Mantenimiento de imágenes locales como alternativa a recursos externos.
 
 ## V6
 - Iteración de la PWA con mejoras de navegación, itinerario y experiencia móvil.
