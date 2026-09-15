@@ -1,4 +1,4 @@
-# Filipinas Travel PWA — v8.1.1
+# Filipinas Travel PWA — v8.1.2
 
 Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. La aplicación está pensada para móvil, puede instalarse como PWA y mantiene presupuesto, gastos y preferencias en el dispositivo.
 
@@ -15,12 +15,14 @@ Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. La aplicació
 - PWA instalable y funcionamiento offline.
 - Fotografías auténticas y representativas de los destinos y POIs.
 
-## V8.1.1 — Corrección de fotografías
-La V8.1.1 corrige un problema por el que algunos días seguían mostrando las imágenes SVG decorativas de versiones anteriores. Ahora las fotografías reales sobrescriben también las referencias `day.loc` del itinerario, por lo que las portadas de los días utilizan las fotografías de los destinos.
+## V8.1.2 — Revisión final y limpieza
+- Eliminado el bundle `assets.js`, que ya no se cargaba.
+- Eliminado el sistema fotográfico `photos-v8.js`, sustituido por `photos-v8.1.js`.
+- Eliminados los PNG/SVG decorativos heredados de `images/`; las fotos visibles proceden de las fuentes actuales definidas en `photos-v8.1.js`.
+- Actualizado el Service Worker a una caché nueva para forzar la actualización tras la limpieza.
+- Mantenida la caché de fotografías de Wikimedia después de su primera carga para facilitar el uso offline.
 
 Las fotografías proceden de Wikimedia Commons y las atribuciones/licencias están documentadas en `PHOTO-CREDITS.md`.
-
-Las fotos se sirven desde Wikimedia y el Service Worker las guarda en la caché de la aplicación después de su primera carga. Para tener el contenido fotográfico disponible sin conexión, conviene abrir las localizaciones y galerías una vez mientras haya Internet.
 
 ## Archivos principales
 - `index.html` — estructura de la aplicación y versión visible.
@@ -30,7 +32,6 @@ Las fotos se sirven desde Wikimedia y el Service Worker las guarda en la caché 
 - `photos-v8.1.js` — fotografías de destinos y POIs y corrección de referencias heredadas.
 - `manifest.json` — configuración PWA.
 - `service-worker.js` — caché y funcionamiento offline.
-- `images/` — recursos gráficos heredados de versiones anteriores.
 - `icon-192.png`, `icon-512.png` — iconos de la aplicación.
 - `PHOTO-CREDITS.md` — fuentes y licencias de las fotografías.
 - `CHANGELOG.md` — historial resumido de versiones.
@@ -40,7 +41,7 @@ Las fotos se sirven desde Wikimedia y el Service Worker las guarda en la caché 
 2. Abre PowerShell en la carpeta que contiene directamente `index.html`.
 3. Ejecuta `python -m http.server 8000`.
 4. Abre `http://localhost:8000`.
-5. Debe aparecer la etiqueta `V8.1.1` abajo a la derecha.
+5. Debe aparecer la etiqueta `V8.1.2` abajo a la derecha.
 
 ### Si aparecen datos o archivos de una versión anterior
 Abre DevTools (`F12`) → **Application** → **Service Workers** → **Unregister**. Después entra en **Storage** → **Clear site data** y recarga con `Ctrl+Shift+R`.
@@ -69,7 +70,7 @@ Para configurar el despliegue, entra en `Settings → Pages` y selecciona `Deplo
 Puedes conectar el repositorio de GitHub o desplegar manualmente la carpeta del proyecto.
 
 ## Fotografías
-Las fotografías de la V8.1.1 se han seleccionado para representar directamente los destinos y puntos de interés del viaje (Cagayan de Oro, Camiguin, Bukidnon, Iligan, Cebu y Laguindingan Airport, además de POIs concretos). Consulta `PHOTO-CREDITS.md` para ver las fuentes y licencias.
+Las fotografías de la V8.1.2 se han seleccionado para representar directamente los destinos y puntos de interés del viaje. Consulta `PHOTO-CREDITS.md` para ver las fuentes y licencias.
 
 ## Alojamiento
 La aplicación incluye los enlaces de:
