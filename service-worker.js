@@ -1,4 +1,4 @@
-const CACHE='filipinas-v8-2-0';
+const CACHE='filipinas-v8-2-1';
 const APP_SHELL=['./','./index.html','./style.css','./data.js','./photos.js','./script.js','./manifest.json','./icon-192.png','./icon-512.png'];
 const LOCAL_IMAGES=[
 './images/airport.webp','./images/bukidnon.webp','./images/camiguin.webp','./images/cdo.webp','./images/cebu.webp','./images/ferry.webp','./images/fort-san-pedro.webp','./images/guiob.webp','./images/iligan.webp','./images/kawasan.webp','./images/mantigue.webp','./images/oslob.webp','./images/santo-nino.webp','./images/sirao.webp','./images/taoist-temple.webp','./images/temple-of-leah.webp','./images/tuasan.webp'
