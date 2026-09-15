@@ -1,0 +1,131 @@
+
+const state = {
+  lang: localStorage.getItem('filipinasLang') || 'es',
+  selectedDay: Number(localStorage.getItem('selectedDay') || 1),
+  itineraryOnly: false,
+  installedPrompt: null
+};
+// v5: reset the old 'itinerary only' preference so documentary/budget sections are visible.
+localStorage.setItem('itineraryOnly', 'false');
+const $ = s => document.querySelector(s);
+const imageSrc = path => {
+  if (!path) return '';
+  const file = String(path).split('/').pop();
+  return window.EMBEDDED_IMAGES?.[file] || path;
+};
+const tr = value => {
+  if (Array.isArray(value)) return value;
+  if (value && typeof value === 'object') return value?.[state.lang] ?? value?.es ?? value?.en ?? '';
+  return value ?? '';
+};
+const statusText = {es:{planned:'Planificado',pending:'Pendiente',done:'Hecho',optional:'Opcional'},en:{planned:'Planned',pending:'Pending',done:'Done',optional:'Optional'}};
+const labels = {
+ es:{nav:'Navegación',today:'Hoy',install:'Instalar',close:'Cerrar',itinerary:'Solo itinerario',documentary:'Modo documental',poi:'Puntos de interés',recording:'Grabación',gallery:'Galería',budget:'Presupuesto',notes:'Nota',transport:'Transporte',maps:'Google Maps',directions:'Cómo llegar',duration:'Duración',theme:'Tema',plans:'Planos clave',tech:'Nota técnica',narration:'Narración',check:'Checklist de grabación',progress:'Progreso',estimate:'Estimado',spent:'Gastado',remaining:'Restante',expense:'Gasto',add:'Añadir',amount:'Importe',detail:'Descripción',optional:'Opcional',pending:'Pendiente',saved:'guardado',todayBanner:'HOY'},
+ en:{nav:'Navigation',today:'Today',install:'Install',close:'Close',itinerary:'Itinerary only',documentary:'Documentary mode',poi:'Points of interest',recording:'Filming',gallery:'Gallery',budget:'Budget',notes:'Note',transport:'Transport',maps:'Google Maps',directions:'Directions',duration:'Duration',theme:'Theme',plans:'Key shots',tech:'Technical note',narration:'Narration',check:'Filming checklist',progress:'Progress',estimate:'Estimated',spent:'Spent',remaining:'Remaining',expense:'Expense',add:'Add',amount:'Amount',detail:'Description',optional:'Optional',pending:'Pending',saved:'saved',todayBanner:'TODAY'}
+};
+const L=()=>labels[state.lang];
+const COMMON = {
+  wide: {es:'Plano general', en:'Wide shot'},
+  macro: {es:'Macro / detalle', en:'Macro / detail'},
+  static: {es:'Plano fijo largo', en:'Long static shot'},
+  slow: {es:'Cámara lenta', en:'Slow motion'},
+  timelapse: {es:'Timelapse / hyperlapse', en:'Timelapse / hyperlapse'},
+  sound: {es:'Sonido ambiente', en:'Ambient sound'},
+  transition: {es:'Plano de transición', en:'Transition shot'}
+};
+
+function dayById(id){return tripData.days.find(d=>d.id===id)||tripData.days[0];}
+function locationMeta(key){return tripData.locations.find(x=>x.key===key)||tripData.locations[0];}
+function persist(){localStorage.setItem('filipinasLang',state.lang);localStorage.setItem('selectedDay',String(state.selectedDay));localStorage.setItem('itineraryOnly',String(state.itineraryOnly));}
+function getChecklist(dayId){try{return JSON.parse(localStorage.getItem(`check_${dayId}`)||'{}')}catch{return {}}}
+function setChecklist(dayId,key,val){const c=getChecklist(dayId);c[key]=val;localStorage.setItem(`check_${dayId}`,JSON.stringify(c));}
+function expenses(){try{return JSON.parse(localStorage.getItem('expenses')||'[]')}catch{return []}}
+function saveExpenses(items){localStorage.setItem('expenses',JSON.stringify(items))}
+function getTripBudget(){const saved=Number(localStorage.getItem('tripBudget'));return Number.isFinite(saved)&&saved>0?saved:Number(tripData.meta.budgetEstimate||0)}
+function saveTripBudget(value){localStorage.setItem('tripBudget',String(value))}
+function money(v){return `${new Intl.NumberFormat(state.lang==='es'?'es-ES':'en-US').format(Number(v)||0)} PHP`}
+function formatDate(d){return new Intl.DateTimeFormat(state.lang==='es'?'es-ES':'en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date(d+'T12:00:00'))}
+function isToday(d){const now=new Date(); return d===`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`}
+
+function init(){
+  renderLocationNav(); renderDayNav(); renderDay(state.selectedDay); bindGlobal(); registerSW();
+  if(state.itineraryOnly) document.body.classList.add('mode-only');
+}
+function renderLocationNav(){
+  $('#locationNav').innerHTML=tripData.locations.map(loc=>`<button class="location-link" data-loc="${loc.key}">${tr(loc.name)}</button>`).join('');
+  document.querySelectorAll('.location-link').forEach(b=>b.onclick=()=>{const d=tripData.days.find(x=>x.locationKey===b.dataset.loc);if(d)selectDay(d.id);closeMenu()});
+}
+function renderDayNav(){
+  $('#dayNavigation').innerHTML=tripData.days.map(d=>`<button class="day-button ${d.status==='pending'?'pending':''}" data-day="${d.id}">Día ${d.id}</button>`).join('');
+  document.querySelectorAll('.day-button').forEach(b=>b.onclick=()=>selectDay(Number(b.dataset.day)));
+}
+function selectDay(id){state.selectedDay=id;persist();renderDay(id);window.scrollTo({top:0,behavior:'smooth'});const active=document.querySelector(`[data-day="${id}"]`);active?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})}
+function renderHero(day){
+  const lm=locationMeta(day.locationKey); const rec=day.loc?.recording;
+  $('#hero').innerHTML=`<img src="${imageSrc(day.loc?.cover||lm.cover)}" alt="${tr(day.location)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')"><div class="hero-content"><div class="hero-kicker">${tr(day.location)} · ${tr(statusText[state.lang][day.status])}</div><h1>${tr(day.title)}</h1><p>${rec?tr(rec.theme):tr(day.location)}</p></div>`;
+}
+function renderDay(id){
+  const day=dayById(id);renderHero(day);document.querySelectorAll('.day-button').forEach(b=>b.classList.toggle('active',Number(b.dataset.day)===id));
+  document.querySelectorAll('.location-link').forEach(b=>b.classList.toggle('active',b.dataset.loc===day.locationKey));
+  const allExpenses=expenses(); const spent=allExpenses.reduce((s,e)=>s+Number(e.amount||0),0); const completed=day.activities.filter(a=>getActivityDone(day.id,a)).length; const total=day.activities.length; const pct=total?Math.round(completed/total*100):0; const tripBudget=getTripBudget();
+  $('#dayContent').innerHTML=`
+  <div class="day-head"><div class="day-meta"><span class="eyebrow">Día ${day.id} / ${tripData.meta.totalDays}</span>${isToday(day.date)?`<span class="pill done">${L().todayBanner}</span>`:''}<span class="pill ${day.status}">${statusText[state.lang][day.status]}</span></div><h1 class="day-title">${tr(day.title)}</h1><div class="date-line">${formatDate(day.date)} · ${tr(day.location)}</div><div class="progress-wrap"><div class="progress-line"><span style="width:${pct}%"></span></div><div class="progress-copy">${L().progress}: ${completed}/${total} · ${pct}%</div></div><div class="card budget-box"><div class="budget-row"><span>${state.lang==='es'?'Presupuesto total':'Total trip budget'}</span><strong>${money(tripBudget)}</strong></div><div class="budget-row"><span>${L().spent}</span><strong>${money(spent)}</strong></div><div class="budget-row"><span>${L().remaining}</span><strong>${money(Math.max(0,tripBudget-spent))}</strong></div><div class="budget-quick"><button class="action primary" id="openBudgetEditor" type="button">✎ ${state.lang==='es'?'Modificar presupuesto':'Edit budget'}</button><span class="saved-budget">${state.lang==='es'?'Se guarda en este dispositivo':'Saved on this device'}</span></div></div></div>
+  <div class="grid">${day.activities.map((act,i)=>activityCard(day,act,i)).join('')}</div>
+  ${day.pois?.length?`<section class="documentary"><div class="section-head"><h2>${L().poi}</h2><span>${day.pois.length}</span></div><div class="grid two">${day.pois.map(poiCard).join('')}</div></section>`:''}
+  ${day.loc?recordingSection(day):''}
+  ${locationGallery(day.locationKey)}
+  ${budgetSection(day,spent)}
+  `;
+  bindDayEvents(day);
+}
+function getActivityDone(dayId,act){const k=`done_${dayId}_${act.title.es}`;return localStorage.getItem(k)==='true'}
+function setActivityDone(dayId,act,val){localStorage.setItem(`done_${dayId}_${act.title.es}`,String(val))}
+function activityCard(day,act,i){
+  const done=getActivityDone(day.id,act); const st=act.status==='optional'?L().optional:statusText[state.lang][act.status];
+  return `<article class="card activity-card ${act.status==='pending'?'pending':''}"><div class="activity-top"><div><div class="time">${tr(act.time)}</div><h2>${tr(act.title)}</h2></div><label class="check" title="${L().check}"><input type="checkbox" data-done="${i}" ${done?'checked':''}> <span>${done?'✓':''}</span></label></div><p class="activity-description">${tr(act.description)}</p><div class="chips"><span class="chip">${st}</span>${act.duration?`<span class="chip">⏱ ${tr(act.duration)}</span>`:''}</div>${act.place?`<div class="actions"><a class="action primary" target="_blank" rel="noopener" href="${act.maps}">⌖ ${L().maps}</a><a class="action" target="_blank" rel="noopener" href="${act.directions}">↗ ${L().directions}</a></div>`:''}${act.notes?.es||act.notes?.en?`<div class="notes"><strong>${L().notes}</strong><p>${tr(act.notes)}</p></div>`:''}${act.transport?.es||act.transport?.en?`<div class="transport"><b>↔ ${L().transport}</b><br>${tr(act.transport)}</div>`:''}${act.recording?.es||act.recording?.en?`<div class="notes"><strong>🎥 ${L().recording}</strong><p>${(tr(act.recording)||[]).join(' · ')}</p></div>`:''}</article>`
+}
+function poiCard(p){return `<article class="card poi-card">${p.image?`<img src="${imageSrc(p.image)}" alt="${tr(p.name)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">`:''}<div class="poi-body"><div class="chips"><span class="chip">${p.optional?L().optional:'POI'}</span></div><h3>${tr(p.name)}</h3><p>${tr(p.description)}</p><a class="action primary" target="_blank" rel="noopener" href="${p.maps}">⌖ ${L().maps}</a></div></article>`}
+function recordingSection(day){
+  const r=day.loc.recording||{},c=getChecklist(day.id);const keys=['wide','macro','static','slow','timelapse','sound','transition'];
+  const points=Array.isArray(r.points)?r.points:[];const guides=Array.isArray(tripData.meta.recordingGuidelines?.[state.lang])?tripData.meta.recordingGuidelines[state.lang]:[];
+  return `<section class="recording-section recording"><div class="section-head"><h2>🎬 ${L().recording}</h2><span>${tr(day.location)}</span></div><div class="recording-grid"><div class="recording-block full"><div class="recording-label">${L().theme}</div><h3>${tr(day.loc.theme)}</h3><div class="recording-label">${L().plans}</div><ul>${points.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="recording-block"><div class="recording-label">${L().narration}</div><p class="quote">“${tr(r.narration)}”</p></div><div class="recording-block"><div class="recording-label">${L().tech}</div><p>${tr(r.technical)}</p></div><div class="recording-block full"><div class="recording-label">${state.lang==='es'?'Pautas generales':'General guidelines'}</div><ul>${guides.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="recording-block full"><div class="recording-label">${L().check}</div><div class="checklist">${keys.map(k=>`<label class="check"><input type="checkbox" data-rec="${k}" ${c[k]?'checked':''}><span>${tr(COMMON[k])}</span></label>`).join('')}</div></div></div></section>`
+}
+function locationGallery(key){const lm=locationMeta(key);return `<section class="gallery-section"><div class="section-head"><h2>${L().gallery}</h2><span>${tr(lm.name)}</span></div><div class="gallery">${lm.gallery.map((x,i)=>`<img src="${imageSrc(x)}" alt="${tr(lm.name)} ${i+1}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">`).join('')}</div></section>`}
+function budgetSection(day,spent){
+ const ex=expenses().filter(x=>x.dayId===day.id);const daySpent=ex.reduce((s,x)=>s+Number(x.amount||0),0);const tripBudget=getTripBudget();return `<section class="budget-section"><div class="section-head"><h2>💰 ${L().budget}</h2><span>${money(day.budget)}</span></div><div class="card budget-box"><div class="budget-summary"><div class="budget-row"><span>${state.lang==='es'?'Presupuesto total':'Total trip budget'}</span><strong>${money(tripBudget)}</strong></div><div class="budget-row"><span>${L().estimate} · ${state.lang==='es'?'este día':'this day'}</span><strong>${money(day.budget)}</strong></div><div class="budget-row"><span>${L().spent} · ${state.lang==='es'?'este día':'this day'}</span><strong>${money(daySpent)}</strong></div><div class="budget-row"><span>${L().spent} · ${state.lang==='es'?'viaje':'trip'}</span><strong>${money(spent)}</strong></div><div class="budget-row"><span>${L().remaining} · ${state.lang==='es'?'viaje':'trip'}</span><strong>${money(Math.max(0,tripBudget-spent))}</strong></div></div>${day.budgetNote?`<p class="muted" style="font-size:11px;margin:0">${tr(day.budgetNote)}</p>`:''}<form class="expense-form" id="expenseForm"><input id="expenseDetail" placeholder="${L().detail}"><input id="expenseAmount" type="number" min="0" step="1" placeholder="${L().amount}"><button class="action primary" type="submit">＋ ${L().add}</button></form><div class="expense-list">${ex.length?ex.map(x=>`<div class="expense-item"><span>${x.detail}</span><strong>${money(x.amount)}</strong></div>`).join(''):`<div class="empty">${state.lang==='es'?'Sin gastos registrados todavía.':'No expenses recorded yet.'}</div>`}</div></div></section>`
+}
+function bindDayEvents(day){
+ $('#openBudgetEditor')?.addEventListener('click',()=>openBudgetEditor());
+ document.querySelectorAll('[data-done]').forEach(box=>box.onchange=e=>{setActivityDone(day.id,day.activities[Number(box.dataset.done)],e.target.checked);renderDay(day.id)});
+ document.querySelectorAll('[data-rec]').forEach(box=>box.onchange=e=>{setChecklist(day.id,box.dataset.rec,e.target.checked);renderDay(day.id)});
+ $('#tripBudgetForm')?.addEventListener('submit',e=>{e.preventDefault();const amount=Number($('#tripBudgetInput').value);if(!Number.isFinite(amount)||amount<=0)return;saveTripBudget(amount);renderDay(day.id)});
+ $('#expenseForm')?.addEventListener('submit',e=>{e.preventDefault();const detail=$('#expenseDetail').value.trim();const amount=Number($('#expenseAmount').value);if(!detail||!amount)return;const ex=expenses();ex.push({dayId:day.id,detail,amount});saveExpenses(ex);renderDay(day.id)});
+}
+function openBudgetEditor(){
+ const dialog=$('#budgetDialog');
+ if(!dialog)return;
+ $('#budgetDialogTitle').textContent=state.lang==='es'?'Presupuesto':'Budget';
+ $('#budgetDialogHelp').textContent=state.lang==='es'?'Cambia aquí el presupuesto total del viaje. Se guarda en este dispositivo.':'Change the total trip budget here. It is saved on this device.';
+ $('#budgetDialogLabel').textContent=state.lang==='es'?'Presupuesto total (PHP)':'Total trip budget (PHP)';
+ $('#budgetDialogInput').value=getTripBudget();
+ dialog.showModal();
+}
+
+function bindGlobal(){
+ $('#budgetButton').onclick=openBudgetEditor;
+ $('#budgetDialogForm')?.addEventListener('submit',e=>{ const submitter=e.submitter?.value; if(submitter==='cancel') return; e.preventDefault(); const amount=Number($('#budgetDialogInput').value); if(!Number.isFinite(amount)||amount<=0){window.alert(state.lang==='es'?'Introduce un importe válido.':'Enter a valid amount.');return;} saveTripBudget(amount); $('#budgetDialog')?.close(); renderDay(state.selectedDay); });
+ $('#languageToggle').onclick=()=>{state.lang=state.lang==='es'?'en':'es';persist();applyStatic();renderDay(state.selectedDay)};
+ $('#todayButton').onclick=()=>{const d=tripData.days.find(x=>x.date===(()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`})()) || tripData.days[0];selectDay(d.id)};
+ $('#menuButton').onclick=openMenu;$('#closeMenu').onclick=closeMenu;$('#overlay').onclick=closeMenu;
+ $('#itineraryModeButton').onclick=()=>{state.itineraryOnly=!state.itineraryOnly;document.body.classList.toggle('mode-only',state.itineraryOnly);persist();applyStatic()};
+ window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();state.installedPrompt=e;$('#installButton').hidden=false});
+ $('#installButton').onclick=async()=>{if(!state.installedPrompt)return;state.installedPrompt.prompt();await state.installedPrompt.userChoice;state.installedPrompt=null;$('#installButton').hidden=true};
+ window.addEventListener('appinstalled',()=>{$('#installButton').hidden=true});
+}
+function applyStatic(){
+ $('#navTitle').textContent=L().nav;$('#budgetButton').textContent=state.lang==='es'?'💰 Presupuesto':'💰 Budget';$('#todayButton').textContent=L().today;$('#installButton').textContent=L().install;$('#modeLabel').textContent=state.itineraryOnly?L().documentary:L().itinerary;$('#languageToggle').textContent=state.lang==='es'?'ES / EN':'EN / ES';document.documentElement.lang=state.lang;
+}
+function openMenu(){$('#sidePanel').classList.add('open');$('#overlay').classList.add('open');$('#sidePanel').setAttribute('aria-hidden','false')}
+function closeMenu(){$('#sidePanel').classList.remove('open');$('#overlay').classList.remove('open');$('#sidePanel').setAttribute('aria-hidden','true')}
+async function registerSW(){if(!('serviceWorker' in navigator))return;try{await navigator.serviceWorker.register('./service-worker.js')}catch(err){console.error(err)}}
+applyStatic();init();

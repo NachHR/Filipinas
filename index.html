@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17211f">
+<meta name="description" content="Diario e itinerario bilingüe de viaje por Filipinas.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+<title>Filipinas · Diario de viaje</title>
+</head>
+<body>
+<header class="topbar">
+  <button id="menuButton" class="icon-button" aria-label="Abrir menú">☰</button>
+  <div class="brand"><span class="brand-mark">✦</span><div><span id="brandTitle" class="brand-title">FILIPINAS</span><span id="brandSubtitle" class="brand-subtitle">Diario de viaje</span></div></div>
+  <div class="top-actions"><button id="todayButton" class="small-button">Hoy</button><button id="budgetButton" class="small-button budget-top">💰 Presupuesto</button><button id="languageToggle" class="lang-button">ES / EN</button><button id="installButton" class="small-button" hidden>Instalar</button></div>
+</header>
+
+<aside id="sidePanel" class="side-panel" aria-hidden="true">
+  <div class="side-head"><strong id="navTitle">Navegación</strong><button id="closeMenu" class="icon-button">×</button></div>
+  <div id="locationNav" class="location-nav"></div>
+  <div class="side-settings"><button id="itineraryModeButton" class="mode-button">◉ <span id="modeLabel">Solo itinerario</span></button></div>
+</aside>
+<div id="overlay" class="overlay"></div>
+
+<main>
+  <section id="hero" class="hero"></section>
+  <nav id="dayNavigation" class="day-navigation" aria-label="Navegación por días"></nav>
+  <section id="dayContent" class="day-content" aria-live="polite"></section>
+</main>
+<footer class="footer"><span>Filipinas</span><span>·</span><span>2026</span></footer><dialog id="budgetDialog" class="budget-dialog"><form method="dialog" id="budgetDialogForm"><div class="dialog-card"><div class="section-head"><h2 id="budgetDialogTitle">Presupuesto</h2><button class="icon-button" value="cancel" aria-label="Cerrar">×</button></div><p id="budgetDialogHelp">Cambia aquí el presupuesto total del viaje. Se guarda en este dispositivo.</p><label id="budgetDialogLabel" for="budgetDialogInput">Presupuesto total (PHP)</label><input id="budgetDialogInput" type="number" min="1" step="1"><div class="dialog-actions"><button class="action" value="cancel">Cancelar</button><button class="action primary" id="saveBudgetButton" value="default">Guardar</button></div></div></form></dialog><div class="version-badge">V6</div>
+
+<script src="assets.js"></script>
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
