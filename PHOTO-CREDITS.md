@@ -1,22 +1,25 @@
-# Photo credits — V8
+# Photo credits — V8.2.0
 
-The V8 photo layer uses photographs hosted by Wikimedia Commons. They are loaded remotely rather than copied into this repository.
+Las fotografías se almacenan localmente en `images/` para que la aplicación no dependa de servidores externos durante su funcionamiento.
 
-- Cagayan de Oro skyline — Nice Stranger5810 — Wikimedia Commons — public licence as stated on the file page.
-- Camiguin White Island — Theglennpalacio — CC BY-SA 4.0.
-- Mantigue Island — Khdamayo — CC0 1.0.
-- Gui-ob / Old Spanish Church Ruins — GRMondala — see Wikimedia Commons file page for licence.
-- Tuasan Falls — Wolfgang Hägele — CC BY-SA 4.0.
-- Mount Kitanglad — Kleomarlo — public domain.
-- Tinago Falls — Muel04 — CC BY-SA 4.0.
-- Cebu City skyline — P199 — public domain.
-- Sirao Garden — Maria Glenda Perico — CC BY-SA 4.0.
-- Temple of Leah — QuianCagandahan — CC BY 4.0.
-- Taoist Temple, Cebu City — QuianCagandahan — CC BY 4.0.
-- Oslob whale shark — Eurasic — CC BY-SA 4.0.
-- Fort San Pedro — Kozak005 — see Wikimedia Commons file page for licence.
-- Basilica del Santo Niño — Mike Gonzalez / TheCoffee — see Wikimedia Commons file page for licence.
-- MV Immaculate Stars, Cebu Port — Patrickroque01 — CC BY-SA 4.0.
-- Laguindingan Airport — Aglofwa — CC BY-SA 4.0.
+Las imágenes locales se basan en fotografías publicadas originalmente en Wikimedia Commons. La copia local se utiliza únicamente como recurso estático de la aplicación; deben mantenerse las atribuciones y condiciones de licencia correspondientes.
 
-Source pages are linked from the Wikimedia Commons file names used in `photos-v8.js`. If you redistribute the app, keep this credit file and verify the current licence on each source page.
+- `images/cdo.webp` — Cagayan de Oro skyline — Nice Stranger5810 — Wikimedia Commons.
+- `images/camiguin.webp` — Camiguin White Island — Theglennpalacio — CC BY-SA 4.0.
+- `images/mantigue.webp` — White Beach in Mantigue Island, Camiguin — Khdamayo — CC0 1.0.
+- `images/guiob.webp` — Old Spanish Church Ruins / Gui-ob — GRMondala — consultar la página original de Wikimedia Commons para la licencia.
+- `images/tuasan.webp` — Tuasan Falls — Wolfgang Hägele — CC BY-SA 4.0.
+- `images/bukidnon.webp` — Mount Kitanglad — Kleomarlo — dominio público.
+- `images/iligan.webp` — Tinago Falls, Iligan City — Muel04 — CC BY-SA 4.0.
+- `images/cebu.webp` — Cebu City skyline — P199 — dominio público.
+- `images/sirao.webp` — Sirao Garden — Maria Glenda Perico — CC BY-SA 4.0.
+- `images/temple-of-leah.webp` — Temple of Leah, Cebu City — QuianCagandahan — CC BY 4.0.
+- `images/taoist-temple.webp` — Taoist Temple, Cebu City — QuianCagandahan — CC BY 4.0.
+- `images/kawasan.webp` — Kawasan Falls Cebu Island — dominio público.
+- `images/oslob.webp` — Oslob whale shark — Eurasic — CC BY-SA 4.0.
+- `images/fort-san-pedro.webp` — Fort San Pedro, Cebu — consultar la página original de Wikimedia Commons para la licencia.
+- `images/santo-nino.webp` — Basilica del Santo Niño — consultar la página original de Wikimedia Commons para la licencia.
+- `images/ferry.webp` — MV Immaculate Stars, Cebu Port — Patrickroque01 — CC BY-SA 4.0.
+- `images/airport.webp` — Laguindingan Airport — Aglofwa — CC BY-SA 4.0.
+
+Las imágenes se han redimensionado/convertido para su uso eficiente en una PWA. La optimización del archivo no cambia por sí misma la atribución o licencia de la obra original.
