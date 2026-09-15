@@ -1,17 +1,15 @@
-const CACHE_NAME = 'filipinas-v7';
+const CACHE_NAME = 'filipinas-v8-1';
 
 const CORE = [
   './', './index.html', './style.css', './script.js', './data.js',
-  './manifest.json', './icon-192.png', './icon-512.png',
-  './images/cdo-cover.svg', './images/cdo-detail.svg',
-  './images/camiguin-cover.svg', './images/camiguin-detail.svg',
-  './images/bukidnon-cover.svg', './images/bukidnon-detail.svg',
-  './images/iligan-cover.svg', './images/iligan-detail.svg',
-  './images/ferry-cover.svg', './images/ferry-detail.svg',
-  './images/cebu-cover.svg', './images/cebu-detail.svg',
-  './images/return-cdo-cover.svg', './images/return-cdo-detail.svg',
-  './images/departure-cover.svg', './images/departure-detail.svg'
+  './photos-v8.1.js', './manifest.json', './icon-192.png', './icon-512.png'
 ];
+
+function isDestinationPhoto(request) {
+  const url = new URL(request.url);
+  return request.destination === 'image' &&
+    (url.hostname === 'upload.wikimedia.org' || url.hostname === 'commons.wikimedia.org');
+}
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -31,16 +29,26 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
-        if (response.ok && response.type === 'basic') {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-        }
-        return response;
-      }).catch(() => caches.match('./index.html'));
-    })
-  );
+
+  event.respondWith((async () => {
+    const cached = await caches.match(event.request);
+    if (cached) return cached;
+
+    try {
+      const response = await fetch(event.request);
+
+      // Cache destination photos from Wikimedia after first successful view.
+      // This permits offline use without bundling large binary files into the repo.
+      if (response && response.ok && isDestinationPhoto(event.request)) {
+        const clone = response.clone();
+        event.waitUntil(
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone)).catch(() => {})
+        );
+      }
+
+      return response;
+    } catch (error) {
+      return caches.match('./index.html');
+    }
+  })());
 });
