@@ -4,7 +4,7 @@ Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. La aplicació
 
 ## 🌴 Web de la aplicación
 
-Filipinas Travel PWA https://nachhr.github.io/Filipinas/
+[Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
 
 ## Qué incluye
 - Itinerario por días y destinos.
@@ -69,7 +69,7 @@ Los gastos reales también se guardan localmente.
 ## GitHub Pages
 La versión publicada está disponible en:
 
-urlhttps://nachhr.github.io/Filipinas/https://nachhr.github.io/Filipinas/
+https://nachhr.github.io/Filipinas/
 
 Para configurar el despliegue, entra en `Settings → Pages` y selecciona `Deploy from a branch`, rama `main` y carpeta `/ (root)`.
 
