@@ -1,7 +1,7 @@
-/* V8.1 — authentic destination photography.
-   Images are loaded from verified Wikimedia Commons files and cached by the PWA
-   Service Worker after first successful viewing, so they remain available offline. */
-window.PHOTO_VERSION='8.1';
+/* V8.1.1 — authentic destination photography.
+   Destination and POI photos override every legacy SVG reference in data.js,
+   including day.loc.cover/day.loc.gallery. */
+window.PHOTO_VERSION='8.1.1';
 window.PHOTO_OVERRIDES={
  cdo:{cover:'https://upload.wikimedia.org/wikipedia/commons/f/fb/Skyline_of_Cagayan_de_Oro.jpg',gallery:['https://upload.wikimedia.org/wikipedia/commons/f/fb/Skyline_of_Cagayan_de_Oro.jpg','https://commons.wikimedia.org/wiki/Special:Redirect/file/Skyline_of_Cagayan_de_Oro(cropped).jpg']},
  camiguin:{cover:'https://upload.wikimedia.org/wikipedia/commons/f/f6/Camiguin_White_Island.jpg',gallery:['https://upload.wikimedia.org/wikipedia/commons/f/f6/Camiguin_White_Island.jpg','https://upload.wikimedia.org/wikipedia/commons/9/9f/White_Beach_in_Mantigue_Island%2C_Camiguin.jpg','https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Spanish_Church_Ruins_Gerald_Mondala.jpg','https://commons.wikimedia.org/wiki/Special:Redirect/file/Tuasan_Falls_plunge_pool.jpg']},
@@ -29,4 +29,21 @@ const POI_PHOTOS=[
  ['Basilica del Santo Niño','https://commons.wikimedia.org/wiki/Special:Redirect/file/Basilica_del_Santo_Nino.jpg']
 ];
 function photoMatches(name,key){const value=String(name?.es||name?.en||'').toLowerCase();return value.includes(key.toLowerCase())}
-if(window.tripData){tripData.locations.forEach(location=>{const o=window.PHOTO_OVERRIDES[location.key];if(o){location.cover=o.cover;location.gallery=o.gallery}});tripData.days.forEach(day=>day.pois?.forEach(poi=>{const match=POI_PHOTOS.find(([key])=>photoMatches(poi.name,key));if(match)poi.image=match[1]}))}
+if(window.tripData){
+  tripData.locations.forEach(location=>{
+    const o=window.PHOTO_OVERRIDES[location.key];
+    if(o){location.cover=o.cover;location.gallery=o.gallery;}
+  });
+  tripData.days.forEach(day=>{
+    const o=window.PHOTO_OVERRIDES[day.locationKey];
+    if(o){
+      day.loc=day.loc||{};
+      day.loc.cover=o.cover;
+      day.loc.gallery=o.gallery;
+    }
+    day.pois?.forEach(poi=>{
+      const match=POI_PHOTOS.find(([key])=>photoMatches(poi.name,key));
+      if(match)poi.image=match[1];
+    });
+  });
+}
