@@ -1,4 +1,4 @@
-const CACHE_NAME = 'filipinas-v8-1';
+const CACHE_NAME = 'filipinas-v8-1-2';
 
 const CORE = [
   './', './index.html', './style.css', './script.js', './data.js',
@@ -12,9 +12,7 @@ function isDestinationPhoto(request) {
 }
 
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(CORE))
-  );
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)));
   self.skipWaiting();
 });
 
@@ -36,16 +34,12 @@ self.addEventListener('fetch', event => {
 
     try {
       const response = await fetch(event.request);
-
-      // Cache destination photos from Wikimedia after first successful view.
-      // This permits offline use without bundling large binary files into the repo.
       if (response && response.ok && isDestinationPhoto(event.request)) {
         const clone = response.clone();
         event.waitUntil(
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone)).catch(() => {})
         );
       }
-
       return response;
     } catch (error) {
       return caches.match('./index.html');
