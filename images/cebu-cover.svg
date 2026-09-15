@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" role="img" aria-labelledby="t d">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c2928"/><stop offset="1" stop-color="#ceb27f"/></linearGradient></defs>
+<rect width="720" height="405" fill="url(#g)"/><g fill="#ceb27f" opacity=".28"><rect x="70" y="150" width="80" height="85"/><rect x="170" y="105" width="115" height="130"/><rect x="305" y="135" width="75" height="100"/><rect x="395" y="85" width="125" height="150"/><rect x="540" y="125" width="95" height="110"/></g>
+<rect x="38" y="40" width="644" height="325" rx="28" fill="none" stroke="#ffffff" stroke-opacity=".16"/>
+<text x="58" y="300" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" letter-spacing="4">CEBU</text>
+<text x="58" y="335" fill="#ffffff" fill-opacity=".78" font-family="Arial, Helvetica, sans-serif" font-size="17">The city and the south</text>
+<text x="58" y="72" fill="#ffffff" fill-opacity=".55" font-family="Arial, Helvetica, sans-serif" font-size="11" letter-spacing="3">PHILIPPINES · 2026</text>
+</svg>

@@ -10,8 +10,8 @@ localStorage.setItem('itineraryOnly', 'false');
 const $ = s => document.querySelector(s);
 const imageSrc = path => {
   if (!path) return '';
-  const file = String(path).split('/').pop();
-  return window.EMBEDDED_IMAGES?.[file] || path;
+  try { return new URL(String(path), document.baseURI).href; }
+  catch { return String(path); }
 };
 const tr = value => {
   if (Array.isArray(value)) return value;
@@ -70,6 +70,7 @@ function renderDay(id){
   const allExpenses=expenses(); const spent=allExpenses.reduce((s,e)=>s+Number(e.amount||0),0); const completed=day.activities.filter(a=>getActivityDone(day.id,a)).length; const total=day.activities.length; const pct=total?Math.round(completed/total*100):0; const tripBudget=getTripBudget();
   $('#dayContent').innerHTML=`
   <div class="day-head"><div class="day-meta"><span class="eyebrow">Día ${day.id} / ${tripData.meta.totalDays}</span>${isToday(day.date)?`<span class="pill done">${L().todayBanner}</span>`:''}<span class="pill ${day.status}">${statusText[state.lang][day.status]}</span></div><h1 class="day-title">${tr(day.title)}</h1><div class="date-line">${formatDate(day.date)} · ${tr(day.location)}</div><div class="progress-wrap"><div class="progress-line"><span style="width:${pct}%"></span></div><div class="progress-copy">${L().progress}: ${completed}/${total} · ${pct}%</div></div><div class="card budget-box"><div class="budget-row"><span>${state.lang==='es'?'Presupuesto total':'Total trip budget'}</span><strong>${money(tripBudget)}</strong></div><div class="budget-row"><span>${L().spent}</span><strong>${money(spent)}</strong></div><div class="budget-row"><span>${L().remaining}</span><strong>${money(Math.max(0,tripBudget-spent))}</strong></div><div class="budget-quick"><button class="action primary" id="openBudgetEditor" type="button">✎ ${state.lang==='es'?'Modificar presupuesto':'Edit budget'}</button><span class="saved-budget">${state.lang==='es'?'Se guarda en este dispositivo':'Saved on this device'}</span></div></div></div>
+  ${accommodationSection(day)}
   <div class="grid">${day.activities.map((act,i)=>activityCard(day,act,i)).join('')}</div>
   ${day.pois?.length?`<section class="documentary"><div class="section-head"><h2>${L().poi}</h2><span>${day.pois.length}</span></div><div class="grid two">${day.pois.map(poiCard).join('')}</div></section>`:''}
   ${day.loc?recordingSection(day):''}
@@ -85,9 +86,15 @@ function activityCard(day,act,i){
   return `<article class="card activity-card ${act.status==='pending'?'pending':''}"><div class="activity-top"><div><div class="time">${tr(act.time)}</div><h2>${tr(act.title)}</h2></div><label class="check" title="${L().check}"><input type="checkbox" data-done="${i}" ${done?'checked':''}> <span>${done?'✓':''}</span></label></div><p class="activity-description">${tr(act.description)}</p><div class="chips"><span class="chip">${st}</span>${act.duration?`<span class="chip">⏱ ${tr(act.duration)}</span>`:''}</div>${act.place?`<div class="actions"><a class="action primary" target="_blank" rel="noopener" href="${act.maps}">⌖ ${L().maps}</a><a class="action" target="_blank" rel="noopener" href="${act.directions}">↗ ${L().directions}</a></div>`:''}${act.notes?.es||act.notes?.en?`<div class="notes"><strong>${L().notes}</strong><p>${tr(act.notes)}</p></div>`:''}${act.transport?.es||act.transport?.en?`<div class="transport"><b>↔ ${L().transport}</b><br>${tr(act.transport)}</div>`:''}${act.recording?.es||act.recording?.en?`<div class="notes"><strong>🎥 ${L().recording}</strong><p>${(tr(act.recording)||[]).join(' · ')}</p></div>`:''}</article>`
 }
 function poiCard(p){return `<article class="card poi-card">${p.image?`<img src="${imageSrc(p.image)}" alt="${tr(p.name)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">`:''}<div class="poi-body"><div class="chips"><span class="chip">${p.optional?L().optional:'POI'}</span></div><h3>${tr(p.name)}</h3><p>${tr(p.description)}</p><a class="action primary" target="_blank" rel="noopener" href="${p.maps}">⌖ ${L().maps}</a></div></article>`}
+function accommodationSection(day){
+  const key=day.accommodationKey || day.locationKey;
+  const a=tripData.meta.accommodations?.[key];
+  if(!a) return '';
+  return `<section class="accommodation-section"><div class="section-head"><h2>🏠 ${state.lang==='es'?'Alojamiento':'Accommodation'}</h2><span>${tr(a.subtitle)}</span></div><div class="card accommodation-card"><div><h3>${tr(a.name)}</h3><p class="muted">${tr(a.checkin)}<br>${tr(a.checkout)}</p></div><div class="actions"><a class="action primary" target="_blank" rel="noopener" href="${a.booking}">↗ ${state.lang==='es'?'Reserva':'Booking'}</a><a class="action" target="_blank" rel="noopener" href="${a.map}">⌖ ${L().maps}</a><a class="action" target="_blank" rel="noopener" href="${a.directions}">↗ ${L().directions}</a></div></div></section>`;
+}
 function recordingSection(day){
   const r=day.loc.recording||{},c=getChecklist(day.id);const keys=['wide','macro','static','slow','timelapse','sound','transition'];
-  const points=Array.isArray(r.points)?r.points:[];const guides=Array.isArray(tripData.meta.recordingGuidelines?.[state.lang])?tripData.meta.recordingGuidelines[state.lang]:[];
+  const points=Array.isArray(tr(r.points))?tr(r.points):[];const guides=Array.isArray(tripData.meta.recordingGuidelines?.[state.lang])?tripData.meta.recordingGuidelines[state.lang]:[];
   return `<section class="recording-section recording"><div class="section-head"><h2>🎬 ${L().recording}</h2><span>${tr(day.location)}</span></div><div class="recording-grid"><div class="recording-block full"><div class="recording-label">${L().theme}</div><h3>${tr(day.loc.theme)}</h3><div class="recording-label">${L().plans}</div><ul>${points.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="recording-block"><div class="recording-label">${L().narration}</div><p class="quote">“${tr(r.narration)}”</p></div><div class="recording-block"><div class="recording-label">${L().tech}</div><p>${tr(r.technical)}</p></div><div class="recording-block full"><div class="recording-label">${state.lang==='es'?'Pautas generales':'General guidelines'}</div><ul>${guides.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="recording-block full"><div class="recording-label">${L().check}</div><div class="checklist">${keys.map(k=>`<label class="check"><input type="checkbox" data-rec="${k}" ${c[k]?'checked':''}><span>${tr(COMMON[k])}</span></label>`).join('')}</div></div></div></section>`
 }
 function locationGallery(key){const lm=locationMeta(key);return `<section class="gallery-section"><div class="section-head"><h2>${L().gallery}</h2><span>${tr(lm.name)}</span></div><div class="gallery">${lm.gallery.map((x,i)=>`<img src="${imageSrc(x)}" alt="${tr(lm.name)} ${i+1}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">`).join('')}</div></section>`}

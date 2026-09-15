@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" role="img" aria-labelledby="t d">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#111820"/><stop offset="1" stop-color="#7da2b1"/></linearGradient></defs>
+<rect width="720" height="405" fill="url(#g)"/><path d="M120 255 L540 255 L475 310 L165 310 Z" fill="#7da2b1" opacity=".35"/><rect x="225" y="210" width="175" height="45" rx="8" fill="#7da2b1" opacity=".35"/>
+<rect x="38" y="40" width="644" height="325" rx="28" fill="none" stroke="#ffffff" stroke-opacity=".16"/>
+<text x="58" y="300" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" letter-spacing="4">NIGHT FERRY</text>
+<text x="58" y="335" fill="#ffffff" fill-opacity=".78" font-family="Arial, Helvetica, sans-serif" font-size="17">Sea · horizon · dawn</text>
+<text x="58" y="72" fill="#ffffff" fill-opacity=".55" font-family="Arial, Helvetica, sans-serif" font-size="11" letter-spacing="3">PHILIPPINES · 2026</text>
+</svg>

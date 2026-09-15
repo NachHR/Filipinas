@@ -17,7 +17,7 @@ const tripData = {
         "Prioriza el sonido ambiente: viento, olas, insectos, motores y actividad local.",
         "Usa un mismo perfil de color durante todo el viaje: D-Log M si vas a graduar después o el perfil normal, pero de forma constante.",
         "Lleva trípode pequeño para planos fijos largos y carcasa sumergible para Mantigue y White Island.",
-        "Graba el sonido ambiente por separado en cada localización cuando sea posible.",
+        "Graba el sonido ambiente por separado en cada localización cuando sea posible."
       ],
       "en": [
         "The place is the protagonist; avoid talking to camera and use wide shots where people remain part of the landscape.",
@@ -29,7 +29,75 @@ const tripData = {
         "Record ambient sound separately at each location whenever possible."
       ]
     },
-    "defaultLanguage": "es"
+    "defaultLanguage": "es",
+    "accommodations": {
+      "cdo": {
+        "name": {
+          "es": "Vinyce Studio",
+          "en": "Vinyce Studio"
+        },
+        "subtitle": {
+          "es": "Avida Towers Aspira T2 · 28 sep – 1 oct",
+          "en": "Avida Towers Aspira T2 · 28 Sep – 1 Oct"
+        },
+        "booking": "https://www.booking.com/hotel/ph/vinyce-studio.html?label=gen173bo-10CAsotAFCDXZpbnljZS1zdHVkaW9IMVgDaEaIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGYAgSoAgG4AuS9ptUGwAIB0gIkMWRkMDExZWItZTI2OC00ZWI4LTg3YmUtOTJjNDZkMTkyY2Rm2AIB4AIB&sid=95e9a5f76f170b552252c40b439c7b6c&dist=0&group_adults=2&no_rooms=1&sb_price_type=total&type=total",
+        "mapQuery": "Vinyce Studio, Avida Towers Aspira T2, Ramon Chavez Street, Barangay 30, Cagayan de Oro City, Misamis Oriental 9000, Philippines",
+        "map": "https://www.google.com/maps/search/?api=1&query=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Cagayan+de+Oro",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Cagayan+de+Oro",
+        "checkin": {
+          "es": "Desde las 14:00 · revisar instrucciones de la reserva",
+          "en": "From 14:00 · check the booking instructions"
+        },
+        "checkout": {
+          "es": "Salida el 1 de octubre, antes de ir a casa de Claire",
+          "en": "Check out on 1 October before going to Claire’s place"
+        }
+      },
+      "camiguin": {
+        "name": {
+          "es": "Turtle Nest Guest House (Tinian Villa)",
+          "en": "Turtle Nest Guest House (Tinian Villa)"
+        },
+        "subtitle": {
+          "es": "Mambajao · 2 – 6 oct",
+          "en": "Mambajao · 2 – 6 Oct"
+        },
+        "booking": "https://www.airbnb.com/rooms/1441778154446105929?source_impression_id=p3_1789501206_P3O_3_pXyZ-vGU22",
+        "mapQuery": "Turtle Nest Guest House (Tinian Villa), Baylao, Mambajao, Camiguin, Philippines",
+        "map": "https://www.google.com/maps/search/?api=1&query=Turtle+Nest+Guest+House+(Tinian+Villa),+Baylao,+Mambajao,+Camiguin",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=Turtle+Nest+Guest+House+(Tinian+Villa),+Baylao,+Mambajao,+Camiguin",
+        "checkin": {
+          "es": "Check-in previsto ~14:00 · la dirección exacta se facilita tras la reserva",
+          "en": "Expected check-in ~14:00 · exact address is provided after booking"
+        },
+        "checkout": {
+          "es": "Salida el 6 de octubre, antes de viajar a Manolo Fortich",
+          "en": "Check out on 6 October before travelling to Manolo Fortich"
+        }
+      },
+      "return-cdo": {
+        "name": {
+          "es": "CK Haven Suites · Tuscania CDO",
+          "en": "CK Haven Suites · Tuscania CDO"
+        },
+        "subtitle": {
+          "es": "Cagayan de Oro · 20 – 23 oct",
+          "en": "Cagayan de Oro · 20 – 23 Oct"
+        },
+        "booking": "https://www.airbnb.com/rooms/1560151212378269394?source_impression_id=p3_1789501269_P35GrgWtix1fb2md",
+        "mapQuery": "CK Haven Suites - Tuscania CDO, FJVQ+5H4, Saint Ignatius St, Cagayan de Oro, 9000, Philippines",
+        "map": "https://www.google.com/maps/search/?api=1&query=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ%2B5H4,+Saint+Ignatius+St,+Cagayan+de+Oro",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ%2B5H4,+Saint+Ignatius+St,+Cagayan+de+Oro",
+        "checkin": {
+          "es": "Check-in después de las 14:00",
+          "en": "Check-in after 14:00"
+        },
+        "checkout": {
+          "es": "Check-out el 23 de octubre antes de las 12:00",
+          "en": "Check out on 23 October before 12:00"
+        }
+      }
+    }
   },
   "locations": [
     {
@@ -38,10 +106,10 @@ const tripData = {
         "es": "Cagayan de Oro",
         "en": "Cagayan de Oro"
       },
-      "cover": "images/cdo-cover.png",
+      "cover": "images/cdo-cover.svg",
       "gallery": [
-        "images/cdo-cover.png",
-        "images/cdo-detail.png"
+        "images/cdo-cover.svg",
+        "images/cdo-detail.svg"
       ]
     },
     {
@@ -50,10 +118,10 @@ const tripData = {
         "es": "Camiguin",
         "en": "Camiguin"
       },
-      "cover": "images/camiguin-cover.png",
+      "cover": "images/camiguin-cover.svg",
       "gallery": [
-        "images/camiguin-cover.png",
-        "images/camiguin-detail.png"
+        "images/camiguin-cover.svg",
+        "images/camiguin-detail.svg"
       ]
     },
     {
@@ -62,10 +130,10 @@ const tripData = {
         "es": "Manolo Fortich / Kisolon",
         "en": "Manolo Fortich / Kisolon"
       },
-      "cover": "images/bukidnon-cover.png",
+      "cover": "images/bukidnon-cover.svg",
       "gallery": [
-        "images/bukidnon-cover.png",
-        "images/bukidnon-detail.png"
+        "images/bukidnon-cover.svg",
+        "images/bukidnon-detail.svg"
       ]
     },
     {
@@ -74,10 +142,10 @@ const tripData = {
         "es": "Iligan",
         "en": "Iligan"
       },
-      "cover": "images/iligan-cover.png",
+      "cover": "images/iligan-cover.svg",
       "gallery": [
-        "images/iligan-cover.png",
-        "images/iligan-detail.png"
+        "images/iligan-cover.svg",
+        "images/iligan-detail.svg"
       ]
     },
     {
@@ -86,10 +154,10 @@ const tripData = {
         "es": "La travesía",
         "en": "The crossing"
       },
-      "cover": "images/ferry-cover.png",
+      "cover": "images/ferry-cover.svg",
       "gallery": [
-        "images/ferry-cover.png",
-        "images/ferry-detail.png"
+        "images/ferry-cover.svg",
+        "images/ferry-detail.svg"
       ]
     },
     {
@@ -98,10 +166,10 @@ const tripData = {
         "es": "Cebú",
         "en": "Cebu"
       },
-      "cover": "images/cebu-cover.png",
+      "cover": "images/cebu-cover.svg",
       "gallery": [
-        "images/cebu-cover.png",
-        "images/cebu-detail.png"
+        "images/cebu-cover.svg",
+        "images/cebu-detail.svg"
       ]
     },
     {
@@ -110,10 +178,10 @@ const tripData = {
         "es": "Regreso a CDO",
         "en": "Back to CDO"
       },
-      "cover": "images/return-cdo-cover.png",
+      "cover": "images/return-cdo-cover.svg",
       "gallery": [
-        "images/return-cdo-cover.png",
-        "images/return-cdo-detail.png"
+        "images/return-cdo-cover.svg",
+        "images/return-cdo-detail.svg"
       ]
     },
     {
@@ -122,10 +190,10 @@ const tripData = {
         "es": "Salida",
         "en": "Departure"
       },
-      "cover": "images/departure-cover.png",
+      "cover": "images/departure-cover.svg",
       "gallery": [
-        "images/departure-cover.png",
-        "images/departure-detail.png"
+        "images/departure-cover.svg",
+        "images/departure-detail.svg"
       ]
     }
   ],
@@ -157,10 +225,10 @@ const tripData = {
           "es": "La puerta de entrada, contraste entre ciudad y lo que vendrá.",
           "en": "The gateway, contrasting the city with what lies ahead."
         },
-        "cover": "images/cdo-cover.png",
+        "cover": "images/cdo-cover.svg",
         "gallery": [
-          "images/cdo-cover.png",
-          "images/cdo-detail.png"
+          "images/cdo-cover.svg",
+          "images/cdo-detail.svg"
         ],
         "recording": {
           "key": "cdo",
@@ -190,20 +258,20 @@ const tripData = {
         {
           "time": "18:00",
           "title": {
-            "es": "Llegada al aeropuerto de CDO",
-            "en": "Arrival at CDO Airport"
+            "es": "Llegada a Laguindingan Airport (CDO)",
+            "en": "Arrival at Laguindingan Airport (CDO)"
           },
           "description": {
-            "es": "Llegada al aeropuerto.",
-            "en": "Arrival at the airport."
+            "es": "Llegada al aeropuerto que da servicio a Cagayan de Oro.",
+            "en": "Arrival at the airport serving Cagayan de Oro."
           },
           "notes": {
             "es": "",
             "en": ""
           },
-          "place": "Cagayan de Oro Airport",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Cagayan+de+Oro+Airport",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Cagayan+de+Oro+Airport",
+          "place": "Laguindingan Airport (CGY)",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Laguindingan+Airport+CGY",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Laguindingan+Airport+CGY",
           "status": "planned",
           "duration": "—",
           "transport": {
@@ -220,16 +288,16 @@ const tripData = {
             "en": "Check-in"
           },
           "description": {
-            "es": "Entrada en Avida Towers Aspira T2.",
-            "en": "Check in at Avida Towers Aspira T2."
+            "es": "Entrada/salida de Vinyce Studio, Avida Towers Aspira T2.",
+            "en": "Check in/out at Vinyce Studio, Avida Towers Aspira T2."
           },
           "notes": {
             "es": "Tel. +63 917 314 6193",
             "en": "Tel. +63 917 314 6193"
           },
-          "place": "Avida Towers Aspira T2",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Avida+Towers+Aspira+T2",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Avida+Towers+Aspira+T2",
+          "place": "Vinyce Studio, Avida Towers Aspira T2",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Barangay+30,+Cagayan+de+Oro+City,+Misamis+Oriental+9000,+Philippines",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Barangay+30,+Cagayan+de+Oro+City,+Misamis+Oriental+9000,+Philippines",
           "status": "planned",
           "duration": "—",
           "transport": {
@@ -295,7 +363,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "cdo"
     },
     {
       "id": 2,
@@ -429,7 +498,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "cdo"
     },
     {
       "id": 3,
@@ -537,7 +607,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "cdo"
     },
     {
       "id": 4,
@@ -596,16 +667,16 @@ const tripData = {
             "en": "Check-out"
           },
           "description": {
-            "es": "Salir del alojamiento y dirigirse a casa de Claire.",
-            "en": "Check out and head to Claire’s place."
+            "es": "Salir de Vinyce Studio y dirigirse a casa de Claire.",
+            "en": "Check out from Vinyce Studio and head to Claire’s place."
           },
           "notes": {
             "es": "",
             "en": ""
           },
-          "place": "Avida Towers Aspira T2",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Avida+Towers+Aspira+T2",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Avida+Towers+Aspira+T2",
+          "place": "Vinyce Studio, Avida Towers Aspira T2",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Barangay+30,+Cagayan+de+Oro+City,+Misamis+Oriental+9000,+Philippines",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Barangay+30,+Cagayan+de+Oro+City,+Misamis+Oriental+9000,+Philippines",
           "status": "planned",
           "duration": "—",
           "transport": {
@@ -631,7 +702,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "cdo"
     },
     {
       "id": 5,
@@ -660,10 +732,10 @@ const tripData = {
           "es": "Geología viva, volcanes, la naturaleza reclamando lo humano.",
           "en": "Living geology, volcanoes, nature reclaiming the human world."
         },
-        "cover": "images/camiguin-cover.png",
+        "cover": "images/camiguin-cover.svg",
         "gallery": [
-          "images/camiguin-cover.png",
-          "images/camiguin-detail.png"
+          "images/camiguin-cover.svg",
+          "images/camiguin-detail.svg"
         ],
         "recording": {
           "key": "camiguin",
@@ -727,16 +799,16 @@ const tripData = {
             "en": "Check-in in Mambajao"
           },
           "description": {
-            "es": "Llegada al Airbnb y organización.",
-            "en": "Arrive at the Airbnb and settle in."
+            "es": "Check-in en Turtle Nest Guest House (Tinian Villa), en Mambajao.",
+            "en": "Check in at Turtle Nest Guest House (Tinian Villa) in Mambajao."
           },
           "notes": {
             "es": "",
             "en": ""
           },
-          "place": null,
-          "maps": "",
-          "directions": "",
+          "place": "Turtle Nest Guest House (Tinian Villa), Mambajao, Camiguin",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Turtle+Nest+Guest+House+(Tinian+Villa),+Baylao,+Mambajao,+Camiguin,+Philippines",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Turtle+Nest+Guest+House+(Tinian+Villa),+Baylao,+Mambajao,+Camiguin,+Philippines",
           "status": "planned",
           "duration": null,
           "transport": {
@@ -844,7 +916,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "camiguin"
     },
     {
       "id": 6,
@@ -926,7 +999,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "camiguin"
     },
     {
       "id": 7,
@@ -1089,7 +1163,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "camiguin"
     },
     {
       "id": 8,
@@ -1221,7 +1296,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "camiguin"
     },
     {
       "id": 9,
@@ -1250,10 +1326,10 @@ const tripData = {
           "es": "Ritmo lento, comunidad, el río.",
           "en": "Slow pace, community, the river."
         },
-        "cover": "images/bukidnon-cover.png",
+        "cover": "images/bukidnon-cover.svg",
         "gallery": [
-          "images/bukidnon-cover.png",
-          "images/bukidnon-detail.png"
+          "images/bukidnon-cover.svg",
+          "images/bukidnon-detail.svg"
         ],
         "recording": {
           "key": "bukidnon",
@@ -1648,10 +1724,10 @@ const tripData = {
           "es": "Agua, descenso, poder natural.",
           "en": "Water, descent, natural power."
         },
-        "cover": "images/iligan-cover.png",
+        "cover": "images/iligan-cover.svg",
         "gallery": [
-          "images/iligan-cover.png",
-          "images/iligan-detail.png"
+          "images/iligan-cover.svg",
+          "images/iligan-detail.svg"
         ],
         "recording": {
           "key": "iligan",
@@ -1912,10 +1988,10 @@ const tripData = {
           "es": "Transición, noche, mar.",
           "en": "Transition, night, sea."
         },
-        "cover": "images/ferry-cover.png",
+        "cover": "images/ferry-cover.svg",
         "gallery": [
-          "images/ferry-cover.png",
-          "images/ferry-detail.png"
+          "images/ferry-cover.svg",
+          "images/ferry-detail.svg"
         ],
         "recording": {
           "key": "ferry",
@@ -2054,10 +2130,10 @@ const tripData = {
           "es": "Contraste entre lo urbano e histórico y lo costero del sur.",
           "en": "Contrast between the urban/historic city and the coastal south."
         },
-        "cover": "images/cebu-cover.png",
+        "cover": "images/cebu-cover.svg",
         "gallery": [
-          "images/cebu-cover.png",
-          "images/cebu-detail.png"
+          "images/cebu-cover.svg",
+          "images/cebu-detail.svg"
         ],
         "recording": {
           "key": "cebu",
@@ -3839,10 +3915,10 @@ const tripData = {
           "es": "Simetría con el principio; el círculo se cierra.",
           "en": "Symmetry with the beginning; the circle closes."
         },
-        "cover": "images/return-cdo-cover.png",
+        "cover": "images/return-cdo-cover.svg",
         "gallery": [
-          "images/return-cdo-cover.png",
-          "images/return-cdo-detail.png"
+          "images/return-cdo-cover.svg",
+          "images/return-cdo-detail.svg"
         ],
         "recording": {
           "key": "return-cdo",
@@ -3920,9 +3996,9 @@ const tripData = {
             "es": "",
             "en": ""
           },
-          "place": "CK Haven Suites - Tuscania CDO",
-          "maps": "https://www.google.com/maps/search/?api=1&query=CK+Haven+Suites+-+Tuscania+CDO",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=CK+Haven+Suites+-+Tuscania+CDO",
+          "place": "CK Haven Suites - Tuscania CDO, FJVQ+5H4, Saint Ignatius St, Cagayan de Oro, 9000, Philippines",
+          "maps": "https://www.google.com/maps/search/?api=1&query=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ+5H4,+Saint+Ignatius+St,+Cagayan+de+Oro,+9000,+Philippines",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ+5H4,+Saint+Ignatius+St,+Cagayan+de+Oro,+9000,+Philippines",
           "status": "planned",
           "duration": "—",
           "transport": {
@@ -3962,7 +4038,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "return-cdo"
     },
     {
       "id": 24,
@@ -4044,7 +4121,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "return-cdo"
     },
     {
       "id": 25,
@@ -4126,7 +4204,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationKey": "return-cdo"
     },
     {
       "id": 26,
@@ -4155,10 +4234,10 @@ const tripData = {
           "es": "Despedida, escala final.",
           "en": "Farewell, the final frame."
         },
-        "cover": "images/departure-cover.png",
+        "cover": "images/departure-cover.svg",
         "gallery": [
-          "images/departure-cover.png",
-          "images/departure-detail.png"
+          "images/departure-cover.svg",
+          "images/departure-detail.svg"
         ],
         "recording": {
           "key": "departure",

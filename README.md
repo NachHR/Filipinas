@@ -1,4 +1,4 @@
-# Filipinas Travel PWA — v6
+# Filipinas Travel PWA — v7
 
 Esta versión corrige la carga de imágenes y hace visible el presupuesto y la sección documental incluso si una versión anterior había activado “Solo itinerario”.
 
@@ -17,7 +17,7 @@ Esta versión corrige la carga de imágenes y hace visible el presupuesto y la s
 2. Abre PowerShell en esa carpeta.
 3. Ejecuta `python -m http.server 8000`.
 4. Abre `http://localhost:8000`.
-5. Debe aparecer una etiqueta `V6` abajo a la derecha.
+5. Debe aparecer una etiqueta `V7` abajo a la derecha.
 6. Si ves otra versión, pulsa `Ctrl+C` en cualquier servidor anterior, cierra la pestaña, y abre de nuevo `http://localhost:8000`.
 
 ### Si quedan datos de una versión anterior
@@ -44,4 +44,10 @@ Sube la carpeta directamente a Netlify (Deploy manually) o conecta el repositori
 
 
 ### Imágenes
-La v6 incluye las imágenes también embebidas en `assets.js`, por lo que la app no depende de que Edge encuentre la carpeta `images/`. La carpeta `images/` se conserva para reemplazar fácilmente las imágenes en el futuro.
+La v7 incluye las imágenes también embebidas en `assets.js`, por lo que la app no depende de que Edge encuentre la carpeta `images/`. La carpeta `images/` se conserva para reemplazar fácilmente las imágenes en el futuro.
+
+
+## Nota sobre v7
+La v7 elimina la dependencia de `assets.js` para las imágenes: las portadas y galerías principales son SVG locales pequeños y están incluidos en el Service Worker. Esto evita problemas de carga con GitHub Pages, rutas relativas y cachés antiguas.
+
+Las reservas de Vinyce Studio, Turtle Nest Guest House (Tinian Villa) y CK Haven Suites están enlazadas desde la aplicación. Las fechas y el checkout de CK Haven Suites (23 de octubre antes de las 12:00) están reflejados en el itinerario.
