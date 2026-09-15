@@ -4,7 +4,7 @@ Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. La aplicació
 
 ## 🌴 Web de la aplicación
 
-urlAbrir Filipinas Travel PWAhttps://nachhr.github.io/Filipinas/
+Filipinas Travel PWA https://nachhr.github.io/Filipinas/
 
 ## Qué incluye
 - Itinerario por días y destinos.
