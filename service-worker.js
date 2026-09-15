@@ -1,48 +1,14 @@
-const CACHE_NAME = 'filipinas-v8-1-2';
-
-const CORE = [
-  './', './index.html', './style.css', './script.js', './data.js',
-  './photos-v8.1.js', './manifest.json', './icon-192.png', './icon-512.png'
+const CACHE='filipinas-v8-2-0';
+const APP_SHELL=['./','./index.html','./style.css','./data.js','./photos.js','./script.js','./manifest.json','./icon-192.png','./icon-512.png'];
+const LOCAL_IMAGES=[
+'./images/airport.webp','./images/bukidnon.webp','./images/camiguin.webp','./images/cdo.webp','./images/cebu.webp','./images/ferry.webp','./images/fort-san-pedro.webp','./images/guiob.webp','./images/iligan.webp','./images/kawasan.webp','./images/mantigue.webp','./images/oslob.webp','./images/santo-nino.webp','./images/sirao.webp','./images/taoist-temple.webp','./images/temple-of-leah.webp','./images/tuasan.webp'
 ];
-
-function isDestinationPhoto(request) {
-  const url = new URL(request.url);
-  return request.destination === 'image' &&
-    (url.hostname === 'upload.wikimedia.org' || url.hostname === 'commons.wikimedia.org');
-}
-
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)));
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-    ))
-  );
-  self.clients.claim();
-});
-
-self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
-
-  event.respondWith((async () => {
-    const cached = await caches.match(event.request);
-    if (cached) return cached;
-
-    try {
-      const response = await fetch(event.request);
-      if (response && response.ok && isDestinationPhoto(event.request)) {
-        const clone = response.clone();
-        event.waitUntil(
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone)).catch(() => {})
-        );
-      }
-      return response;
-    } catch (error) {
-      return caches.match('./index.html');
-    }
-  })());
+self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll([...APP_SHELL,...LOCAL_IMAGES])).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',event=>{
+  if(event.request.method!=='GET')return;
+  event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{
+    if(response.ok){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));}
+    return response;
+  }).catch(()=>caches.match('./index.html'))));
 });
