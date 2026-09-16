@@ -1,6 +1,8 @@
 # Filipinas Travel PWA
 
-**Versión publicada: V8.7.1** · 16/09/2026
+**Versión del código: V8.8.0 — Cuaderno de campo** · 16/09/2026
+
+**Estado:** implementada para revisión; publicación pendiente de QA móvil/PWA. La última versión publicada verificada es V8.7.1. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA de V8.8.0](tests/QA_V8.8.0.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
@@ -8,18 +10,25 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
 
-## V8.7.1 — Fotografías específicas del viaje internacional
+## V8.8.0 — Cuaderno de campo
 
-V8.7.1 sustituye el placeholder genérico del aeropuerto en los días internacionales por fotografías locales específicas:
+- **Mi diario:** texto libre para cada uno de los 29 días, autoguardado inmediato y fecha/hora de última edición.
+- **Rodaje de hoy / Rodaje documental:** preset, excepción técnica y precauciones visibles; técnica ampliada y checklist plegables.
+- Contenido de rodaje de solo lectura. Solo se editan notas y casillas; el presupuesto conserva su edición habitual.
+- **Mostrar/Ocultar rodaje** en el menú existente, sin añadir botones a la cabecera ni ocultar diario, presupuesto o POIs.
+- Los días 18–24 en Cebú siguen como **propuesta editorial, no confirmada**.
+- Diario y guía disponibles offline después de una primera carga completa online.
+- Notas asociadas a fechas ISO, independientes de la numeración del itinerario. No se vuelve a ejecutar la migración 8.7 en dispositivos ya migrados.
+- Actualización PWA con confirmación: el nuevo worker espera; las notas no se exponen a una recarga forzada durante la escritura.
+- Limpieza de renderizado duplicado del presupuesto y separación de la UI documental.
 
-- Madrid salida y regreso → `images/madrid-barajas.webp`.
-- Abu Dhabi / Zayed International Airport → `images/zayed-airport.webp`.
-- Sheikh Zayed Grand Mosque → `images/sheikh-zayed-mosque.webp`.
-- La galería de Abu Dhabi combina aeropuerto y mezquita.
-- El POI de la mezquita utiliza su fotografía propia y Pearl Lounge utiliza la imagen de Zayed International Airport como contexto visual.
-- Las tres imágenes forman parte de la caché offline de la PWA.
+### Uso del cuaderno
 
-La migración de datos locales de V8.7 se mantiene deliberadamente con su identificador original para evitar desplazar por segunda vez los días, gastos, checklist o actividades ya migrados.
+Pulsa **Hoy** para ir al día actual; el diario está justo bajo su contexto. También puedes navegar a cualquier otro día para escribir. El encabezado del diario identifica siempre la fecha seleccionada: no confundirla con la fecha real si consultas días pasados o futuros.
+
+El texto se guarda al escribir y no se traduce al cambiar ES/EN. Si el navegador rechaza el guardado, aparece un error y se conserva un borrador en memoria durante esa sesión. **Copia el texto antes de cerrar o actualizar**: no es una copia de seguridad.
+
+En la guía, preset y precauciones son visibles; “Técnica y continuidad” amplía el detalle y enlaza a las pautas del destino. La checklist conserva las claves antiguas, incluida `macro`, cuya etiqueta ahora es “Detalle (a 0,4 m o más)”.
 
 ## Itinerario puerta a puerta
 
@@ -42,6 +51,7 @@ Los horarios completos de ida y vuelta se muestran en la aplicación y la gesti�
 
 - Itinerario completo de **29 días** y navegación horizontal optimizada para móvil.
 - Contexto dinámico **Hoy / Today** desde el 26/09 hasta el 24/10.
+- Diario personal y guía documental rápida por fecha.
 - Horarios completos de ida y vuelta y recordatorios de check-in independientes.
 - Puntos de interés, alojamiento, Google Maps y notas de viaje.
 - Planes alternativos para la escala larga de Abu Dhabi y Pearl Lounge.
@@ -67,6 +77,10 @@ Filipinas/
 ├── photos.js
 ├── today.js
 ├── budget.js
+├── documentary-data.js
+├── documentary.js
+├── journal.js
+├── field-notes.css
 ├── script.js
 ├── service-worker.js
 ├── manifest.json
@@ -76,7 +90,10 @@ Filipinas/
 ├── images/
 ├── PHOTO-CREDITS.md
 ├── CHANGELOG.md
-└── README.md
+├── README.md
+├── PROJECT_MASTER.md
+├── package.json / package-lock.json (solo pruebas)
+└── tests/
 ```
 
 ### Responsabilidades
@@ -88,14 +105,19 @@ Filipinas/
 - `today.js` — contexto Hoy/Today para el rango completo 26/09–24/10.
 - `budget.js` — presupuesto y gastos para los 29 días.
 - `photos.js` — fotografías locales del itinerario base.
+- `documentary-data.js` — presets y 29 pautas bilingües por fecha; no modifica el itinerario.
+- `documentary.js` — render de rodaje, pautas detalladas y checklist heredada.
+- `journal.js` — notas privadas, validación del almacenamiento y autoguardado.
+- `field-notes.css` — estilos del cuaderno y tarjetas de rodaje.
 - `script.js` — estado, navegación, eventos, render principal, idioma, conexión y Service Worker.
 
 ## PWA
 
-- Caché actual: `filipinas-v8-7-1`.
-- Los recursos utilizan cache-busting `?v=8.7.1`.
-- `journey.js` y las fotografías internacionales forman parte del app shell/caché offline.
-- El Service Worker elimina cachés de versiones anteriores al activarse.
+- Caché actual: `filipinas-v8-8-0`.
+- Los recursos utilizan cache-busting `?v=8.8.0`.
+- Diario, guía, estilos nuevos, `journey.js` y las fotografías forman parte del app shell/caché offline.
+- El Service Worker elimina únicamente cachés anteriores con prefijo `filipinas-v` al activarse.
+- La primera instalación requiere una carga online completa. Maps, aerolíneas y otros enlaces externos no se garantizan offline.
 
 ## Privacidad y datos públicos
 
@@ -124,6 +146,12 @@ El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gast
 - Vinyce Studio — Cagayan de Oro, 28/09–01/10.
 - Turtle Nest Guest House (Tinian Villa) — Camiguin, 02/10–06/10.
 - CK Haven Suites • Tuscania CDO — Cagayan de Oro, 20/10–23/10; checkout antes de las 12:00.
+
+## Pruebas
+
+Con Node >=22.19, ejecutar `npm ci` y `npm test`. La suite DOM comprueba los 29 días/idiomas, persistencia, compatibilidad, errores, versiones y caché simulada. No sustituye las pruebas en Chrome Android ni como PWA instalada: véase [QA_V8.8.0.md](tests/QA_V8.8.0.md).
+
+No hace falta Node, instalar paquetes ni compilar para usar o servir la app.
 
 ## Despliegue
 

@@ -1,261 +1,176 @@
 # PROJECT MASTER — Filipinas Travel PWA
 
-> Documento vivo de referencia interna del proyecto. Resume el estado real, las decisiones de arquitectura y producto, los pendientes y la hoja de ruta. El repositorio y el código siguen siendo la fuente de verdad técnica.
+> Referencia viva del estado real, decisiones y hoja de ruta. El repositorio y el código son la fuente de verdad técnica.
 
-**Última actualización:** 16/09/2026  
-**Versión publicada:** **V8.7.1**  
-**Aplicación:** https://nachhr.github.io/Filipinas/  
+**Última actualización:** 16/09/2026
+
+**Versión del código:** **V8.8.0 — Cuaderno de campo**
+
+**Última versión publicada verificada:** **V8.7.1**
+
+**Estado V8.8.0:** implementada para revisión; pendiente de QA móvil/PWA y publicación.
+
+**Aplicación:** https://nachhr.github.io/Filipinas/
+
 **Repositorio:** `NachHR/Filipinas`
-
----
 
 ## 1. Estado actual
 
-La PWA representa actualmente el viaje completo **puerta a puerta durante 29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada de vuelta a Madrid el **24/10/2026**.
+Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/2026**.
 
-### Funcionalidad disponible
+### Conservado de V8.7.1
 
-- Itinerario completo por días con navegación horizontal optimizada para móvil.
-- Interfaz bilingüe **ES / EN**.
-- Contexto dinámico **Hoy / Today** antes, durante y después del viaje.
-- Vuelos de ida y vuelta integrados en el itinerario.
-- Dos ventanas de check-in independientes:
-  - **IDA:** 24/09/2026 · 21:50, 48 h antes de MAD → AUH.
-  - **VUELTA:** 21/10/2026 · 21:55, 48 h antes de CGY → MNL.
-- Itinerario internacional añadido antes y después de los 26 días originales de Filipinas.
-- Escala larga de Abu Dhabi con alternativas de visita y descanso.
-- Pearl Lounge integrado como actividad del viaje.
-- Presupuesto total editable y registro de gastos por día/categoría.
-- Progreso de actividades y checklist de grabación.
-- Modo documental integrado en el contenido del itinerario.
-- Fotografías locales de destinos y POIs, incluidas Madrid-Barajas, Zayed International Airport y Sheikh Zayed Grand Mosque.
-- Indicador online/offline.
-- Instalación como PWA.
-- App Shell y fotografías principales disponibles offline mediante Service Worker.
-- Preferencias, gastos, progreso y checklist guardados localmente en el dispositivo mediante `localStorage`.
+- Itinerario por días, navegación móvil horizontal y ES/EN centralizado.
+- Hoy antes/durante/después; fechas según la zona local del dispositivo.
+- Vuelos completos, escala flexible en Abu Dhabi y Pearl Lounge.
+- Check-ins independientes: **IDA 24/09/2026 21:50** y **VUELTA 21/10/2026 21:55**, 48 horas antes del primer vuelo de cada dirección.
+- Presupuesto editable, gastos por día/categoría, actividades completadas y checklist.
+- Alojamiento, POIs, Maps, fotos locales, instalación PWA e indicador online/offline.
+- Fotografías de Madrid, Zayed y Sheikh Zayed Grand Mosque dentro de la caché.
 
-### Estado técnico de V8.7.1
+### Implementado en V8.8.0
 
-- Badge visible de versión: `V8.7.1`.
-- Cache-busting de recursos: `?v=8.7.1`.
-- Service Worker: `filipinas-v8-7-1`.
-- README sincronizado con la versión publicada.
-- Las nuevas fotografías internacionales están incluidas en la caché offline.
-- La migración de datos del cambio de 26 a 29 días conserva deliberadamente el identificador interno `8.7` para evitar una segunda migración de gastos, checklists y actividades.
+- Diario personal por fecha para los 29 días: texto libre, guardado inmediato y última edición.
+- Campo visible bajo el contexto Hoy, sin diálogo ni botones nuevos en la cabecera.
+- Notas accesibles también en días pasados/futuros; encabezado con fecha seleccionada.
+- Consulta documental diaria: preset, excepción técnica y 1–3 precauciones visibles; técnica ampliada y checklist plegables.
+- Guía ES/EN basada en el documento de grabación actualizado de 29 días. Las notas personales no se traducen.
+- Cebú, días 18–24, permanece como `editorial-proposal`; el itinerario sigue pendiente.
+- Mostrar/Ocultar rodaje solo controla contenido de grabación; no oculta diario, presupuesto, POIs ni galería.
+- Nuevos módulos y estilos incluidos en la shell offline.
+- Eliminado render/formulario de presupuesto obsoleto y adaptador `L()` sin uso.
+- Actualizaciones del worker con confirmación; no activación inmediata al instalar una versión nueva.
 
----
+### Estado técnico
 
-## 2. Decisiones tomadas
+- Badge y CSS/JS: `8.8.0`; Service Worker: `filipinas-v8-8-0`.
+- README, CHANGELOG y este documento distinguen código preparado de versión publicada.
+- Migración de 26 a 29 días: **mantener identificador interno `8.7`**. No volver a desplazar gastos/checklists/actividades en equipos ya migrados.
+- Las notas nuevas no necesitan migrar IDs: usan fechas ISO.
+- Sin backend, framework, subida multimedia ni dependencias de ejecución. Node/jsdom solo se usan para pruebas.
 
-### Producto y experiencia
+## 2. Decisiones de producto y datos
 
-- La aplicación debe seguir siendo **mobile-first**, ligera y útil durante el viaje.
-- La cabecera debe mantenerse mínima. Las funciones secundarias deben vivir en el menú lateral o dentro del contenido correspondiente.
-- **Hoy / Today** es el principal punto de contexto durante el viaje.
-- El itinerario debe representar el viaje real completo, no únicamente la estancia en Filipinas.
-- Las funciones importantes durante el viaje deben funcionar offline siempre que sea razonable.
-- Si una función necesita demasiada explicación para encontrarla, probablemente no debe ocupar navegación primaria.
+### Prioridad de V8.8.0 acordada
 
-### Arquitectura
+Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pretende crear un editor audiovisual.
 
-- `data.js` conserva el núcleo original del itinerario de Filipinas.
-- `journey.js` compone el viaje puerta a puerta sobre ese núcleo y gestiona la migración de IDs de días.
-- `i18n.js` es la fuente central de traducción de la interfaz ES/EN.
-- `script.js` actúa como coordinador principal de estado, navegación y render.
-- Funciones especializadas se mantienen separadas en módulos (`today.js`, `flights.js`, `budget.js`, etc.) para evitar volver a concentrar toda la lógica en un único archivo.
-- Fotografías importantes se sirven desde `images/` y no desde proveedores externos.
-- Los datos de uso personal permanecen en `localStorage` mientras no exista una necesidad clara de backend/sincronización.
+- Editable: notas y casillas; se mantiene la edición ya existente del presupuesto.
+- Solo lectura: itinerario, guía, presets, guion y tomas.
+- Mantener cabecera mínima, interfaz mobile-first y funciones secundarias en el menú/contenido.
+- El modo documental mantiene el lugar como protagonista, sonido ambiente y planos pacientes.
+- La guía nueva prevalece sobre indicaciones técnicas antiguas: no macro real en Action 4, detalle desde 0,4 m y no sumergir en aguas termales.
+- Presets orientativos; no son ajustes aplicados remotamente a la cámara ni confirmación de acceso/reserva.
 
-### Vuelos y check-in
+### Almacenamiento y privacidad
 
-- **IDA y VUELTA son dos procesos de check-in independientes.**
-- Cada check-in abre 48 horas antes del primer vuelo de su correspondiente dirección.
-- La gestión de vuelos debe enlazar a la fuente oficial de la aerolínea cuando proceda.
+- Repositorio público: nunca publicar documentos privados, localizadores, credenciales, datos bancarios o direcciones de acceso.
+- `localStorage` permanece como almacén de preferencias, presupuesto, gastos y progreso.
+- Diario en `filipinasJournal`: `{version: 1, entries: {"YYYY-MM-DD": {text, updatedAt}}}`.
+- `updatedAt` en UTC; visualización en la zona local del dispositivo.
+- Escritura síncrona al evento `input`, sin temporizador pendiente al navegar/cambiar idioma.
+- Si falla el guardado, mostrar error y conservar borrador en memoria; advertir antes de cerrar/actualizar. No prometer persistencia del borrador.
+- No sobrescribir formatos corruptos o de versiones futuras. Recuperación manual necesaria en esos casos.
+- Leer almacenamiento reciente antes de guardar: preservar fechas distintas de otras pestañas. Misma fecha: última escritura prevalece; no existe resolución de conflictos.
+- Texto personal insertado mediante `textarea.value`, no como HTML.
+- Las notas nunca se envían a GitHub ni a un servidor. Borrar almacenamiento del navegador elimina datos; no hay copia/sincronización automática.
 
-### Privacidad
+### Arquitectura estable
 
-- El repositorio es público.
-- No deben almacenarse en GitHub localizadores privados, contraseñas, tokens, datos bancarios ni otros secretos.
-- La aplicación puede mostrar información útil del viaje sin publicar identificadores sensibles.
+- `data.js`: núcleo de Filipinas; solo correcciones técnicas editoriales en esta versión, no cambios del viaje.
+- `journey.js`: composición de 29 días y migración heredada; no modificado en V8.8.0.
+- `i18n.js`: única fuente de textos de interfaz ES/EN.
+- `script.js`: coordinador de estado, navegación y render, no un módulo monolítico.
+- `images/`: fotos locales; no se añadieron imágenes ni cambiaron licencias.
+- El nombre heredado `itineraryOnly` y la clave de checklist `macro` permanecen para compatibilidad; sus etiquetas/UI se aclaran.
 
-### Versionado
+## 3. Archivos y responsabilidades
 
-Cada versión publicada debe mantenerse sincronizada en, como mínimo:
+| Archivo | Responsabilidad |
+|---|---|
+| `index.html` | Shell, badge y orden de scripts/estilos |
+| `data.js` | Itinerario base y pautas existentes |
+| `journey.js` | Composición puerta a puerta y migración 8.7 |
+| `documentary-data.js` | Seis presets y 29 pautas bilingües por fecha |
+| `documentary.js` | Consulta documental, detalle y checklist compatible |
+| `journal.js` | Diario, validación, autoguardado y borrador ante errores |
+| `field-notes.css` | Cuaderno y tarjetas de consulta rápida |
+| `i18n.js` | Catálogo ES/EN y traducción de la shell |
+| `today.js` / `flights.js` | Contexto temporal y vuelos/check-ins |
+| `budget.js` / `budget.css` | Presupuesto y gastos |
+| `photos.js` / `images/` | Fotografías locales |
+| `script.js` | Coordinación, eventos, render y actualizaciones |
+| `style.css` / `today.css` | Estilos generales y contexto Hoy |
+| `service-worker.js` | Shell, caché y actualización con confirmación |
+| `manifest.json` | Instalación PWA |
+| `tests/app.test.cjs` | Regresión DOM y worker simulado |
+| `tests/QA_V8.8.0.md` | Evidencia y checklist manual de publicación |
+| `package.json` / `package-lock.json` | Herramientas de pruebas; no hay build requerido |
+| `README.md` / `CHANGELOG.md` | Uso, estado e historial |
+| `PHOTO-CREDITS.md` | Créditos/licencias, sin cambios |
+| `PROJECT_MASTER.md` | Este documento |
 
-1. badge visible de `index.html`;
-2. cache-busting de CSS/JS;
-3. nombre de caché del Service Worker;
-4. `README.md`;
-5. `CHANGELOG.md`.
+Carga: datos → composición del viaje → módulos existentes → datos documentales/diario/render documental → coordinador. No modificar IDs para acoplar la guía.
 
-Una corrección pequeña puede usar una versión patch, por ejemplo `V8.7.1`, sin cambiar identificadores internos de migración salvo que realmente exista una nueva migración de datos.
+## 4. QA y publicación
 
----
+### Verificado en esta implementación
 
-## 3. Estructura de la PWA
+- Revisión de V8.7.1: modelo de 29 días, fechas de ambos check-ins, imágenes de caché presentes y conservación de estado ya migrado.
+- **11 pruebas de regresión superadas**, incluyendo render de 29 días en ambos idiomas, persistencia, errores de cuota/formato, conservación de datos V8.7.1 y comportamiento simulado del worker.
+- Sintaxis JavaScript y comprobación de diferencias.
+- Verificación de recursos offline y consistencia de versión en código.
+- No se publicaron ni copiaron PDFs privados al repositorio.
 
-No se pretende duplicar en este documento el árbol completo del repositorio. GitHub y `README.md` son la referencia detallada. Esta es la estructura conceptual relevante:
+### Pendiente: no confundir tests DOM con QA real
 
-```text
-index.html
-│
-├── data.js           → itinerario base de Filipinas
-├── journey.js        → composición puerta a puerta + migración
-├── i18n.js           → traducciones ES/EN
-├── flights.js        → vuelos y tareas de check-in
-├── photos.js         → fotografías del itinerario base
-├── today.js          → contexto Hoy / Today
-├── budget.js         → presupuesto y gastos
-└── script.js         → estado, navegación, render y coordinación
+La revisión visual en Chromium no pudo completarse en el entorno. Chrome Android, PWA instalada, modo avión real y actualización desde una instalación anterior **no se han validado**.
 
-style.css             → estilos generales
-today.css             → estilos de Hoy
-budget.css            → estilos de presupuesto
+**Puerta de publicación:** mantener V8.8.0 en revisión hasta completar [QA_V8.8.0.md](tests/QA_V8.8.0.md). No afirmar que la versión ya está publicada ni cambiar la etiqueta de última versión publicada verificada antes de comprobar Pages.
 
-service-worker.js     → caché / offline / actualización PWA
-manifest.json         → instalación PWA
-images/               → recursos fotográficos locales
-```
+Revisar especialmente:
 
-### Flujo general
+1. UX móvil, teclado/foco y nota + preset accesibles en menos de 20 s.
+2. Carga offline real tras primera carga online; fotos de Madrid/AUH/mezquita.
+3. Actualización de caché V8.7.1 → V8.8.0 sin perder datos.
+4. Navegación de 29 días, presupuesto y ES → EN → ES.
+5. Hoy alrededor de medianoche y durante cambios de zona horaria.
+6. Dos check-ins en sus fases temporales; V8.8.0 no cambia la lógica temporal heredada.
 
-1. `data.js` carga el modelo base.
-2. `journey.js` amplía el modelo hasta convertirlo en el viaje de 29 días.
-3. `i18n.js`, `flights.js`, `photos.js`, `today.js` y `budget.js` añaden comportamiento especializado.
-4. `script.js` coordina la interfaz final y los eventos.
-5. `service-worker.js` mantiene el App Shell y las imágenes relevantes disponibles offline.
+### Regla de versiones
 
----
+En cada publicación alinear badge, CSS/JS, caché, README, CHANGELOG y PROJECT_MASTER; también `package.json` si existe. Registrar el estado real de despliegue. No cambiar marcadores de migración por una subida de versión visual.
 
-## 4. Archivos relevantes
+El worker precarga con `cache: reload`, espera confirmación en clientes existentes y limpia solo cachés `filipinas-v*`. La disponibilidad de Maps/aerolíneas u otros enlaces externos no se garantiza offline.
 
-| Archivo | Responsabilidad principal | Observaciones |
-|---|---|---|
-| `index.html` | Shell principal de la PWA | Contiene badge de versión y carga de recursos |
-| `data.js` | Itinerario base | Mantener como núcleo estable siempre que sea posible |
-| `journey.js` | Extensión Madrid → Filipinas → Madrid | Contiene migración de IDs; modificar con especial cuidado |
-| `i18n.js` | Traducción central | Evitar textos de interfaz duplicados fuera de este sistema |
-| `flights.js` | Datos de vuelos / check-in de vuelta | Mantener coherente con `today.js` |
-| `today.js` | Estado temporal y contexto Hoy | Sensible a fechas y zona horaria |
-| `budget.js` | Gastos y presupuesto | Datos locales; comprobar compatibilidad con migraciones |
-| `photos.js` | Asignación de imágenes del itinerario base | Las imágenes internacionales se asignan desde `journey.js` |
-| `script.js` | Coordinador principal | Evitar que vuelva a convertirse en un archivo monolítico |
-| `service-worker.js` | Offline y actualización | Cambiar nombre de caché en cada publicación |
-| `manifest.json` | Instalación PWA | Mantener bilingüe/neutro y compatible con Android |
-| `README.md` | Documentación pública actual | Debe indicar siempre la versión publicada |
-| `CHANGELOG.md` | Historial de versiones | Registrar cambios funcionales y técnicos relevantes |
-| `PHOTO-CREDITS.md` | Créditos/licencias de imágenes | Actualizar cada vez que se añadan fotografías |
-| `PROJECT_MASTER.md` | Estado, decisiones y hoja de ruta | Este documento |
+## 5. Pendientes y hoja de ruta
 
----
+### Siguiente paso inmediato
 
-## 5. Cambios pendientes
+Completar QA manual y publicar V8.8.0 si pasa. Si hay incidencias, resolverlas antes de añadir nuevas funciones.
 
-### A. Validación técnica inmediata
+### Protección de datos
 
-Antes de añadir una funcionalidad grande conviene hacer una pasada de QA de V8.7.1:
+Exportación/importación y copia de seguridad local siguen pendientes y ganan prioridad al incorporar notas personales. No se incluyeron en el alcance aprobado de V8.8.0.
 
-- Probar la PWA publicada en Chrome Android y como aplicación instalada.
-- Confirmar actualización correcta desde una caché anterior a `filipinas-v8-7-1`.
-- Probar modo offline real después de una primera carga online.
-- Confirmar que Madrid, Abu Dhabi y la mezquita cargan sus nuevas fotografías también offline.
-- Revisar navegación de los 29 días y desplazamiento correcto de los IDs migrados.
-- Comprobar que los gastos anteriores siguen vinculados al día correcto.
-- Probar ES → EN → ES sin renders dobles ni pérdida de estado.
-- Verificar ambos check-ins en sus diferentes fases temporales.
-- Revisar el comportamiento de `Hoy` alrededor de medianoche y zonas horarias.
+### V8.9 — Ubicación opcional
 
-### B. Funcionalidad todavía no desarrollada
+“Estoy aquí”, solo bajo acción explícita; contextualizar lugar y accesos a Maps sin rastreo ni almacenamiento persistente de ubicación por defecto.
 
-- **Diario personal editable:** actualmente existen notas de itinerario, pero no una entrada libre del usuario por día.
-- **Ubicación / “Estoy aquí”:** no existe todavía una capa de geolocalización contextual.
-- **Integración documental más profunda:** el modo de grabación existe, pero todavía puede incorporar mejor las guías/guiones documentales y convertirlos en pautas diarias más operativas.
-- **Exportación / copia de seguridad de datos locales:** presupuesto, progreso, diario futuro y checklists dependen actualmente del navegador/dispositivo.
+### Modo documental posterior
 
-### C. Mantenimiento
+La consulta rápida está implementada. Quedan fuera de V8.8.0: checklist de tomas P1 específicas, registro de clips, editor de guion/presets, montaje, multimedia y sincronización. Decidir su prioridad tras usar el cuaderno, sin asumir que sean necesarios antes del viaje.
 
-- Revisar periódicamente licencias y atribuciones de nuevas imágenes.
-- Evitar duplicación de datos de vuelos entre módulos.
-- Mantener bajo control el tamaño total de imágenes para no penalizar instalación/offline.
-- Evitar añadir botones permanentes en la cabecera salvo que sean de uso frecuente durante el viaje.
-
----
-
-## 6. Próximo paso recomendado y hoja de ruta
-
-### Paso inmediato — V8.7.2 si aparecen incidencias
-
-No crear una versión funcional nueva hasta completar una revisión corta de V8.7.1 en móvil/PWA instalada. Si aparecen problemas, publicar **V8.7.2** únicamente como versión de estabilización.
-
-Objetivo: salir de la rama V8.7 con vuelos, fotos internacionales, caché, idioma, presupuesto y migración completamente estables.
-
-### V8.8 — Diario personal
-
-**Objetivo recomendado para la siguiente versión funcional.**
-
-Añadir una entrada personal editable por día sin sobrecargar la interfaz:
-
-- texto libre por día;
-- guardado automático local;
-- fecha/hora de última edición;
-- acceso desde la propia vista del día;
-- funcionamiento offline;
-- diseño discreto integrado con el itinerario;
-- preparar el modelo para futura exportación.
-
-Esto completa una carencia importante: la aplicación se presenta como diario de viaje, pero actualmente no permite escribir un diario personal real.
-
-### V8.9 — Contexto de ubicación
-
-Añadir una función opcional **“Estoy aquí”**:
-
-- solicitar ubicación solo bajo acción explícita del usuario;
-- identificar el día/localización del itinerario más relevante;
-- facilitar accesos a Maps y puntos cercanos del plan;
-- no almacenar ubicación de forma persistente salvo decisión explícita.
-
-Debe ser una ayuda contextual, no un sistema de seguimiento.
-
-### V8.x — Modo documental avanzado
-
-Evolucionar las pautas de grabación actuales usando la guía y el guion documental del proyecto:
-
-- planos prioritarios por día;
-- narrativa / voz en off;
-- sonido ambiente;
-- checklist contextual;
-- momentos de transición;
-- notas de grabación personales;
-- posible vista específica de “rodaje de hoy”.
-
-La numeración concreta de esta versión debe decidirse después de V8.8/V8.9 según prioridad real antes del viaje.
+Confirmar reparto/alojamiento de Cebú, ferris, accesos, operadores y actividades antes de promover cualquier propuesta a itinerario real.
 
 ### V9.0 — Consolidación
 
-V9.0 debería ser una versión de cierre y madurez antes del viaje:
+Auditoría UX móvil/offline/accesibilidad, limpieza de duplicados restantes, revisión de fechas/vuelos/alojamientos/enlaces, optimización y congelación de funciones no esenciales antes del viaje.
 
-- auditoría completa de UX móvil;
-- auditoría offline/PWA;
-- limpieza de arquitectura y código duplicado;
-- revisión completa de fechas, vuelos, alojamientos y enlaces;
-- optimización de imágenes y tiempos de carga;
-- revisión de accesibilidad;
-- revisión del comportamiento de datos locales;
-- documentación final sincronizada;
-- congelación de funcionalidades no esenciales poco antes del viaje.
+Mantenimiento: licencias de imágenes, tamaño offline, duplicidad de datos de vuelos y comportamiento de fechas locales. Cualquier cambio de lógica temporal o migración requiere pruebas propias, no ocultarlo en una limpieza.
 
----
+## 6. Criterio para futuras versiones
 
-## 7. Criterio para futuras versiones
+¿Es útil durante el viaje? ¿Funciona offline o explica sus límites? ¿Tiene lugar lógico sin saturar navegación? ¿Preserva datos? ¿Necesita realmente backend/dependencias? ¿Se puede probar antes de publicar?
 
-Antes de implementar una función nueva, comprobar:
-
-- ¿Será útil durante el viaje real?
-- ¿Funciona offline o falla de forma elegante sin conexión?
-- ¿Tiene un lugar lógico en la interfaz?
-- ¿Puede implementarse sin comprometer datos locales existentes?
-- ¿Mantiene la experiencia móvil simple?
-- ¿Necesita realmente una nueva dependencia o backend?
-- ¿Se puede probar de forma clara antes de publicar?
-
-Prioridad general del proyecto: **fiabilidad durante el viaje > simplicidad > funcionalidad adicional > complejidad técnica**.
+**Fiabilidad durante el viaje > simplicidad > funcionalidad adicional > complejidad técnica.**

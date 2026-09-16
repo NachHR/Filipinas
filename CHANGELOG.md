@@ -1,5 +1,20 @@
 # Changelog
 
+## V8.8.0 — 2026-09-16 · Implementada, pendiente de publicación
+
+- Añadido diario personal por fecha ISO para los 29 días, con autoguardado inmediato, última edición y funcionamiento local/offline.
+- Tratamiento del texto como texto plano; no se envía ni sincroniza. Los errores de almacenamiento muestran aviso y conservan un borrador en memoria; los esquemas corruptos o desconocidos no se sobrescriben.
+- Incorporados `documentary-data.js`, `documentary.js`, `journal.js` y `field-notes.css`; `script.js` sigue como coordinador.
+- Guía rápida ES/EN con preset, excepción y seguridad por día; técnica y checklist plegables. El contenido documental permanece de solo lectura.
+- Cebú, días 18–24: `editorial-proposal`, sin modificar actividades pendientes ni confirmar reservas.
+- Notas y guía bajo el contexto Hoy; acceso rápido desde el botón existente, sin nuevos controles en la cabecera.
+- Renombrado el control a Mostrar/Ocultar rodaje. Ya no oculta presupuesto, diario, galería ni POIs.
+- Checklist heredada preservada, incluyendo clave `macro`; etiquetas y pautas corregidas a detalle desde 0,4 m, sin macro real. Advertencia expresa de no introducir la Action 4 en aguas termales.
+- Eliminados el adaptador de traducción `L()` sin uso y el antiguo render/formulario de presupuesto sustituido por `budget.js`; movido el render documental fuera del coordinador.
+- Cache-busting y badge `8.8.0`; caché `filipinas-v8-8-0` incluye nuevos módulos. Worker con activación explícita, precarga evitando caché HTTP y limpieza solo de cachés de esta app.
+- Se mantienen el identificador de migración `8.7`, fechas, vuelos, check-ins y datos de gastos/progreso existentes.
+- Añadidas 11 pruebas automatizadas de regresión y guía de QA manual; README y PROJECT_MASTER actualizados. Validación real móvil/PWA y despliegue pendientes, no afirmados como completados.
+
 ## V8.7.1 — 2026-09-16
 - Sustituido el placeholder genérico `images/airport.webp` de los días internacionales por fotografías locales específicas.
 - Madrid salida y regreso utilizan `images/madrid-barajas.webp`.
