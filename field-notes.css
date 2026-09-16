@@ -1,0 +1,149 @@
+/* V8.8.0 — Field notebook, using the existing palette and mobile rhythm. */
+.field-notes {
+  display: grid;
+  gap: 18px;
+  margin: 18px 0 24px;
+  scroll-margin-top: 135px;
+}
+#todayContext {
+  scroll-margin-top: 135px;
+}
+.journal-card {
+  border-left: 3px solid var(--green);
+}
+.journal-card .section-head {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.journal-card .section-head span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.journal-card label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.journal-card textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 110px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 12px;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.journal-card textarea:focus-visible,
+.field-details summary:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+.journal-status,
+.journal-help {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+.journal-status {
+  color: var(--green);
+  min-height: 18px;
+}
+.journal-status.save-error {
+  color: #923d2e;
+  font-weight: 600;
+}
+.field-guide {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #f0ede6;
+}
+.field-guide h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+.field-plan {
+  font-size: 12px;
+  color: #4e5750;
+  margin: 0 0 14px;
+}
+.field-proposal {
+  padding: 10px;
+  border-left: 3px solid #9a742d;
+  background: #fff5dd;
+  color: #684c1a;
+}
+.field-preset {
+  padding: 14px;
+  background: var(--surface);
+  border-radius: 12px;
+}
+.field-preset p,
+.field-exception,
+.field-safety li,
+.field-details p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.field-preset p {
+  margin: 7px 0 0;
+}
+.field-safety {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid #d7c6a9;
+  border-radius: 12px;
+}
+.field-safety h3 {
+  font-size: 14px;
+  margin: 0;
+}
+.field-safety ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+.field-details {
+  margin-top: 12px;
+  scroll-margin-top: 135px;
+}
+.field-details summary {
+  cursor: pointer;
+  padding: 12px 0;
+  min-height: 44px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 600;
+}
+.field-details .checklist {
+  display: grid;
+  gap: 6px;
+}
+.field-details .check {
+  min-height: 44px;
+  padding: 5px 0;
+  font-size: 14px;
+}
+.field-details input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--green);
+}
+.mode-only .activity-recording {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}

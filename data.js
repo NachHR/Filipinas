@@ -12,7 +12,7 @@ const tripData = {
     "recordingGuidelines": {
       "es": [
         "El lugar es el protagonista; evita hablar a cámara y usa planos amplios donde las personas formen parte del paisaje.",
-        "Alterna escala: planos generales enormes y primeros planos o macro de detalles.",
+        "Alterna escala: planos generales y detalles a 0,4 m o más; la Action 4 no tiene macro real.",
         "Mantén los planos fijos el tiempo suficiente para que ocurra algo dentro del encuadre.",
         "Prioriza el sonido ambiente: viento, olas, insectos, motores y actividad local.",
         "Usa un mismo perfil de color durante todo el viaje: D-Log M si vas a graduar después o el perfil normal, pero de forma constante.",
@@ -21,7 +21,7 @@ const tripData = {
       ],
       "en": [
         "The place is the protagonist; avoid talking to camera and use wide shots where people remain part of the landscape.",
-        "Alternate scale: huge wide shots with extreme close-ups or macro details.",
+        "Alternate scale: wide shots and details at 0.4 m or further; the Action 4 has no true macro.",
         "Hold static shots long enough for something to happen inside the frame.",
         "Prioritize ambient sound: wind, waves, insects, engines and local activity.",
         "Use the same colour profile throughout the trip: D-Log M if you will grade later, or the normal profile, but keep it consistent.",
@@ -743,14 +743,14 @@ const tripData = {
             "es": [
               "Timelapse de nubes sobre los volcanes al amanecer",
               "Ruinas españolas cubiertas de vegetación",
-              "Vapor de la fuente termal en macro",
+              "Vapor desde fuera de la fuente termal; no sumergir la cámara",
               "White Island con gran angular",
               "Primeros planos de texturas volcánicas"
             ],
             "en": [
               "Timelapse of clouds over volcanoes at dawn",
               "Spanish ruins covered by vegetation",
-              "Steam from the hot spring in macro",
+              "Steam from outside the hot spring; do not submerge the camera",
               "White Island in wide angle",
               "Close-ups of volcanic textures"
             ]
@@ -1054,12 +1054,12 @@ const tripData = {
             "es": [
               "Plano general amplio",
               "Plano fijo largo",
-              "Macro de piedra/musgo"
+              "Detalle de piedra/musgo a 0,4 m o más"
             ],
             "en": [
               "Wide establishing shot",
               "Long locked-off shot",
-              "Macro of stone/moss"
+              "Stone/moss detail at 0.4 m or further"
             ]
           }
         },
@@ -1074,8 +1074,8 @@ const tripData = {
             "en": "Visit a hot spring."
           },
           "notes": {
-            "es": "Buscar vapor en macro.",
-            "en": "Look for steam in macro."
+            "es": "Grabar vapor desde fuera; no introducir la Action 4 en aguas termales.",
+            "en": "Film steam from outside; do not put the Action 4 in hot springs."
           },
           "place": "Camiguin hot spring",
           "maps": "https://www.google.com/maps/search/?api=1&query=Camiguin+hot+spring",
@@ -1089,10 +1089,10 @@ const tripData = {
           "budget": 0,
           "recording": {
             "es": [
-              "Macro / extreme close-up"
+              "Detalle a 0,4 m o más"
             ],
             "en": [
-              "Macro / extreme close-up"
+              "Detail at 0.4 m or further"
             ]
           }
         },
