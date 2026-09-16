@@ -1,6 +1,6 @@
 # Filipinas Travel PWA
 
-**Versión publicada: V8.6.3** · 16/09/2026
+**Versión publicada: V8.6.4** · 16/09/2026
 
 Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
@@ -11,51 +11,89 @@ Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. A
 ## Funcionalidades
 
 - Itinerario organizado por los 26 días del viaje y navegación horizontal optimizada para móvil.
-- Contexto dinámico **Hoy**, que distingue entre preparación del viaje, viaje en curso y viaje terminado.
-- Antes del viaje, **Hoy** muestra la cuenta atrás, próximos check-ins y acceso directo al Día 1.
-- Durante el viaje, **Hoy** lleva al día correspondiente; antes del comienzo lleva al Día 1 y después del viaje mantiene acceso al último día.
-- Horarios completos de ida y vuelta, sin almacenar identificadores de reserva en el código público.
-- **IDA:** 26/09 Madrid → Abu Dhabi; 27/09 Abu Dhabi → Manila; 28/09 Manila → Cagayan de Oro.
-- **VUELTA:** 23/10 Cagayan de Oro → Manila; 24/10 Manila → Abu Dhabi → Madrid.
-- **Check-in IDA:** 48 horas antes del primer vuelo de ida.
-- **Check-in VUELTA:** actividad integrada en el Día 24, disponible 48 horas antes del primer vuelo de vuelta.
-- Acceso a la página oficial de gestión de reserva de Etihad para realizar ambos check-ins.
+- Contexto dinámico **Hoy / Today** para preparación, viaje en curso y viaje terminado.
+- Horarios completos de ida y vuelta y recordatorios de check-in.
+- Puntos de interés, alojamiento, Google Maps y notas de viaje.
 - Presupuesto total editable y registro local de gastos.
 - Progreso de actividades y checklist de grabación almacenados localmente.
-- Cambio de idioma ES / EN aplicado de forma consistente a contenido, navegación y controles.
-- Los botones de abrir/cerrar el menú conservan siempre los iconos **☰** y **×** en ambos idiomas.
-- El botón **Hoy/Today** y las opciones principales del menú se actualizan al cambiar de idioma.
-- Indicador de conexión online/offline con texto y piloto: verde con conexión y rojo sin conexión.
-- Bandera de Filipinas circular en la cabecera.
+- Interfaz completamente bilingüe ES/EN mediante un único sistema de traducción.
+- Cabecera, menú, botones, presupuesto, vuelos, contexto Hoy, accesibilidad, títulos y metadatos se actualizan al cambiar de idioma.
+- Los controles de abrir/cerrar menú conservan siempre los iconos **☰** y **×**; solo cambia su etiqueta accesible.
+- Indicador de conexión online/offline con piloto verde o rojo y texto traducido.
+- Bandera circular de Filipinas en la cabecera.
 - Instalación como PWA y funcionamiento offline mediante Service Worker.
 - Fotografías reales almacenadas localmente en el repositorio.
 
-## V8.6.3 — Base de UI estabilizada
+## V8.6.4 — Refactorización de la arquitectura base
 
-Esta versión cierra la ronda de correcciones de la cabecera, navegación, idioma y conectividad antes de incorporar nuevas funcionalidades.
+Esta versión elimina la arquitectura de parches acumulados de V8.6.x y consolida el comportamiento de idioma y renderizado.
 
-- Cambio de idioma centralizado y controlado, evitando `MutationObserver` y ciclos de renderizado.
-- Reaplicación explícita de los textos dinámicos tras cambiar entre ES y EN.
-- Iconos **☰** y **×** protegidos como controles visuales independientes del idioma.
-- Botones **Hoy/Today**, **Presupuesto/Budget**, **Instalar/Install** y navegación de ubicaciones/días sincronizados con el idioma activo.
-- Estado de red actualizado mediante `navigator.onLine` y eventos nativos `online` / `offline`.
-- Piloto verde para online y rojo para offline.
-- Mayor separación y altura de los botones de Etihad y Día 1 durante la preparación del viaje.
-- Checkout del alojamiento y actividad del día 23 alineados: 23 de octubre antes de las 12:00.
-- Service Worker y cache-busting actualizados a `v8-6-3`.
-- Limpieza de la capa de compatibilidad para que no permanezcan observadores DOM continuos.
+### Internacionalización
 
-## Arquitectura
+- `i18n.js` es ahora la única fuente de verdad para los textos de interfaz.
+- `state.lang` es el único estado de idioma.
+- `setLanguage()` y `toggleLanguage()` son las únicas rutas para modificar el idioma.
+- El botón ES/EN tiene un único listener.
+- Se eliminan los cambios dobles ES → EN → ES que ocurrían cuando varios módulos escuchaban el mismo clic.
+- `tr()` sigue resolviendo los objetos `{es,en}` de `data.js` y además traduce etiquetas residuales de tiempo como `Mañana`, `Tarde`, `Pendiente`, `Antes de las 11:00`, etc.
+- El título del documento, meta descripción, cabecera, navegación, diálogo de presupuesto y atributos de accesibilidad también se sincronizan con el idioma activo.
 
-La aplicación mantiene una segmentación progresiva sin framework. `script.js` conserva el núcleo heredado mientras los módulos específicos se separan progresivamente: `flights.js`, `today.js`, `budget.js`, `i18n.js` y `v86.js`. `v862.js` contiene únicamente la estabilización de shell/UI de V8.6.x.
+### Renderizado
 
-Principios establecidos para la base:
+- `script.js` vuelve a ser el único coordinador del ciclo de render.
+- `today.js`, `budget.js` y `flights.js` son módulos de render y datos; ya no envuelven ni sustituyen `window.renderDay`.
+- Se eliminan los archivos temporales `v86.js` y `v862.js`.
+- El orden de renderizado es determinista: contenido base → Hoy → vuelos → presupuesto → eventos.
+- Ya no hay `MutationObserver` ni wrappers encadenados de funciones globales.
 
-- Renderizado controlado, sin observadores DOM permanentes.
-- Estado de idioma único mediante `state.lang` y persistencia local.
-- Iconos puramente visuales independientes de traducciones.
-- Estado de conectividad derivado del navegador y actualizado por eventos.
-- Versionado explícito del Service Worker para invalidar cachés anteriores.
+### Menú y conexión
+
+- **☰** y **×** son contenido fijo y nunca son reemplazados por traducciones.
+- Las traducciones solo modifican `aria-label` en estos controles.
+- El estado de red se actualiza con `navigator.onLine` y eventos nativos `online` / `offline`.
+- Verde = online; rojo = offline.
+
+### PWA
+
+- Service Worker actualizado a `filipinas-v8-6-4`.
+- App shell limpiado de referencias a archivos de compatibilidad eliminados.
+- Manifest convertido a una forma bilingüe/neutra para no quedar bloqueado únicamente en español.
+
+## Arquitectura actual
+
+```text
+Filipinas/
+├── index.html
+├── style.css
+├── today.css
+├── budget.css
+├── data.js
+├── i18n.js
+├── flights.js
+├── photos.js
+├── today.js
+├── budget.js
+├── script.js
+├── service-worker.js
+├── manifest.json
+├── flag-ph.svg
+├── icon-192.png
+├── icon-512.png
+├── images/
+├── PHOTO-CREDITS.md
+├── CHANGELOG.md
+└── README.md
+```
+
+### Responsabilidades
+
+- `data.js` — itinerario, destinos, alojamiento, POIs y contenido bilingüe.
+- `i18n.js` — catálogo ES/EN, `t()`, `tr()` y traducción de la shell.
+- `flights.js` — datos y render específico de vuelos/check-in.
+- `today.js` — render del contexto Hoy/Today.
+- `budget.js` — presupuesto y gastos.
+- `photos.js` — fotografías locales.
+- `script.js` — estado, navegación, eventos, render principal, idioma, conexión y Service Worker.
 
 ## Privacidad y datos públicos
 
@@ -65,7 +103,7 @@ El repositorio es público. No deben almacenarse identificadores de reserva, con
 
 Las fotografías de destinos, portadas, galerías y POIs se encuentran en `images/`. Consulta `PHOTO-CREDITS.md` para las fuentes y licencias.
 
-## Uso en Windows
+## Uso local
 
 1. Clona o descarga el repositorio.
 2. Ejecuta `python -m http.server 8000` en la carpeta del proyecto.
@@ -81,7 +119,7 @@ El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gast
 
 ## Despliegue
 
-La aplicación está preparada para GitHub Pages y Netlify. Para GitHub Pages se utiliza la rama `main` y la carpeta raíz.
+La aplicación está preparada para GitHub Pages y Netlify. GitHub Pages utiliza la rama `main` y la carpeta raíz.
 
 ## Alojamiento incluido
 
