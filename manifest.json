@@ -1,20 +1,19 @@
 {
-  "name":"Filipinas · Diario de viaje",
+  "name":"Filipinas / Philippines · Travel Diary",
   "short_name":"Filipinas",
-  "description":"Diario, itinerario, mapas y guía de grabación bilingüe para el viaje a Filipinas.",
+  "description":"Bilingual ES/EN travel diary, itinerary, maps and filming guide for the Philippines.",
   "start_url":"./",
   "scope":"./",
   "display":"standalone",
   "orientation":"portrait",
   "background_color":"#f5f3ee",
   "theme_color":"#17211f",
-  "lang":"es",
   "icons":[
     {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
     {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
   ],
   "shortcuts":[
-    {"name":"Hoy","short_name":"Hoy","description":"Abrir el día actual del viaje.","url":"./?shortcut=today"},
-    {"name":"Presupuesto","short_name":"Presupuesto","description":"Abrir el presupuesto del viaje.","url":"./?shortcut=budget"}
+    {"name":"Hoy / Today","short_name":"Hoy / Today","description":"Open the current travel day / Abrir el día actual del viaje.","url":"./?shortcut=today"},
+    {"name":"Presupuesto / Budget","short_name":"Budget","description":"Open the trip budget / Abrir el presupuesto del viaje.","url":"./?shortcut=budget"}
   ]
 }
