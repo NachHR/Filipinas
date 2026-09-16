@@ -1,63 +1,67 @@
 # Filipinas Travel PWA
 
-**Versión publicada: V8.6.4** · 16/09/2026
+**Versión publicada: V8.7** · 16/09/2026
 
-Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
+Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
 ## Aplicación
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
 
+## V8.7 — Itinerario puerta a puerta
+
+V8.7 amplía el modelo del viaje para que la PWA represente el recorrido real completo, no solo la estancia en Filipinas.
+
+### Nuevos días
+
+- **Día 1 · 26/09 — Madrid → Abu Dhabi**
+  - Llegada a Madrid-Barajas con margen.
+  - Vuelo MAD → AUH a las 21:50.
+- **Día 2 · 27/09 — escala larga en Abu Dhabi**
+  - Llegada a AUH a las 06:45.
+  - Dos alternativas: visita opcional a Abu Dhabi / Gran Mezquita Sheikh Zayed o descanso en el aeropuerto.
+  - Pearl Lounge antes del vuelo: comida, ducha, carga de dispositivos y descanso.
+  - Vuelo AUH → MNL a las 21:45.
+- **Día 3 · 28/09 — Manila → Cagayan de Oro**
+  - Llegada a Manila a las 11:05.
+  - Conexión internacional → doméstica.
+  - Vuelo MNL → CGY a las 16:15; llegada a las 17:55.
+  - Continúa el itinerario original de llegada a CDO.
+- Los 26 días anteriores pasan a ocupar **Días 3–28** manteniendo sus fechas reales.
+- **Día 29 · 24/10 — Manila → Abu Dhabi → Madrid**
+  - MNL → AUH 05:50–10:50.
+  - Conexión en Zayed International Airport.
+  - AUH → MAD 14:05–19:40.
+  - Llegada a Madrid y cierre del viaje.
+
+### Pearl Lounge
+
+La actividad del Día 2 está modelada como una estancia aproximada de **17:30–20:15** en el Pearl Lounge de Terminal A. La aplicación recuerda comprobar y contratar el pase desde Revolut y verificar disponibilidad/condiciones antes de comprar. Se enlaza a la información oficial del lounge.
+
+### Migración de datos locales
+
+La ampliación de 26 a 29 días renumera el itinerario existente. `journey.js` realiza una migración local una sola vez para preservar:
+
+- día seleccionado;
+- gastos asociados a días;
+- checklist de grabación;
+- actividades marcadas como completadas.
+
+Los IDs de los días anteriores se desplazan `+2`, ya que ahora Madrid y Abu Dhabi ocupan los días 1 y 2.
+
 ## Funcionalidades
 
-- Itinerario organizado por los 26 días del viaje y navegación horizontal optimizada para móvil.
-- Contexto dinámico **Hoy / Today** para preparación, viaje en curso y viaje terminado.
+- Itinerario completo de **29 días** y navegación horizontal optimizada para móvil.
+- Contexto dinámico **Hoy / Today** desde el 26/09 hasta el 24/10.
 - Horarios completos de ida y vuelta y recordatorios de check-in.
 - Puntos de interés, alojamiento, Google Maps y notas de viaje.
-- Presupuesto total editable y registro local de gastos.
+- Planes alternativos para la escala larga de Abu Dhabi.
+- Presupuesto total editable y registro local de gastos para todo el rango del viaje.
 - Progreso de actividades y checklist de grabación almacenados localmente.
 - Interfaz completamente bilingüe ES/EN mediante un único sistema de traducción.
-- Cabecera, menú, botones, presupuesto, vuelos, contexto Hoy, accesibilidad, títulos y metadatos se actualizan al cambiar de idioma.
-- Los controles de abrir/cerrar menú conservan siempre los iconos **☰** y **×**; solo cambia su etiqueta accesible.
-- Indicador de conexión online/offline con piloto verde o rojo y texto traducido.
-- Bandera circular de Filipinas en la cabecera.
+- Indicador de conexión online/offline con piloto verde o rojo.
 - Instalación como PWA y funcionamiento offline mediante Service Worker.
 - Fotografías reales almacenadas localmente en el repositorio.
-
-## V8.6.4 — Refactorización de la arquitectura base
-
-Esta versión elimina la arquitectura de parches acumulados de V8.6.x y consolida el comportamiento de idioma y renderizado.
-
-### Internacionalización
-
-- `i18n.js` es ahora la única fuente de verdad para los textos de interfaz.
-- `state.lang` es el único estado de idioma.
-- `setLanguage()` y `toggleLanguage()` son las únicas rutas para modificar el idioma.
-- El botón ES/EN tiene un único listener.
-- Se eliminan los cambios dobles ES → EN → ES que ocurrían cuando varios módulos escuchaban el mismo clic.
-- `tr()` sigue resolviendo los objetos `{es,en}` de `data.js` y además traduce etiquetas residuales de tiempo como `Mañana`, `Tarde`, `Pendiente`, `Antes de las 11:00`, etc.
-- El título del documento, meta descripción, cabecera, navegación, diálogo de presupuesto y atributos de accesibilidad también se sincronizan con el idioma activo.
-
-### Renderizado
-
-- `script.js` vuelve a ser el único coordinador del ciclo de render.
-- `today.js`, `budget.js` y `flights.js` son módulos de render y datos; ya no envuelven ni sustituyen `window.renderDay`.
-- Se eliminan los archivos temporales `v86.js` y `v862.js`.
-- El orden de renderizado es determinista: contenido base → Hoy → vuelos → presupuesto → eventos.
-- Ya no hay `MutationObserver` ni wrappers encadenados de funciones globales.
-
-### Menú y conexión
-
-- **☰** y **×** son contenido fijo y nunca son reemplazados por traducciones.
-- Las traducciones solo modifican `aria-label` en estos controles.
-- El estado de red se actualiza con `navigator.onLine` y eventos nativos `online` / `offline`.
-- Verde = online; rojo = offline.
-
-### PWA
-
-- Service Worker actualizado a `filipinas-v8-6-4`.
-- App shell limpiado de referencias a archivos de compatibilidad eliminados.
-- Manifest convertido a una forma bilingüe/neutra para no quedar bloqueado únicamente en español.
 
 ## Arquitectura actual
 
@@ -68,6 +72,7 @@ Filipinas/
 ├── today.css
 ├── budget.css
 ├── data.js
+├── journey.js
 ├── i18n.js
 ├── flights.js
 ├── photos.js
@@ -87,13 +92,21 @@ Filipinas/
 
 ### Responsabilidades
 
-- `data.js` — itinerario, destinos, alojamiento, POIs y contenido bilingüe.
+- `data.js` — núcleo original del itinerario en Filipinas, destinos, alojamiento, POIs y contenido bilingüe.
+- `journey.js` — extensión puerta a puerta, días Madrid/Abu Dhabi/regreso, renumeración a 29 días y migración de datos locales.
 - `i18n.js` — catálogo ES/EN, `t()`, `tr()` y traducción de la shell.
 - `flights.js` — datos y render específico de vuelos/check-in.
-- `today.js` — render del contexto Hoy/Today.
-- `budget.js` — presupuesto y gastos.
+- `today.js` — contexto Hoy/Today para el rango completo 26/09–24/10.
+- `budget.js` — presupuesto y gastos para los 29 días.
 - `photos.js` — fotografías locales.
 - `script.js` — estado, navegación, eventos, render principal, idioma, conexión y Service Worker.
+
+## PWA
+
+- Cache actual: `filipinas-v8-7-0`.
+- `journey.js` forma parte del app shell offline.
+- Los recursos utilizan cache-busting `?v=8.7.0`.
+- El Service Worker mantiene compatibilidad con esos parámetros mediante `ignoreSearch`.
 
 ## Privacidad y datos públicos
 
@@ -101,7 +114,7 @@ El repositorio es público. No deben almacenarse identificadores de reserva, con
 
 ## Fotografías
 
-Las fotografías de destinos, portadas, galerías y POIs se encuentran en `images/`. Consulta `PHOTO-CREDITS.md` para las fuentes y licencias.
+Las fotografías se encuentran en `images/`. V8.7 no añade archivos de imagen nuevos automáticamente: Madrid, Abu Dhabi y el regreso reutilizan temporalmente `airport.webp` hasta incorporar fotografías específicas. Consulta `PHOTO-CREDITS.md` para las fuentes y licencias.
 
 ## Uso local
 
@@ -115,17 +128,17 @@ Abre la aplicación publicada en Chrome Android y selecciona **Instalar aplicaci
 
 ## Presupuesto
 
-El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gastos se almacenan localmente.
-
-## Despliegue
-
-La aplicación está preparada para GitHub Pages y Netlify. GitHub Pages utiliza la rama `main` y la carpeta raíz.
+El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gastos se almacenan localmente. Los nuevos días de tránsito parten con presupuesto específico `0` hasta registrar o presupuestar sus costes reales.
 
 ## Alojamiento incluido
 
 - Vinyce Studio — Cagayan de Oro, 28/09–01/10.
 - Turtle Nest Guest House (Tinian Villa) — Camiguin, 02/10–06/10.
 - CK Haven Suites • Tuscania CDO — Cagayan de Oro, 20/10–23/10; checkout antes de las 12:00.
+
+## Despliegue
+
+La aplicación está preparada para GitHub Pages y Netlify. GitHub Pages utiliza la rama `main` y la carpeta raíz.
 
 ## Créditos
 
