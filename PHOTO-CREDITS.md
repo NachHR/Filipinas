@@ -1,4 +1,4 @@
-# Photo credits — V8.2.0
+# Photo credits — V8.7.1
 
 Las fotografías se almacenan localmente en `images/` para que la aplicación no dependa de servidores externos durante su funcionamiento.
 
@@ -21,5 +21,8 @@ Las imágenes locales se basan en fotografías publicadas originalmente en Wikim
 - `images/santo-nino.webp` — Basilica del Santo Niño — consultar la página original de Wikimedia Commons para la licencia.
 - `images/ferry.webp` — MV Immaculate Stars, Cebu Port — Patrickroque01 — CC BY-SA 4.0.
 - `images/airport.webp` — Laguindingan Airport — Aglofwa — CC BY-SA 4.0.
+- `images/madrid-barajas.webp` — Madrid-Barajas aerial photograph — Wikimedia Commons — fuente original: https://commons.wikimedia.org/wiki/File:Madrid-Barajas_-_Aerial_photograph.jpg
+- `images/zayed-airport.webp` — Zayed International Airport Air Traffic Control Tower — Wikimedia Commons — fuente original: https://commons.wikimedia.org/wiki/File:Zayed_International_Airport_Air_Traffic_Control_Tower.jpg
+- `images/sheikh-zayed-mosque.webp` — Sheikh Zayed Grand Mosque @ Abu Dhabi (15856602738) — Wikimedia Commons — fuente original: https://commons.wikimedia.org/wiki/File:Sheikh_Zayed_Grand_Mosque_@_Abu_Dhabi_(15856602738).jpg
 
 Las imágenes se han redimensionado/convertido para su uso eficiente en una PWA. La optimización del archivo no cambia por sí misma la atribución o licencia de la obra original.
