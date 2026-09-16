@@ -1,39 +1,44 @@
 # Changelog
 
+## V8.6.3 — 2026-09-16
+- Corregido definitivamente el cambio de idioma de la shell: **Hoy/Today**, navegación del menú, presupuesto, instalación y navegación por ubicaciones/días se regeneran con el idioma activo.
+- Los controles visuales de abrir/cerrar el menú mantienen siempre **☰** y **×** y solo traducen su etiqueta de accesibilidad.
+- Restaurado el estado de conexión en tiempo real mediante `navigator.onLine` y los eventos `online` / `offline`.
+- Añadido estado visual inequívoco: piloto verde cuando hay conexión y rojo cuando no la hay.
+- El texto de conexión también cambia entre idioma y estado: **Online / Desconectado** en español y **Online / Offline** en inglés.
+- Mejorado el espaciado y la altura de las acciones de Etihad y **Ver Día 1** durante la preparación del viaje.
+- Alineada la actividad de checkout con la información del alojamiento: **23 de octubre antes de las 12:00**.
+- Evitado cualquier `MutationObserver` para la traducción o el estado de shell.
+- Service Worker y cache-busting actualizados a `v8-6-3` para invalidar versiones anteriores.
+- README actualizado con los principios de la arquitectura base estabilizada.
+
 ## V8.6.2 — 2026-09-16
 - Corregido el cambio de idioma ES/EN para que actualice navegación y contenido de forma controlada.
 - Eliminado el `MutationObserver` de traducción que podía provocar ciclos de renderizado y consumo excesivo de RAM.
 - Restaurados los iconos visuales **☰** y **×** del menú lateral.
-- Restaurado el indicador de conexión **online/offline** con piloto de estado.
-- Mejorado el espaciado vertical entre los botones de gestión de Etihad y **Ver Día 1** en la preparación del viaje.
-- Alineada la actividad de checkout del último día con el alojamiento: **23 de octubre antes de las 12:00**.
-- Actualizado el Service Worker y el cache-busting a `v8-6-2`.
+- Restaurado el indicador de conexión online/offline con piloto de estado.
+- Mejorado el espaciado vertical entre los botones de gestión de Etihad y **Ver Día 1**.
+- Alineada la actividad de checkout del último día con el alojamiento.
 
 ## V8.6.1 — 2026-09-16
-- Eliminado el observador permanente del atributo `lang` para evitar ciclos de traducción/renderizado.
+- Eliminado el observador permanente del atributo `lang`.
 - Ajustada la caché PWA para distribuir la corrección de estabilidad.
 
 ## V8.6.0 — 2026-09-16
-- Iniciada la segmentación progresiva de la arquitectura sin introducir un framework ni reescribir de forma destructiva el núcleo existente.
-- Añadido `flights.js` como módulo independiente para datos de vuelos y lógica de check-in.
-- Añadido `i18n.js` como capa común para traducciones de interfaz y shell.
-- Añadido `v86.js` como puente temporal de compatibilidad.
-- Añadido el check-in de vuelta como actividad real del Día 24.
+- Iniciada la segmentación progresiva de la arquitectura sin framework.
+- Añadidos módulos independientes para vuelos, contexto Hoy, presupuesto, traducción y compatibilidad.
+- Añadido el check-in de vuelta como actividad real.
 - Añadida la secuencia completa de vuelos de vuelta.
 - Eliminadas referencias de reserva del código público de vuelos.
-- Mejorado el botón **Hoy**.
-- Añadida la bandera circular de Filipinas en la cabecera.
-- Actualizado el README con las nuevas reglas de privacidad y arquitectura.
-- Actualizado el Service Worker y cache-busting a `v8-6-0`.
+- Mejorado el botón Hoy.
+- Añadida la bandera circular de Filipinas.
 
 ## V8.5.1 — 2026-09-16
 - Corregido el modelo de check-in: IDA y VUELTA tienen ventanas independientes.
-- Corregida la versión visible y el cache-busting.
 
 ## V8.5 — 2026-09-16
 - Nueva pantalla de presupuesto y registro local de gastos.
 - Añadidas categorías, edición, eliminación y resumen por categorías.
-- Añadida migración automática del formato anterior.
 
 ## V8.4.2 — 2026-09-16
 - Clarificadas las fechas de vuelos mediante bloques separados de IDA y VUELTA.
