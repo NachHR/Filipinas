@@ -1,6 +1,6 @@
-/* V8.6.4 — Today context as a pure render module. No renderDay wrapping. */
+/* V8.7 — Today context for the complete door-to-door journey. */
 const FLIGHTS=TRIP_FLIGHTS;
-const TODAY_TRIP_START='2026-09-28',TODAY_TRIP_END='2026-10-23',TODAY_FIRST_OUTBOUND_DATE='2026-09-26',TODAY_FIRST_OUTBOUND_TIME='21:50',TODAY_FIRST_RETURN_DATE='2026-10-23',TODAY_FIRST_RETURN_TIME='21:55',TODAY_CHECKIN_HOURS=48;
+const TODAY_TRIP_START='2026-09-26',TODAY_TRIP_END='2026-10-24',TODAY_FIRST_OUTBOUND_DATE='2026-09-26',TODAY_FIRST_OUTBOUND_TIME='21:50',TODAY_FIRST_RETURN_DATE='2026-10-23',TODAY_FIRST_RETURN_TIME='21:55',TODAY_CHECKIN_HOURS=48;
 function todayIso(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function todayPhase(){const n=todayIso();return n<TODAY_TRIP_START?'before':n>TODAY_TRIP_END?'after':'during'}
 function todayDaysBetween(a,b){return Math.round((Date.parse(`${b}T12:00:00`)-Date.parse(`${a}T12:00:00`))/86400000)}
