@@ -1,5 +1,7 @@
 # Filipinas Travel PWA
 
+**Versión publicada: V8.5.1** · 16/09/2026
+
 Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
 ## Aplicación
@@ -10,7 +12,7 @@ Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. A
 
 - Itinerario organizado por los 26 días del viaje y navegación horizontal optimizada para móvil.
 - Contexto dinámico **Hoy**, que distingue entre preparación del viaje, viaje en curso y viaje terminado.
-- Antes del viaje, **Hoy** muestra la cuenta atrás, el próximo hito y acceso directo al Día 1.
+- Antes del viaje, **Hoy** muestra la cuenta atrás, próximos check-ins y acceso directo al Día 1.
 - Gestión de vuelos con el localizador `8V4RGE` y horarios completos de ida y vuelta.
 - **IDA**:
   - 26/09/2026 — Madrid (MAD) 21:50 → Abu Dhabi (AUH) 06:45 (+1).
@@ -20,7 +22,8 @@ Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. A
   - 23/10/2026 — Cagayan de Oro (CGY) 21:55 → Manila (MNL) 23:30.
   - 24/10/2026 — Manila (MNL) 05:50 → Abu Dhabi (AUH) 10:50.
   - 24/10/2026 — Abu Dhabi (AUH) 14:05 → Madrid (MAD) 19:40.
-- Check-in conjunto de la reserva: una única fecha de apertura, 48 horas antes del primer vuelo, el 24/09/2026 a las 21:50.
+- **Check-in IDA:** 48 horas antes del primer vuelo de ida: **24/09/2026 a las 21:50**.
+- **Check-in VUELTA:** 48 horas antes del primer vuelo de vuelta: **21/10/2026 a las 21:55**.
 - Durante el viaje, **Hoy** identifica automáticamente el día correspondiente, muestra el progreso y permite desplazarse al día anterior o siguiente.
 - Después del viaje, **Hoy** conserva acceso al último día.
 - Puntos de interés con enlaces de Google Maps y notas.
@@ -46,7 +49,7 @@ Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. A
 - `today.css` — estilos del contexto **Hoy**.
 - `budget.css` — estilos del panel de presupuesto V8.5.
 - `script.js` — navegación, estado, presupuesto base, instalación y funcionalidades generales.
-- `today.js` — fechas del viaje, vuelos, check-in conjunto y contexto dinámico de **Hoy**.
+- `today.js` — fechas del viaje, vuelos, check-ins independientes de ida/vuelta y contexto dinámico de **Hoy**.
 - `budget.js` — panel de presupuesto V8.5, categorías y gestión de gastos.
 - `data.js` — itinerario, destinos, POIs, mapas, alojamiento y notas.
 - `photos.js` — asignación de fotografías locales.
