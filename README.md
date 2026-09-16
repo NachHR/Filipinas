@@ -1,4 +1,4 @@
-# Filipinas Travel PWA — v8.3.0
+# Filipinas Travel PWA — v8.4.0
 
 Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. La aplicación está pensada para móvil, puede instalarse como PWA y mantiene presupuesto, gastos, progreso y preferencias en el dispositivo.
 
@@ -11,6 +11,11 @@ Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. La aplicació
 - Navegación horizontal por los 26 días, optimizada para móvil.
 - Menú lateral compacto para funciones secundarias, evitando saturar la barra superior.
 - Acceso rápido a **Hoy** y **Presupuesto** desde el menú.
+- Contexto dinámico de **Hoy** antes, durante y después del viaje.
+- Antes del viaje, **Hoy** muestra la cuenta atrás y la fecha en la que estará disponible el check-in del primer vuelo.
+- El recordatorio de check-in usa la regla configurada de **48 horas antes de la salida**: para la salida del 27 de septiembre de 2026, la fecha mostrada es el **25 de septiembre de 2026**.
+- Durante el viaje, **Hoy** identifica el día actual, muestra el progreso y permite ir al día anterior/siguiente sin añadir navegación permanente a la cabecera.
+- Después del viaje, **Hoy** ofrece acceso al último día del itinerario.
 - Indicador discreto de conexión online/offline.
 - Puntos de interés con enlaces de Google Maps y notas del viaje.
 - Enlaces a los alojamientos incluidos en el itinerario.
@@ -22,11 +27,21 @@ Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. La aplicació
 - Shortcuts de PWA para **Hoy** y **Presupuesto** en dispositivos compatibles.
 - Fotografías reales almacenadas localmente en el propio repositorio.
 
+## V8.4.0 — Hoy + preparación del viaje
+
+V8.4 convierte **Hoy** en el punto de entrada contextual de la aplicación sin añadir una nueva barra de navegación. La app determina automáticamente si el usuario está antes, durante o después del viaje.
+
+Antes del viaje, el bloque **Hoy** muestra cuánto falta para comenzar y recuerda cuándo se puede hacer el check-in del primer vuelo. La fecha de salida configurada es el **27 de septiembre de 2026** y el check-in se calcula a 48 horas, por lo que la fecha mostrada es el **25 de septiembre de 2026**. Como el repositorio no contiene la hora de salida del vuelo, el recordatorio se expresa por fecha y no por hora exacta.
+
+Durante el viaje, la aplicación selecciona automáticamente el día correspondiente a la fecha actual y ofrece un resumen compacto con progreso y navegación anterior/siguiente. Después del viaje, conserva el acceso rápido al último día.
+
+La funcionalidad se mantiene separada en `today.js` y `today.css` para no cargar `script.js` con otra responsabilidad y para que el bloque contextual pueda evolucionar de forma independiente.
+
 ## V8.3.0 — UX móvil + offline robusto
 
 Esta versión reorganiza la navegación para que la barra superior no se sature en móvil. **Presupuesto** deja de ocupar espacio permanente en la cabecera y pasa al menú lateral, mientras que las funciones principales quedan agrupadas de forma más coherente.
 
-Se incorpora un indicador de conectividad visible y una estrategia offline más segura. El Service Worker precarga el App Shell y las 17 fotografías locales, elimina cachés de versiones anteriores y solo utiliza `index.html` como fallback cuando la petición es una navegación. Una imagen, hoja de estilos o script que no esté disponible no recibe incorrectamente el HTML de la aplicación como respuesta.
+Se incorpora un indicador de conectividad visible y una estrategia offline más segura. El Service Worker precarga el App Shell y las 17 fotografías locales, elimina cachés de versiones anteriores y solo utiliza `index.html` como fallback cuando la petición es una navegación.
 
 También se incorpora un mecanismo de actualización: cuando hay una nueva versión instalada del Service Worker, la aplicación muestra un aviso para actualizar sin tener que desinstalar la PWA. El sistema de instalación se mantiene dentro del menú para no añadir otro botón a la cabecera.
 
@@ -40,14 +55,12 @@ Se corrigió la capa fotográfica local para que `photos.js` utilice correctamen
 
 La aplicación ya no depende de Wikimedia ni de otros servidores externos para mostrar fotografías. Las imágenes utilizadas por las portadas, galerías y POIs están almacenadas en `images/` dentro del repositorio y se cargan mediante `photos.js`.
 
-El Service Worker precarga las fotografías locales junto con el resto del App Shell. Esto evita errores producidos por redirecciones, disponibilidad de servicios externos o cachés incompletas y permite que las fotografías estén disponibles sin conexión desde la instalación de la PWA.
-
-También se ha eliminado la antigua capa `photos-v8.1.js` y cualquier dependencia del antiguo `assets.js`.
-
 ## Archivos principales
 - `index.html` — estructura de la aplicación, navegación principal, versión visible y crédito.
 - `style.css` — diseño responsive, navegación lateral y presentación de imágenes.
 - `script.js` — navegación, estado online/offline, actualización PWA, instalación, progreso, presupuesto y gastos.
+- `today.js` — contexto dinámico de **Hoy**, cuenta atrás del viaje y recordatorio de check-in.
+- `today.css` — estilos aislados del bloque **Hoy**.
 - `data.js` — itinerario, POIs, mapas y notas.
 - `photos.js` — asignación centralizada de fotografías locales.
 - `images/` — fotografías locales de destinos y POIs.
@@ -68,7 +81,7 @@ Consulta `PHOTO-CREDITS.md` para las fuentes y licencias correspondientes.
 2. Abre PowerShell en la carpeta que contiene directamente `index.html`.
 3. Ejecuta `python -m http.server 8000`.
 4. Abre `http://localhost:8000`.
-5. Debe aparecer la etiqueta `V8.3.0` abajo a la derecha.
+5. Debe aparecer la etiqueta `V8.4.0` abajo a la derecha.
 
 ### Si aparecen datos o archivos de una versión anterior
 Abre DevTools (`F12`) → **Application** → **Service Workers** → **Unregister**. Después entra en **Storage** → **Clear site data** y recarga con `Ctrl+Shift+R`.
@@ -89,9 +102,9 @@ Los gastos reales también se guardan localmente.
 
 ## Actualizaciones y offline
 
-La aplicación utiliza un Service Worker versionado (`filipinas-v8-3-0`) que precarga los recursos principales y las fotografías locales. Al publicar una nueva versión, el Service Worker puede detectar el cambio y mostrar un aviso de actualización dentro de la aplicación.
+La aplicación utiliza un Service Worker versionado (`filipinas-v8-4-0`) que precarga los recursos principales, el módulo de **Hoy** y las fotografías locales. Al publicar una nueva versión, el Service Worker puede detectar el cambio y mostrar un aviso de actualización dentro de la aplicación.
 
-La información local —presupuesto, gastos, progreso y checklist— se mantiene en el almacenamiento del dispositivo. Los enlaces externos, como Google Maps y reservas, necesitan conexión para abrir sus servicios.
+La información local —presupuesto, gastos, progreso, checklist y preferencias— se mantiene en el almacenamiento del dispositivo. Los enlaces externos, como Google Maps y reservas, necesitan conexión para abrir sus servicios.
 
 ## GitHub Pages
 La versión publicada está disponible en:
