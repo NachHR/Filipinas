@@ -1,7 +1,7 @@
-/* V8.6 — Small compatibility layer while the legacy core is progressively segmented. */
+/* V8.6.1 — Safe compatibility layer. Patches are installed once and never observe the DOM continuously. */
 (function(){
   function patchDayRenderer(){
-    if(typeof window.renderDay!=='function'||window.renderDay.__v86)return;
+    if(typeof window.renderDay!=='function'||window.renderDay.__v861)return;
     const original=window.renderDay;
     const wrapped=function(id){
       original(id);
@@ -12,40 +12,24 @@
         const html=renderFlightSection(day);
         if(html)content.insertAdjacentHTML('beforeend',html);
       }
-      document.querySelectorAll('.activity-card').forEach(card=>{
-        const text=card.textContent||'';
-        if(text.includes('Etihad Airways')){
-          const actions=card.querySelector('.actions');
-          if(actions)actions.innerHTML=`<a class="action primary" target="_blank" rel="noopener" href="${FLIGHT_MANAGE_URL}">↗ ${state.lang==='es'?'Gestionar reserva en Etihad':'Manage booking on Etihad'}</a>`;
-        }
-      });
       if(typeof applyShellTranslations==='function')applyShellTranslations();
     };
-    wrapped.__v86=true;
+    wrapped.__v861=true;
     window.renderDay=wrapped;
   }
   function bindToday(){
     const b=document.getElementById('todayButton');
-    if(!b||b.__v86)return;
-    b.__v86=true;
+    if(!b||b.__v861)return;
+    b.__v861=true;
     b.addEventListener('click',()=>{
       const d=typeof todayDay==='function'?todayDay():tripData.days[0];
       if(typeof selectDay==='function')selectDay(d.id);
       else window.scrollTo({top:0,behavior:'smooth'});
     });
   }
-  function translateDialog(){
-    const en=state?.lang==='en';
-    const cancel=document.querySelector('#budgetDialog .dialog-actions button[value="cancel"]');
-    const save=document.getElementById('saveBudgetButton');
-    if(cancel)cancel.textContent=en?'Cancel':'Cancelar';
-    if(save)save.textContent=en?'Save':'Guardar';
-  }
   window.addEventListener('load',()=>{
     patchDayRenderer();
     bindToday();
-    translateDialog();
     if(typeof applyShellTranslations==='function')applyShellTranslations();
-    if(typeof renderDay==='function')renderDay(state.selectedDay);
-  });
+  },{once:true});
 })();
