@@ -1,9 +1,9 @@
 /* V8.6.4 — Single source of truth for all interface translations. */
 const I18N={
   es:{
-    app:{title:'Filipinas · Diario de viaje',brand:'FILIPINAS',subtitle:'Diario de viaje',description:'Diario e itinerario bilingüe de viaje por Filipinas.'},
+    app:{title:'Filipinas · Diario de viaje',brand:'FILIPINAS',subtitle:'Diario de viaje',description:'Diario e itinerario bilingüe de viaje por Filipinas.',flagAlt:'Bandera de Filipinas',footerYear:'Filipinas · 2026'},
     shell:{nav:'Navegación',today:'Hoy',install:'Instalar aplicación',budget:'Presupuesto',itinerary:'Solo itinerario',documentary:'Modo documental',menuOpen:'Abrir menú',menuClose:'Cerrar',dayNav:'Navegación por días',footer:'Creado con la ayuda de ChatGPT',cancel:'Cancelar',save:'Guardar'},
-    connection:{online:'Online',offline:'Desconectado'},
+    connection:{online:'Conectado',offline:'Desconectado'},
     status:{planned:'Planificado',pending:'Pendiente',done:'Hecho',optional:'Opcional'},
     day:{day:'Día',poi:'Puntos de interés',recording:'Grabación',gallery:'Galería',notes:'Nota',transport:'Transporte',maps:'Google Maps',directions:'Cómo llegar',duration:'Duración',theme:'Tema',plans:'Planos clave',tech:'Nota técnica',narration:'Narración',check:'Checklist de grabación',progress:'Progreso',estimate:'Estimado',spent:'Gastado',remaining:'Restante',optional:'Opcional',todayBanner:'HOY',accommodation:'Alojamiento',booking:'Reserva',totalBudget:'Presupuesto total',editBudget:'Modificar presupuesto',savedDevice:'Se guarda en este dispositivo',thisDay:'este día',trip:'viaje',generalGuidelines:'Pautas generales',noExpenses:'Sin gastos registrados todavía.',newVersion:'Nueva versión disponible',update:'Actualizar'},
     budget:{title:'Presupuesto',total:'Presupuesto total',spent:'Gastado',remaining:'Disponible',daily:'Disponible por día restante',add:'Añadir gasto',detail:'Concepto',amount:'Importe',category:'Categoría',date:'Fecha',save:'Guardar gasto',cancel:'Cancelar',edit:'Editar',delete:'Eliminar',recent:'Gastos',none:'Todavía no hay gastos registrados.',categories:'Por categorías',days:'días restantes',editing:'Editando gasto',update:'Actualizar gasto',help:'Cambia aquí el presupuesto total del viaje. Se guarda en este dispositivo.',label:'Presupuesto total (PHP)'},
@@ -12,7 +12,7 @@ const I18N={
     recording:{wide:'Plano general',macro:'Macro / detalle',static:'Plano fijo largo',slow:'Cámara lenta',timelapse:'Timelapse / hyperlapse',sound:'Sonido ambiente',transition:'Plano de transición'}
   },
   en:{
-    app:{title:'Philippines · Travel diary',brand:'PHILIPPINES',subtitle:'Travel diary',description:'Bilingual travel diary and itinerary for the Philippines.'},
+    app:{title:'Philippines · Travel diary',brand:'PHILIPPINES',subtitle:'Travel diary',description:'Bilingual travel diary and itinerary for the Philippines.',flagAlt:'Philippines flag',footerYear:'Philippines · 2026'},
     shell:{nav:'Navigation',today:'Today',install:'Install app',budget:'Budget',itinerary:'Itinerary only',documentary:'Documentary mode',menuOpen:'Open menu',menuClose:'Close',dayNav:'Day navigation',footer:'Created with the help of ChatGPT',cancel:'Cancel',save:'Save'},
     connection:{online:'Online',offline:'Offline'},
     status:{planned:'Planned',pending:'Pending',done:'Done',optional:'Optional'},
@@ -44,8 +44,9 @@ function tr(value){
 }
 function applyShellTranslations(){
   const lang=state.lang==='en'?'en':'es';document.documentElement.lang=lang;document.title=t('app.title');document.querySelector('meta[name="description"]')?.setAttribute('content',t('app.description'));
-  const textMap={brandTitle:t('app.brand'),brandSubtitle:t('app.subtitle'),navTitle:t('shell.nav'),todayButton:t('shell.today'),menuTodayText:t('shell.today'),menuBudgetText:t('shell.budget'),menuInstallText:t('shell.install'),modeLabel:state.itineraryOnly?t('shell.documentary'):t('shell.itinerary'),footerCredit:t('shell.footer'),budgetDialogTitle:t('budget.title'),budgetDialogHelp:t('budget.help'),budgetDialogLabel:t('budget.label'),budgetDialogCancel:t('budget.cancel'),saveBudgetButton:t('shell.save')};
+  const textMap={brandTitle:t('app.brand'),brandSubtitle:t('app.subtitle'),footerYear:t('app.footerYear'),navTitle:t('shell.nav'),todayButton:t('shell.today'),menuTodayText:t('shell.today'),menuBudgetText:t('shell.budget'),menuInstallText:t('shell.install'),modeLabel:state.itineraryOnly?t('shell.documentary'):t('shell.itinerary'),footerCredit:t('shell.footer'),budgetDialogTitle:t('budget.title'),budgetDialogHelp:t('budget.help'),budgetDialogLabel:t('budget.label'),budgetDialogCancel:t('budget.cancel'),saveBudgetButton:t('shell.save')};
   Object.entries(textMap).forEach(([id,text])=>{const el=document.getElementById(id);if(el)el.textContent=text});
   const toggle=document.getElementById('languageToggle');if(toggle)toggle.textContent=lang==='es'?'ES / EN':'EN / ES';
+  const flag=document.getElementById('brandFlag');if(flag)flag.alt=t('app.flagAlt');
   document.getElementById('menuButton')?.setAttribute('aria-label',t('shell.menuOpen'));document.getElementById('closeMenu')?.setAttribute('aria-label',t('shell.menuClose'));document.getElementById('budgetCloseButton')?.setAttribute('aria-label',t('shell.menuClose'));document.getElementById('dayNavigation')?.setAttribute('aria-label',t('shell.dayNav'));
 }
