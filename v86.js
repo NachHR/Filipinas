@@ -12,6 +12,13 @@
         const html=renderFlightSection(day);
         if(html)content.insertAdjacentHTML('beforeend',html);
       }
+      document.querySelectorAll('.activity-card').forEach(card=>{
+        const text=card.textContent||'';
+        if(text.includes('Etihad Airways')){
+          const actions=card.querySelector('.actions');
+          if(actions)actions.innerHTML=`<a class="action primary" target="_blank" rel="noopener" href="${FLIGHT_MANAGE_URL}">↗ ${state.lang==='es'?'Gestionar reserva en Etihad':'Manage booking on Etihad'}</a>`;
+        }
+      });
       if(typeof applyShellTranslations==='function')applyShellTranslations();
     };
     wrapped.__v86=true;
