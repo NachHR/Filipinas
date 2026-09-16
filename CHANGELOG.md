@@ -1,5 +1,19 @@
 # Changelog
 
+## V8.4.0 — 2026-09-16
+- Convertido **Hoy** en un contexto dinámico que distingue entre preparación, viaje en curso y viaje terminado.
+- Antes del viaje, **Hoy** muestra la cuenta atrás hasta el 28 de septiembre de 2026 y permite acceder directamente al Día 1.
+- Añadido recordatorio del **check-in del primer vuelo**: la salida está configurada para el 27 de septiembre de 2026 y el check-in se calcula a **48 horas antes**, mostrando el 25 de septiembre de 2026.
+- Como el repositorio no contiene la hora exacta de salida del vuelo, el recordatorio se presenta por fecha y no por hora.
+- Durante el viaje, **Hoy** identifica automáticamente el día correspondiente, muestra progreso y permite ir al día anterior o siguiente.
+- Después del viaje, **Hoy** mantiene un acceso al último día del itinerario.
+- Nueva responsabilidad aislada en `today.js` y `today.css`, evitando añadir otra sección permanente a la cabecera móvil.
+- Actualizada la carga de `index.html`, `data.js`, `photos.js` y `script.js` a `v8.4.0`.
+- Service Worker actualizado a `filipinas-v8-4-0` e incluye `today.js` y `today.css` en el App Shell.
+- Conservada la estrategia offline de V8.3 y la precarga de las 17 fotografías locales.
+- Actualizado `README.md` con el funcionamiento de **Hoy**, el cálculo de check-in y la nueva estructura de archivos.
+- Revisado el código nuevo con comprobación de sintaxis JavaScript.
+
 ## V8.3.0 — 2026-09-16
 - Reorganizada la cabecera móvil para evitar saturación: se elimina **Presupuesto** de la barra superior y se lleva al menú lateral.
 - Añadido menú lateral compacto con accesos rápidos a **Hoy**, **Presupuesto** e instalación de la PWA cuando está disponible.
