@@ -1,5 +1,25 @@
 # Changelog
 
+## V8.7 — 2026-09-16
+- Ampliado el viaje de **26 a 29 días**, cubriendo ahora el recorrido completo desde Madrid el 26/09 hasta Madrid el 24/10.
+- Añadido **Día 1 · Madrid → Abu Dhabi** con llegada a Barajas y vuelo MAD → AUH.
+- Añadido **Día 2 · escala larga en Abu Dhabi** con dos alternativas: visita opcional a Abu Dhabi / Gran Mezquita Sheikh Zayed o descanso en el aeropuerto.
+- Integrado **Pearl Lounge** en Terminal A como actividad real previa al vuelo AUH → MNL, con comida, ducha, descanso y comprobación/compra del acceso desde Revolut.
+- Añadido recordatorio de estancia estándar máxima de 3 h para Pearl Lounge y enlace a su información oficial.
+- Ampliado el 28/09 con llegada a Manila, conexión internacional → doméstica y vuelo MNL → CGY antes de la llegada a CDO.
+- Añadido **Día 29 · regreso a Madrid** con MNL → AUH, conexión en Abu Dhabi, AUH → MAD y llegada final a las 19:40.
+- Los 26 días anteriores se renumeran automáticamente como **Días 3–28** sin alterar sus fechas reales.
+- Añadido `journey.js` como capa de composición del itinerario puerta a puerta, manteniendo `data.js` como núcleo del recorrido original en Filipinas.
+- Implementada migración local de una sola ejecución para conservar día seleccionado, gastos, checklist de grabación y actividades completadas tras la renumeración `+2`.
+- Actualizado **Hoy / Today** al rango completo 26/09–24/10.
+- Actualizado el presupuesto al rango completo y a 29 días restantes antes del viaje.
+- Añadidas nuevas localizaciones de navegación para salida de Madrid, escala en Abu Dhabi y regreso a Madrid.
+- Madrid, Abu Dhabi y regreso reutilizan temporalmente `images/airport.webp` hasta incorporar fotografías específicas.
+- `journey.js` añadido al app shell offline.
+- Service Worker actualizado a `filipinas-v8-7-0` y cache-busting actualizado a `v=8.7.0`.
+- README actualizado con la nueva arquitectura, migración y cronología puerta a puerta.
+- Revisadas referencias a versiones y módulos antiguos para mantener el repositorio limpio.
+
 ## V8.6.4 — 2026-09-16
 - Refactorizada por completo la arquitectura de idioma y renderizado de la aplicación.
 - `i18n.js` pasa a ser la única fuente de verdad para textos de interfaz ES/EN.
