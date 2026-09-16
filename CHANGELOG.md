@@ -1,24 +1,34 @@
 # Changelog
 
+## V8.6.4 — 2026-09-16
+- Refactorizada por completo la arquitectura de idioma y renderizado de la aplicación.
+- `i18n.js` pasa a ser la única fuente de verdad para textos de interfaz ES/EN.
+- Añadidos `setLanguage()` y `toggleLanguage()` como única ruta para cambiar `state.lang`.
+- Eliminado el segundo listener del botón ES/EN que provocaba cambios dobles ES → EN → ES.
+- Eliminadas las traducciones destructivas sobre `menuButton`, `closeMenu` y contenedores de conexión.
+- Los botones de menú mantienen siempre **☰** y **×**; solo se traduce su `aria-label`.
+- `script.js` vuelve a ser el único coordinador de `renderDay()`.
+- `today.js` y `budget.js` dejan de envolver `window.renderDay` y pasan a ser módulos de render puros.
+- Eliminados los archivos temporales `v86.js` y `v862.js`.
+- `flights.js` usa ahora acciones externas dedicadas para Etihad en lugar de simular botones de Maps/Directions.
+- Corregida la etiqueta `Siguiente / Next` del contexto Hoy.
+- Añadida traducción de valores residuales procedentes de `data.js`, como `Mañana`, `Tarde`, `Pendiente`, `Antes de las 11:00`, `Después de 14:00` y títulos `Día / Day`.
+- Cabecera, navegación, presupuesto, vuelos, contexto Hoy, metadatos HTML y accesibilidad se sincronizan en un único render al cambiar de idioma.
+- Manifest PWA convertido a formato bilingüe/neutro para evitar una instalación exclusivamente española.
+- Service Worker actualizado a `filipinas-v8-6-4` y limpiado de referencias a archivos eliminados.
+- README actualizado con la nueva arquitectura y responsabilidades de módulos.
+
 ## V8.6.3 — 2026-09-16
-- Corregido definitivamente el cambio de idioma de la shell: **Hoy/Today**, navegación del menú, presupuesto, instalación y navegación por ubicaciones/días se regeneran con el idioma activo.
-- Los controles visuales de abrir/cerrar el menú mantienen siempre **☰** y **×** y solo traducen su etiqueta de accesibilidad.
+- Corregido el cambio de idioma de la shell: **Hoy/Today**, navegación del menú, presupuesto, instalación y navegación por ubicaciones/días se regeneran con el idioma activo.
+- Los controles visuales de abrir/cerrar el menú mantienen **☰** y **×** y traducen su etiqueta de accesibilidad.
 - Restaurado el estado de conexión en tiempo real mediante `navigator.onLine` y los eventos `online` / `offline`.
-- Añadido estado visual inequívoco: piloto verde cuando hay conexión y rojo cuando no la hay.
-- El texto de conexión también cambia entre idioma y estado: **Online / Desconectado** en español y **Online / Offline** en inglés.
-- Mejorado el espaciado y la altura de las acciones de Etihad y **Ver Día 1** durante la preparación del viaje.
-- Alineada la actividad de checkout con la información del alojamiento: **23 de octubre antes de las 12:00**.
-- Evitado cualquier `MutationObserver` para la traducción o el estado de shell.
-- Service Worker y cache-busting actualizados a `v8-6-3` para invalidar versiones anteriores.
-- README actualizado con los principios de la arquitectura base estabilizada.
+- Añadido piloto verde cuando hay conexión y rojo cuando no la hay.
+- Mejorado el espaciado de las acciones de Etihad y **Ver Día 1**.
+- Actualizado el Service Worker y cache-busting a `v8-6-3`.
 
 ## V8.6.2 — 2026-09-16
-- Corregido el cambio de idioma ES/EN para que actualice navegación y contenido de forma controlada.
 - Eliminado el `MutationObserver` de traducción que podía provocar ciclos de renderizado y consumo excesivo de RAM.
-- Restaurados los iconos visuales **☰** y **×** del menú lateral.
-- Restaurado el indicador de conexión online/offline con piloto de estado.
-- Mejorado el espaciado vertical entre los botones de gestión de Etihad y **Ver Día 1**.
-- Alineada la actividad de checkout del último día con el alojamiento.
+- Restaurados los iconos visuales del menú lateral y el indicador de conexión.
 
 ## V8.6.1 — 2026-09-16
 - Eliminado el observador permanente del atributo `lang`.
@@ -26,7 +36,7 @@
 
 ## V8.6.0 — 2026-09-16
 - Iniciada la segmentación progresiva de la arquitectura sin framework.
-- Añadidos módulos independientes para vuelos, contexto Hoy, presupuesto, traducción y compatibilidad.
+- Añadidos módulos independientes para vuelos, contexto Hoy, presupuesto y traducción.
 - Añadido el check-in de vuelta como actividad real.
 - Añadida la secuencia completa de vuelos de vuelta.
 - Eliminadas referencias de reserva del código público de vuelos.
