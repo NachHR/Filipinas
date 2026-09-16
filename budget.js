@@ -1,4 +1,4 @@
-/* V8.6.4 — Budget and expense tracker as a pure render module. */
+/* V8.7 — Budget and expense tracker for the complete 29-day journey. */
 const BUDGET_CATEGORIES=[
   {id:'transport',es:'Transporte',en:'Transport',icon:'✈️'},
   {id:'accommodation',es:'Alojamiento',en:'Accommodation',icon:'🏨'},
@@ -8,12 +8,12 @@ const BUDGET_CATEGORIES=[
   {id:'shopping',es:'Compras',en:'Shopping',icon:'🛍️'},
   {id:'other',es:'Otros',en:'Other',icon:'•'}
 ];
-const BUDGET_START='2026-09-28',BUDGET_END='2026-10-23';
+const BUDGET_START='2026-09-26',BUDGET_END='2026-10-24';
 function budgetTodayLocal(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function budgetDateLabel(iso){return new Intl.DateTimeFormat(state.lang==='es'?'es-ES':'en-US',{day:'numeric',month:'short'}).format(new Date(`${iso}T12:00:00`))}
-function budgetItems(){let items=expenses(),changed=false;items=items.map((e,i)=>{const day=tripData.days.find(d=>d.id===Number(e.dayId))||tripData.days[0];const n={id:e.id||`legacy-${i}-${Date.now()}`,detail:e.detail||e.description||'',amount:Number(e.amount)||0,dayId:Number(e.dayId)||day.id,date:e.date||day.date,category:e.category||'other'};if(JSON.stringify(n)!==JSON.stringify(e))changed=true;return n});if(changed)saveExpenses(items);return items}
+function budgetItems(){let items=expenses(),changed=false;items=items.map((e,i)=>{const day=tripData.days.find(d=>d.id===Number(e.dayId))||tripData.days.find(d=>d.date===e.date)||tripData.days[0];const n={id:e.id||`legacy-${i}-${Date.now()}`,detail:e.detail||e.description||'',amount:Number(e.amount)||0,dayId:Number(e.dayId)||day.id,date:e.date||day.date,category:e.category||'other'};if(JSON.stringify(n)!==JSON.stringify(e))changed=true;return n});if(changed)saveExpenses(items);return items}
 function budgetLabels(){return I18N[state.lang].budget}
-function budgetTripDaysRemaining(){const n=budgetTodayLocal();if(n<BUDGET_START)return 26;if(n>BUDGET_END)return 0;return Math.max(1,Math.floor((Date.parse(`${BUDGET_END}T12:00:00`)-Date.parse(`${n}T12:00:00`))/86400000)+1)}
+function budgetTripDaysRemaining(){const n=budgetTodayLocal();if(n<BUDGET_START)return 29;if(n>BUDGET_END)return 0;return Math.max(1,Math.floor((Date.parse(`${BUDGET_END}T12:00:00`)-Date.parse(`${n}T12:00:00`))/86400000)+1)}
 function budgetSummary(items){const total=getTripBudget(),spent=items.reduce((s,e)=>s+e.amount,0),remaining=total-spent,days=budgetTripDaysRemaining();return {total,spent,remaining,days,daily:days?Math.max(0,remaining)/days:0,pct:total?Math.min(100,Math.round(spent/total*100)):0}}
 function budgetCatName(id){const c=BUDGET_CATEGORIES.find(x=>x.id===id)||BUDGET_CATEGORIES[BUDGET_CATEGORIES.length-1];return `${c.icon} ${c[state.lang]}`}
 function renderBudgetV85(){
