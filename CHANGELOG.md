@@ -1,11 +1,23 @@
 # Changelog
 
+## V8.6.0 — 2026-09-16
+- Iniciada la segmentación progresiva de la arquitectura sin introducir un framework ni reescribir de forma destructiva el núcleo existente.
+- Añadido `flights.js` como módulo independiente para datos de vuelos y lógica de check-in.
+- Añadido `i18n.js` como capa común para traducciones de interfaz y shell.
+- Añadido `v86.js` como puente temporal de compatibilidad para nuevas funciones mientras continúa la segmentación de `script.js`.
+- Añadido el **check-in de vuelta** como actividad real del Día 24, con acceso a la página oficial de gestión de reserva de Etihad.
+- Añadida la secuencia completa de vuelos de vuelta al Día 26 y un resumen específico de la vuelta a Madrid.
+- Eliminadas las referencias de reserva del código público de la sección de vuelos.
+- Mejorado el botón **Hoy** de la cabecera: antes del viaje lleva al Día 1, durante el viaje lleva al día actual y después del viaje lleva al último día.
+- Sustituido el icono decorativo de la cabecera por una bandera circular de Filipinas.
+- Actualizado el README para eliminar el identificador de reserva y documentar las nuevas reglas de privacidad y arquitectura.
+- Actualizado el Service Worker y el cache-busting a `v8-6-0`.
+
 ## V8.5.1 — 2026-09-16
 - Corregido el modelo de check-in: la **IDA** y la **VUELTA** tienen ventanas de check-in independientes.
-- **Check-in IDA:** 48 horas antes del primer vuelo de ida, Madrid (MAD) → Abu Dhabi (AUH), 26/09/2026 21:50. Apertura: **24/09/2026 21:50**.
-- **Check-in VUELTA:** 48 horas antes del primer vuelo de vuelta, Cagayan de Oro (CGY) → Manila (MNL), 23/10/2026 21:55. Apertura: **21/10/2026 21:55**.
-- Manteniendo el localizador `8V4RGE` y los horarios reales de todos los tramos.
-- Corregida la versión visible en la esquina inferior derecha: ahora muestra **V8.5.1**, coincidiendo con la versión publicada.
+- **Check-in IDA:** 48 horas antes del primer vuelo de ida.
+- **Check-in VUELTA:** 48 horas antes del primer vuelo de vuelta.
+- Corregida la versión visible en la esquina inferior derecha.
 - Actualizado el cache-busting y el Service Worker a `v8-5-1`.
 - README actualizado para identificar explícitamente **V8.5.1** como versión publicada.
 
@@ -20,30 +32,15 @@
 - Compatibilidad/migración automática con gastos registrados en versiones anteriores.
 - Datos de presupuesto y gastos almacenados exclusivamente en el dispositivo mediante `localStorage`.
 - Nueva capa aislada `budget.js` + `budget.css`.
-- Service Worker actualizado a `filipinas-v8-5-0` e incorpora los nuevos recursos.
-- Actualizados `index.html` y cache-busting a `v8.5`.
-- README actualizado para documentar la funcionalidad actual.
 
 ## V8.4.2 — 2026-09-16
-- Corregido el modelo de check-in: todos los vuelos forman parte de la misma reserva y el check-in se muestra únicamente como una acción conjunta.
-- El check-in se calcula exclusivamente **48 horas antes del primer vuelo**, que sale de Madrid el **26 de septiembre de 2026 a las 21:50**; apertura: **24 de septiembre de 2026 a las 21:50**.
-- Eliminadas las fechas de check-in individuales de los demás tramos.
-- Clarificadas visualmente las fechas de todos los vuelos mediante bloques separados de **IDA** y **VUELTA**.
-- Manteniendo el localizador `8V4RGE` y todos los horarios reales proporcionados.
-- Actualizada la versión visible y el cache-busting a `v8.4.2`.
+- Corregido el modelo de check-in y clarificadas visualmente las fechas de todos los vuelos mediante bloques separados de **IDA** y **VUELTA**.
 
 ## V8.4.1 — 2026-09-16
 - Actualizados los datos reales de vuelos de ida y vuelta en **Hoy**.
-- Añadido el localizador aéreo `8V4RGE`.
-- Ida: 26 sep MAD 21:50 → AUH 06:45 (+1); 27 sep AUH 21:45 → MNL 11:05 (+1); 28 sep MNL 16:15 → CGY 17:55.
-- Vuelta: 23 oct CGY 21:55 → MNL 23:30; 24 oct MNL 05:50 → AUH 10:50; 24 oct AUH 14:05 → MAD 19:40.
 
 ## V8.4.0 — 2026-09-16
 - Convertido **Hoy** en un contexto dinámico que distingue entre preparación, viaje en curso y viaje terminado.
-- Antes del viaje, **Hoy** muestra la cuenta atrás hasta el 28 de septiembre y acceso al Día 1.
-- Durante el viaje, identifica el día actual, muestra progreso y permite navegación anterior/siguiente.
-- Después del viaje, mantiene acceso al último día.
-- Nueva responsabilidad aislada en `today.js` y `today.css`.
 
 ## V8.3.0 — 2026-09-16
 - Reorganización de la cabecera móvil, menú lateral, estado online/offline, actualización PWA, shortcuts y mejoras del Service Worker.
