@@ -1,5 +1,20 @@
 # Changelog
 
+## V8.5 — 2026-09-16
+- Nueva pantalla de **Presupuesto** con resumen de presupuesto total, gastado, disponible y porcentaje consumido.
+- Añadido cálculo de **presupuesto disponible por día restante** durante el viaje.
+- Registro de gastos con concepto, importe, categoría y fecha.
+- Añadidas categorías: transporte, alojamiento, comida, actividades, transporte local, compras y otros.
+- Los gastos pueden editarse y eliminarse.
+- Añadido resumen del gasto por categorías.
+- El panel muestra los gastos asociados al día seleccionado.
+- Compatibilidad/migración automática con gastos registrados en versiones anteriores.
+- Datos de presupuesto y gastos almacenados exclusivamente en el dispositivo mediante `localStorage`.
+- Nueva capa aislada `budget.js` + `budget.css`.
+- Service Worker actualizado a `filipinas-v8-5-0` e incorpora los nuevos recursos.
+- Actualizados `index.html` y cache-busting a `v8.5`.
+- README actualizado para documentar la funcionalidad actual.
+
 ## V8.4.2 — 2026-09-16
 - Corregido el modelo de check-in: todos los vuelos forman parte de la misma reserva y el check-in se muestra únicamente como una acción conjunta.
 - El check-in se calcula exclusivamente **48 horas antes del primer vuelo**, que sale de Madrid el **26 de septiembre de 2026 a las 21:50**; apertura: **24 de septiembre de 2026 a las 21:50**.
