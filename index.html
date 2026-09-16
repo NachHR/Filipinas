@@ -14,13 +14,26 @@
 <body>
 <header class="topbar">
   <button id="menuButton" class="icon-button" aria-label="Abrir menú">☰</button>
-  <div class="brand"><span class="brand-mark">✦</span><div><span id="brandTitle" class="brand-title">FILIPINAS</span><span id="brandSubtitle" class="brand-subtitle">Diario de viaje</span></div></div>
-  <div class="top-actions"><button id="todayButton" class="small-button">Hoy</button><button id="budgetButton" class="small-button budget-top">💰 Presupuesto</button><button id="languageToggle" class="lang-button">ES / EN</button><button id="installButton" class="small-button" hidden>Instalar</button></div>
+  <div class="brand"><span class="brand-mark">✦</span><div><span id="brandTitle" class="brand-title">FILIPINAS</span><span id="brandSubtitle" class="brand-subtitle">Diario de viaje</span><span id="connectionStatus" class="connection-status online"><i></i> <span>Online</span></span></div></div>
+  <div class="top-actions"><button id="todayButton" class="small-button">Hoy</button><button id="languageToggle" class="lang-button">ES / EN</button></div>
 </header>
-<aside id="sidePanel" class="side-panel" aria-hidden="true"><div class="side-head"><strong id="navTitle">Navegación</strong><button id="closeMenu" class="icon-button">×</button></div><div id="locationNav" class="location-nav"></div><div class="side-settings"><button id="itineraryModeButton" class="mode-button">◉ <span id="modeLabel">Solo itinerario</span></button></div></aside>
+<aside id="sidePanel" class="side-panel" aria-hidden="true">
+  <div class="side-head"><strong id="navTitle">Navegación</strong><button id="closeMenu" class="icon-button" aria-label="Cerrar">×</button></div>
+  <div class="quick-nav">
+    <button id="menuToday" class="menu-action">⌂ <span>Hoy</span></button>
+    <button id="menuBudget" class="menu-action">💰 <span>Presupuesto</span></button>
+    <button id="menuInstall" class="menu-action" hidden>📲 <span>Instalar</span></button>
+  </div>
+  <div class="menu-divider"></div>
+  <div id="locationNav" class="location-nav"></div>
+  <div class="side-settings">
+    <button id="itineraryModeButton" class="mode-button">◉ <span id="modeLabel">Solo itinerario</span></button>
+    <div id="menuConnection" class="menu-connection"><i></i><span>Conexión</span></div>
+  </div>
+</aside>
 <div id="overlay" class="overlay"></div>
 <main><section id="hero" class="hero"></section><nav id="dayNavigation" class="day-navigation" aria-label="Navegación por días"></nav><section id="dayContent" class="day-content" aria-live="polite"></section></main>
 <footer class="footer"><div>Filipinas · 2026</div><div class="creator-credit">Creado por NachHR con la ayuda de ChatGPT</div></footer>
-<dialog id="budgetDialog" class="budget-dialog"><form method="dialog" id="budgetDialogForm"><div class="dialog-card"><div class="section-head"><h2 id="budgetDialogTitle">Presupuesto</h2><button class="icon-button" value="cancel" aria-label="Cerrar">×</button></div><p id="budgetDialogHelp">Cambia aquí el presupuesto total del viaje. Se guarda en este dispositivo.</p><label id="budgetDialogLabel" for="budgetDialogInput">Presupuesto total (PHP)</label><input id="budgetDialogInput" type="number" min="1" step="1"><div class="dialog-actions"><button class="action" value="cancel">Cancelar</button><button class="action primary" id="saveBudgetButton" value="default">Guardar</button></div></div></form></dialog><div class="version-badge">V8.2.1</div>
-<script src="data.js?v=8.2.1"></script><script src="photos.js?v=8.2.1"></script><script src="script.js?v=8.2.1"></script>
+<dialog id="budgetDialog" class="budget-dialog"><form method="dialog" id="budgetDialogForm"><div class="dialog-card"><div class="section-head"><h2 id="budgetDialogTitle">Presupuesto</h2><button class="icon-button" value="cancel" aria-label="Cerrar">×</button></div><p id="budgetDialogHelp">Cambia aquí el presupuesto total del viaje. Se guarda en este dispositivo.</p><label id="budgetDialogLabel" for="budgetDialogInput">Presupuesto total (PHP)</label><input id="budgetDialogInput" type="number" min="1" step="1"><div class="dialog-actions"><button class="action" value="cancel">Cancelar</button><button class="action primary" id="saveBudgetButton" value="default">Guardar</button></div></div></form></dialog><div class="version-badge">V8.3.0</div>
+<script src="data.js?v=8.3.0"></script><script src="photos.js?v=8.3.0"></script><script src="script.js?v=8.3.0"></script>
 </body></html>
