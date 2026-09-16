@@ -1,4 +1,4 @@
-/* V8.7 — Door-to-door journey composition.
+/* V8.7.1 — Door-to-door journey composition.
    Extends the destination itinerary from Madrid departure to Madrid arrival,
    migrates local day-based data once, and keeps the 26-day Philippines core intact. */
 (function composeDoorToDoorJourney(){
@@ -36,11 +36,13 @@
   migrateLocalDayState();
   oldDays.forEach(day=>{day.id+=2});
 
-  const airportCover='./images/airport.webp';
+  const madridCover='./images/madrid-barajas.webp';
+  const abuDhabiCover='./images/zayed-airport.webp';
+  const mosqueCover='./images/sheikh-zayed-mosque.webp';
   const locations=[
-    {key:'madrid-departure',name:bilingual('Madrid · salida','Madrid · departure'),cover:airportCover,gallery:[airportCover]},
-    {key:'abu-dhabi',name:bilingual('Abu Dhabi · escala','Abu Dhabi · layover'),cover:airportCover,gallery:[airportCover]},
-    {key:'madrid-return',name:bilingual('Madrid · regreso','Madrid · return'),cover:airportCover,gallery:[airportCover]}
+    {key:'madrid-departure',name:bilingual('Madrid · salida','Madrid · departure'),cover:madridCover,gallery:[madridCover]},
+    {key:'abu-dhabi',name:bilingual('Abu Dhabi · escala','Abu Dhabi · layover'),cover:abuDhabiCover,gallery:[abuDhabiCover,mosqueCover]},
+    {key:'madrid-return',name:bilingual('Madrid · regreso','Madrid · return'),cover:madridCover,gallery:[madridCover]}
   ];
   locations.forEach(loc=>{if(!tripData.locations.some(x=>x.key===loc.key))tripData.locations.push(loc)});
 
@@ -67,8 +69,8 @@
       activity({time:'21:45',title:bilingual('Vuelo Abu Dhabi → Manila','Flight Abu Dhabi → Manila'),description:bilingual('Salida hacia Manila. Llegada prevista el 28 de septiembre a las 11:05.','Depart for Manila. Scheduled arrival on 28 September at 11:05.'),notes:bilingual('Salir del lounge con margen suficiente para localizar la puerta y embarcar.','Leave the lounge with enough time to find the gate and board.'),duration:'≈ 9 h 20 min',transport:bilingual('Vuelo','Flight')})
     ],
     pois:[
-      {name:bilingual('Sheikh Zayed Grand Mosque','Sheikh Zayed Grand Mosque'),description:bilingual('Visita opcional durante la escala larga.','Optional visit during the long layover.'),place:'Sheikh Zayed Grand Mosque',maps:'https://www.google.com/maps/search/?api=1&query=Sheikh+Zayed+Grand+Mosque+Abu+Dhabi',optional:true,image:null},
-      {name:bilingual('Pearl Lounge','Pearl Lounge'),description:bilingual('Lounge airside de Terminal A, cerca de D43, con comida, zonas de descanso y duchas.','Terminal A airside lounge near D43 with food, rest areas and showers.'),place:'Pearl Lounge, Zayed International Airport',maps:'https://www.google.com/maps/search/?api=1&query=Pearl+Lounge+Zayed+International+Airport',optional:false,image:null}
+      {name:bilingual('Sheikh Zayed Grand Mosque','Sheikh Zayed Grand Mosque'),description:bilingual('Visita opcional durante la escala larga.','Optional visit during the long layover.'),place:'Sheikh Zayed Grand Mosque',maps:'https://www.google.com/maps/search/?api=1&query=Sheikh+Zayed+Grand+Mosque+Abu+Dhabi',optional:true,image:mosqueCover},
+      {name:bilingual('Pearl Lounge','Pearl Lounge'),description:bilingual('Lounge airside de Terminal A, cerca de D43, con comida, zonas de descanso y duchas.','Terminal A airside lounge near D43 with food, rest areas and showers.'),place:'Pearl Lounge, Zayed International Airport',maps:'https://www.google.com/maps/search/?api=1&query=Pearl+Lounge+Zayed+International+Airport',optional:false,image:abuDhabiCover}
     ]
   };
 
