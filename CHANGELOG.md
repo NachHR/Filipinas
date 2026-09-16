@@ -1,5 +1,18 @@
 # Changelog
 
+## V8.7.1 — 2026-09-16
+- Sustituido el placeholder genérico `images/airport.webp` de los días internacionales por fotografías locales específicas.
+- Madrid salida y regreso utilizan `images/madrid-barajas.webp`.
+- Abu Dhabi utiliza `images/zayed-airport.webp` como portada y añade `images/sheikh-zayed-mosque.webp` a la galería.
+- El POI Sheikh Zayed Grand Mosque utiliza su fotografía específica.
+- Pearl Lounge utiliza la fotografía de Zayed International Airport como contexto visual.
+- Añadidas las tres nuevas fotografías a la caché offline del Service Worker.
+- Service Worker actualizado a `filipinas-v8-7-1` y cache-busting actualizado a `v=8.7.1`.
+- Badge visible y README sincronizados con la versión publicada V8.7.1.
+- `PHOTO-CREDITS.md` actualizado con las nuevas fotografías y sus fuentes de Wikimedia Commons.
+- Se mantiene intacto el identificador de migración de V8.7 para evitar una segunda renumeración de datos locales.
+- Verificado que siguen existiendo dos check-ins independientes: IDA 24/09 21:50 y VUELTA 21/10 21:55.
+
 ## V8.7 — 2026-09-16
 - Ampliado el viaje de **26 a 29 días**, cubriendo ahora el recorrido completo desde Madrid el 26/09 hasta Madrid el 24/10.
 - Añadido **Día 1 · Madrid → Abu Dhabi** con llegada a Barajas y vuelo MAD → AUH.
