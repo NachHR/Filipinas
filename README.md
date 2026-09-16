@@ -20,12 +20,16 @@ Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. A
   - 23/10/2026 — Cagayan de Oro (CGY) 21:55 → Manila (MNL) 23:30.
   - 24/10/2026 — Manila (MNL) 05:50 → Abu Dhabi (AUH) 10:50.
   - 24/10/2026 — Abu Dhabi (AUH) 14:05 → Madrid (MAD) 19:40.
-- Check-in conjunto de la reserva: se muestra **una única fecha de apertura, 48 horas antes del primer vuelo**, es decir, 24/09/2026 a las 21:50.
+- Check-in conjunto de la reserva: una única fecha de apertura, 48 horas antes del primer vuelo, el 24/09/2026 a las 21:50.
 - Durante el viaje, **Hoy** identifica automáticamente el día correspondiente, muestra el progreso y permite desplazarse al día anterior o siguiente.
 - Después del viaje, **Hoy** conserva acceso al último día.
 - Puntos de interés con enlaces de Google Maps y notas.
 - Alojamiento integrado en el itinerario con sus enlaces correspondientes.
-- Presupuesto total editable y registro de gastos almacenado localmente.
+- **Presupuesto V8.5**: presupuesto total editable, gasto acumulado, disponible, porcentaje consumido y disponible por día restante.
+- Registro de gastos con concepto, importe, categoría y fecha; los gastos pueden editarse y eliminarse.
+- Categorías de gasto: transporte, alojamiento, comida, actividades, transporte local, compras y otros.
+- Resumen de gastos por categoría y gastos del día seleccionado.
+- Migración automática de gastos del formato anterior cuando es necesario.
 - Progreso de actividades y checklist de grabación almacenados localmente.
 - Cambio de idioma ES / EN.
 - Menú lateral compacto para funciones secundarias, evitando sobrecargar la cabecera móvil.
@@ -40,8 +44,10 @@ Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. A
 - `index.html` — estructura y entrada de la aplicación.
 - `style.css` — estilos generales y diseño responsive.
 - `today.css` — estilos del contexto **Hoy**.
-- `script.js` — navegación, estado, presupuesto, gastos, instalación y funcionalidades generales.
+- `budget.css` — estilos del panel de presupuesto V8.5.
+- `script.js` — navegación, estado, presupuesto base, instalación y funcionalidades generales.
 - `today.js` — fechas del viaje, vuelos, check-in conjunto y contexto dinámico de **Hoy**.
+- `budget.js` — panel de presupuesto V8.5, categorías y gestión de gastos.
 - `data.js` — itinerario, destinos, POIs, mapas, alojamiento y notas.
 - `photos.js` — asignación de fotografías locales.
 - `images/` — fotografías locales de destinos y POIs.
@@ -76,7 +82,7 @@ Abre la aplicación publicada en Chrome Android y selecciona **Instalar aplicaci
 
 ## Presupuesto
 
-El presupuesto inicial del viaje es de **85.000 PHP**. Puede modificarse desde **Presupuesto** y el valor se guarda localmente.
+El presupuesto inicial del viaje es de **85.000 PHP**. V8.5 permite modificarlo y registrar los gastos del viaje. El presupuesto, los gastos y el resto de datos de uso se almacenan localmente en el dispositivo.
 
 ## Despliegue
 
