@@ -1,5 +1,25 @@
 # Changelog
 
+## V8.3.0 — 2026-09-16
+- Reorganizada la cabecera móvil para evitar saturación: se elimina **Presupuesto** de la barra superior y se lleva al menú lateral.
+- Añadido menú lateral compacto con accesos rápidos a **Hoy**, **Presupuesto** e instalación de la PWA cuando está disponible.
+- Añadido indicador discreto de estado **Online / Sin conexión**, visible en la cabecera y en el menú.
+- Mejorado el comportamiento offline del Service Worker: `index.html` solo se utiliza como fallback para navegaciones, evitando devolver HTML cuando falla una imagen, CSS o JS.
+- Actualizada la caché a `filipinas-v8-3-0` y mantenida la precarga de las 17 fotografías locales.
+- Añadido mecanismo de detección y aplicación de actualizaciones del Service Worker mediante aviso dentro de la aplicación.
+- Añadido soporte para shortcuts PWA de **Hoy** y **Presupuesto** desde el icono de la aplicación en dispositivos compatibles.
+- Añadido tratamiento de los parámetros de shortcut para abrir directamente el contexto correspondiente.
+- Conservada la navegación horizontal por los días y la funcionalidad existente de itinerario, progreso, presupuesto, gastos, mapas, alojamiento, grabación e imágenes.
+- Limpiado `style.css`, eliminando reglas duplicadas de imágenes y reorganizando los estilos de navegación y estado de conexión.
+- Actualizado `README.md` con la arquitectura y el comportamiento de V8.3.
+- Mantenidos `PHOTO-CREDITS.md` y los 17 archivos de fotografía local.
+
+## V8.2.1 — 2026-09-15
+- Corrección de la capa fotográfica local para que `photos.js` acceda correctamente a `tripData` declarado por `data.js`.
+- Las portadas, galerías y fotografías de POIs vuelven a cargarse desde `images/` de forma consistente.
+- Service Worker actualizado a la caché `filipinas-v8-2-1`.
+- Actualización de cache-busting de los recursos principales.
+
 ## V8.2.0 — 2026-09-15
 - Migración definitiva de las fotografías a archivos locales dentro de `images/`.
 - Nueva capa `photos.js` para centralizar las rutas locales de destinos y POIs.
