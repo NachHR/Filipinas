@@ -1,5 +1,14 @@
 # Changelog
 
+## V8.5.1 — 2026-09-16
+- Corregido el modelo de check-in: la **IDA** y la **VUELTA** tienen ventanas de check-in independientes.
+- **Check-in IDA:** 48 horas antes del primer vuelo de ida, Madrid (MAD) → Abu Dhabi (AUH), 26/09/2026 21:50. Apertura: **24/09/2026 21:50**.
+- **Check-in VUELTA:** 48 horas antes del primer vuelo de vuelta, Cagayan de Oro (CGY) → Manila (MNL), 23/10/2026 21:55. Apertura: **21/10/2026 21:55**.
+- Manteniendo el localizador `8V4RGE` y los horarios reales de todos los tramos.
+- Corregida la versión visible en la esquina inferior derecha: ahora muestra **V8.5.1**, coincidiendo con la versión publicada.
+- Actualizado el cache-busting y el Service Worker a `v8-5-1`.
+- README actualizado para identificar explícitamente **V8.5.1** como versión publicada.
+
 ## V8.5 — 2026-09-16
 - Nueva pantalla de **Presupuesto** con resumen de presupuesto total, gastado, disponible y porcentaje consumido.
 - Añadido cálculo de **presupuesto disponible por día restante** durante el viaje.
