@@ -8,20 +8,19 @@ const TODAY_CHECKIN_HOURS=48;
   const iso=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
   const dayNumber=(value,start)=>Math.floor((Date.parse(`${value}T12:00:00`)-Date.parse(`${start}T12:00:00`))/86400000)+1;
   const now=iso();
-  const selected=now<TODAY_TRIP_START?1:now>TODAY_TRIP_END?26:dayNumber(now,TODAY_TRIP_START);
-  localStorage.setItem('selectedDay',String(Math.max(1,Math.min(26,selected))));
+  const selected=now<TODAY_TRIP_START?1:now>TODAY_TRIP_END?tripData.days.length:dayNumber(now,TODAY_TRIP_START);
+  localStorage.setItem('selectedDay',String(Math.max(1,Math.min(tripData.days.length,selected))));
 })();
 
 function todayIso(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function todayPhase(){const now=todayIso();if(now<TODAY_TRIP_START)return 'before';if(now>TODAY_TRIP_END)return 'after';return 'during'}
 function todayDaysBetween(from,to){return Math.round((Date.parse(`${to}T12:00:00`)-Date.parse(`${from}T12:00:00`))/86400000)}
-function todayAddDays(iso,days){const d=new Date(`${iso}T12:00:00`);d.setDate(d.getDate()+days);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function todayCheckinDate(){return todayAddDays(TODAY_FLIGHT_DEPARTURE,-2)}
+function todayCheckinDate(){const departure=new Date(`${TODAY_FLIGHT_DEPARTURE}T12:00:00`);departure.setHours(departure.getHours()-TODAY_CHECKIN_HOURS);return `${departure.getFullYear()}-${String(departure.getMonth()+1).padStart(2,'0')}-${String(departure.getDate()).padStart(2,'0')}`}
 function todayFormatDate(iso){return new Intl.DateTimeFormat(state.lang==='es'?'es-ES':'en-US',{weekday:'long',day:'numeric',month:'long'}).format(new Date(`${iso}T12:00:00`))}
 function todayShortDate(iso){return new Intl.DateTimeFormat(state.lang==='es'?'es-ES':'en-US',{day:'numeric',month:'long'}).format(new Date(`${iso}T12:00:00`))}
 function todayLabels(){return state.lang==='es'?{
-  today:'HOY',pre:'Preparación del viaje',beforeTitle:'El viaje comienza el',days:'días',day:'día',checkin:'Check-in del vuelo',available:'Puedes hacer el check-in',notYet:'El check-in estará disponible',already:'El check-in debería estar disponible',beforeRule:'48 h antes de la salida',departure:'Salida del primer vuelo',viewDay:'Ver Día 1',previous:'Anterior',next:'Siguiente',backToday:'Volver a hoy',finished:'El viaje terminó el',viewLast:'Ver último día',during:'Día de viaje',progress:'Progreso'
-}:{today:'TODAY',pre:'Trip preparation',beforeTitle:'The trip starts on',days:'days',day:'day',checkin:'Flight check-in',available:'You can check in',notYet:'Check-in will be available',already:'Check-in should be available',beforeRule:'48 hours before departure',departure:'First flight departure',viewDay:'View Day 1',previous:'Previous',next:'Next',backToday:'Back to today',finished:'The trip ended on',viewLast:'View last day',during:'Travel day',progress:'Progress'}}
+  today:'HOY',pre:'Preparación del viaje',beforeTitle:'El viaje comienza el',days:'días',checkin:'Check-in del vuelo',available:'Puedes hacer el check-in',notYet:'El check-in estará disponible',already:'El check-in debería estar disponible',beforeRule:'48 h antes de la salida',departure:'Salida del primer vuelo',viewDay:'Ver Día 1',previous:'Anterior',next:'Siguiente',backToday:'Volver a hoy',finished:'El viaje terminó el',viewLast:'Ver último día',during:'Día de viaje',progress:'Progreso'
+}:{today:'TODAY',pre:'Trip preparation',beforeTitle:'The trip starts on',days:'days',checkin:'Flight check-in',available:'You can check in',notYet:'Check-in will be available',already:'Check-in should be available',beforeRule:'48 hours before departure',departure:'First flight departure',viewDay:'View Day 1',previous:'Previous',next:'Next',backToday:'Back to today',finished:'The trip ended on',viewLast:'View last day',during:'Travel day',progress:'Progress'}}
 function todayContext(){
   const phase=todayPhase(),l=todayLabels(),now=todayIso(),checkin=todayCheckinDate();
   if(phase==='before'){
@@ -44,4 +43,5 @@ window.addEventListener('load',()=>{
     window.renderDay=function(id){originalRenderDay(id);renderTodayContext()};
     renderDay(state.selectedDay);
   }
+  document.querySelector('#todayButton')?.addEventListener('click',()=>{if(todayPhase()==='after')selectDay(tripData.days[tripData.days.length-1].id)});
 });
