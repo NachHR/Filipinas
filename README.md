@@ -1,6 +1,6 @@
 # Filipinas Travel PWA
 
-**Versión publicada: V8.7** · 16/09/2026
+**Versión publicada: V8.7.1** · 16/09/2026
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
@@ -8,58 +8,47 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
 
-## V8.7 — Itinerario puerta a puerta
+## V8.7.1 — Fotografías específicas del viaje internacional
 
-V8.7 amplía el modelo del viaje para que la PWA represente el recorrido real completo, no solo la estancia en Filipinas.
+V8.7.1 sustituye el placeholder genérico del aeropuerto en los días internacionales por fotografías locales específicas:
 
-### Nuevos días
+- Madrid salida y regreso → `images/madrid-barajas.webp`.
+- Abu Dhabi / Zayed International Airport → `images/zayed-airport.webp`.
+- Sheikh Zayed Grand Mosque → `images/sheikh-zayed-mosque.webp`.
+- La galería de Abu Dhabi combina aeropuerto y mezquita.
+- El POI de la mezquita utiliza su fotografía propia y Pearl Lounge utiliza la imagen de Zayed International Airport como contexto visual.
+- Las tres imágenes forman parte de la caché offline de la PWA.
 
-- **Día 1 · 26/09 — Madrid → Abu Dhabi**
-  - Llegada a Madrid-Barajas con margen.
-  - Vuelo MAD → AUH a las 21:50.
-- **Día 2 · 27/09 — escala larga en Abu Dhabi**
-  - Llegada a AUH a las 06:45.
-  - Dos alternativas: visita opcional a Abu Dhabi / Gran Mezquita Sheikh Zayed o descanso en el aeropuerto.
-  - Pearl Lounge antes del vuelo: comida, ducha, carga de dispositivos y descanso.
-  - Vuelo AUH → MNL a las 21:45.
-- **Día 3 · 28/09 — Manila → Cagayan de Oro**
-  - Llegada a Manila a las 11:05.
-  - Conexión internacional → doméstica.
-  - Vuelo MNL → CGY a las 16:15; llegada a las 17:55.
-  - Continúa el itinerario original de llegada a CDO.
-- Los 26 días anteriores pasan a ocupar **Días 3–28** manteniendo sus fechas reales.
-- **Día 29 · 24/10 — Manila → Abu Dhabi → Madrid**
-  - MNL → AUH 05:50–10:50.
-  - Conexión en Zayed International Airport.
-  - AUH → MAD 14:05–19:40.
-  - Llegada a Madrid y cierre del viaje.
+La migración de datos locales de V8.7 se mantiene deliberadamente con su identificador original para evitar desplazar por segunda vez los días, gastos, checklist o actividades ya migrados.
 
-### Pearl Lounge
+## Itinerario puerta a puerta
 
-La actividad del Día 2 está modelada como una estancia aproximada de **17:30–20:15** en el Pearl Lounge de Terminal A. La aplicación recuerda comprobar y contratar el pase desde Revolut y verificar disponibilidad/condiciones antes de comprar. Se enlaza a la información oficial del lounge.
+- **Día 1 · 26/09 — Madrid → Abu Dhabi**: llegada a Madrid-Barajas y vuelo MAD → AUH a las 21:50.
+- **Día 2 · 27/09 — Abu Dhabi**: llegada 06:45, visita opcional a Sheikh Zayed Grand Mosque o descanso en aeropuerto, Pearl Lounge y vuelo AUH → MNL a las 21:45.
+- **Día 3 · 28/09 — Manila → Cagayan de Oro**: llegada a Manila 11:05, conexión y vuelo MNL → CGY 16:15–17:55.
+- Los 26 días originales de Filipinas ocupan **Días 3–28** manteniendo sus fechas reales.
+- **Día 29 · 24/10 — Manila → Abu Dhabi → Madrid**: MNL → AUH 05:50–10:50, conexión y AUH → MAD 14:05–19:40.
 
-### Migración de datos locales
+## Vuelos y check-in
 
-La ampliación de 26 a 29 días renumera el itinerario existente. `journey.js` realiza una migración local una sola vez para preservar:
+La aplicación mantiene dos ventanas de check-in independientes:
 
-- día seleccionado;
-- gastos asociados a días;
-- checklist de grabación;
-- actividades marcadas como completadas.
+- **IDA:** disponible desde el **24/09/2026 a las 21:50**, 48 h antes del primer vuelo MAD → AUH.
+- **VUELTA:** disponible desde el **21/10/2026 a las 21:55**, 48 h antes del primer vuelo CGY → MNL.
 
-Los IDs de los días anteriores se desplazan `+2`, ya que ahora Madrid y Abu Dhabi ocupan los días 1 y 2.
+Los horarios completos de ida y vuelta se muestran en la aplicación y la gestión de la reserva enlaza a la página oficial de Etihad.
 
 ## Funcionalidades
 
 - Itinerario completo de **29 días** y navegación horizontal optimizada para móvil.
 - Contexto dinámico **Hoy / Today** desde el 26/09 hasta el 24/10.
-- Horarios completos de ida y vuelta y recordatorios de check-in.
+- Horarios completos de ida y vuelta y recordatorios de check-in independientes.
 - Puntos de interés, alojamiento, Google Maps y notas de viaje.
-- Planes alternativos para la escala larga de Abu Dhabi.
+- Planes alternativos para la escala larga de Abu Dhabi y Pearl Lounge.
 - Presupuesto total editable y registro local de gastos para todo el rango del viaje.
 - Progreso de actividades y checklist de grabación almacenados localmente.
-- Interfaz completamente bilingüe ES/EN mediante un único sistema de traducción.
-- Indicador de conexión online/offline con piloto verde o rojo.
+- Interfaz bilingüe ES/EN mediante un sistema central de traducción.
+- Indicador de conexión online/offline.
 - Instalación como PWA y funcionamiento offline mediante Service Worker.
 - Fotografías reales almacenadas localmente en el repositorio.
 
@@ -93,20 +82,20 @@ Filipinas/
 ### Responsabilidades
 
 - `data.js` — núcleo original del itinerario en Filipinas, destinos, alojamiento, POIs y contenido bilingüe.
-- `journey.js` — extensión puerta a puerta, días Madrid/Abu Dhabi/regreso, renumeración a 29 días y migración de datos locales.
-- `i18n.js` — catálogo ES/EN, `t()`, `tr()` y traducción de la shell.
+- `journey.js` — extensión puerta a puerta, días Madrid/Abu Dhabi/regreso, fotografías internacionales y migración de datos locales.
+- `i18n.js` — catálogo ES/EN y traducción de la shell.
 - `flights.js` — datos y render específico de vuelos/check-in.
 - `today.js` — contexto Hoy/Today para el rango completo 26/09–24/10.
 - `budget.js` — presupuesto y gastos para los 29 días.
-- `photos.js` — fotografías locales.
+- `photos.js` — fotografías locales del itinerario base.
 - `script.js` — estado, navegación, eventos, render principal, idioma, conexión y Service Worker.
 
 ## PWA
 
-- Cache actual: `filipinas-v8-7-0`.
-- `journey.js` forma parte del app shell offline.
-- Los recursos utilizan cache-busting `?v=8.7.0`.
-- El Service Worker mantiene compatibilidad con esos parámetros mediante `ignoreSearch`.
+- Caché actual: `filipinas-v8-7-1`.
+- Los recursos utilizan cache-busting `?v=8.7.1`.
+- `journey.js` y las fotografías internacionales forman parte del app shell/caché offline.
+- El Service Worker elimina cachés de versiones anteriores al activarse.
 
 ## Privacidad y datos públicos
 
@@ -114,7 +103,7 @@ El repositorio es público. No deben almacenarse identificadores de reserva, con
 
 ## Fotografías
 
-Las fotografías se encuentran en `images/`. V8.7 no añade archivos de imagen nuevos automáticamente: Madrid, Abu Dhabi y el regreso reutilizan temporalmente `airport.webp` hasta incorporar fotografías específicas. Consulta `PHOTO-CREDITS.md` para las fuentes y licencias.
+Las fotografías se encuentran en `images/`. Madrid, Abu Dhabi y Sheikh Zayed Grand Mosque cuentan ya con recursos locales específicos. Consulta `PHOTO-CREDITS.md` para las fuentes y atribuciones.
 
 ## Uso local
 
@@ -128,7 +117,7 @@ Abre la aplicación publicada en Chrome Android y selecciona **Instalar aplicaci
 
 ## Presupuesto
 
-El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gastos se almacenan localmente. Los nuevos días de tránsito parten con presupuesto específico `0` hasta registrar o presupuestar sus costes reales.
+El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gastos se almacenan localmente. Los días de tránsito parten con presupuesto específico `0` hasta registrar o presupuestar sus costes reales.
 
 ## Alojamiento incluido
 
