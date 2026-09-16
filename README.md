@@ -1,6 +1,6 @@
 # Filipinas Travel PWA
 
-**Versión publicada: V8.6.2** · 16/09/2026
+**Versión publicada: V8.6.3** · 16/09/2026
 
 Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
@@ -22,26 +22,40 @@ Diario e itinerario bilingüe (ES/EN) para un viaje de 26 días por Filipinas. A
 - Acceso a la página oficial de gestión de reserva de Etihad para realizar ambos check-ins.
 - Presupuesto total editable y registro local de gastos.
 - Progreso de actividades y checklist de grabación almacenados localmente.
-- Cambio de idioma ES / EN aplicado al contenido y a la interfaz, con controles de navegación estables.
+- Cambio de idioma ES / EN aplicado de forma consistente a contenido, navegación y controles.
+- Los botones de abrir/cerrar el menú conservan siempre los iconos **☰** y **×** en ambos idiomas.
+- El botón **Hoy/Today** y las opciones principales del menú se actualizan al cambiar de idioma.
+- Indicador de conexión online/offline con texto y piloto: verde con conexión y rojo sin conexión.
 - Bandera de Filipinas circular en la cabecera.
-- Iconos visuales originales para abrir/cerrar el menú.
-- Indicador de conexión online/offline con piloto de estado.
 - Instalación como PWA y funcionamiento offline mediante Service Worker.
 - Fotografías reales almacenadas localmente en el repositorio.
 
-## V8.6.2 — Correcciones de estabilidad y UI
+## V8.6.3 — Base de UI estabilizada
 
-- Eliminado el `MutationObserver` de la capa de traducción para evitar ciclos de observación/renderizado y consumo anómalo de RAM.
-- Rehecho el cambio ES/EN como una acción controlada que actualiza navegación y contenido una sola vez.
-- Restaurados los iconos **☰** y **×** de apertura y cierre del menú.
-- Restaurado el indicador online/offline con piloto visual.
-- Separados visualmente los botones de gestión de Etihad y acceso al Día 1 en la preparación del viaje.
-- Alineado el texto de checkout del Día 26 con el checkout real del alojamiento: 23 de octubre antes de las 12:00.
-- Actualizado el cache-busting y el Service Worker a `v8-6-2`.
+Esta versión cierra la ronda de correcciones de la cabecera, navegación, idioma y conectividad antes de incorporar nuevas funcionalidades.
+
+- Cambio de idioma centralizado y controlado, evitando `MutationObserver` y ciclos de renderizado.
+- Reaplicación explícita de los textos dinámicos tras cambiar entre ES y EN.
+- Iconos **☰** y **×** protegidos como controles visuales independientes del idioma.
+- Botones **Hoy/Today**, **Presupuesto/Budget**, **Instalar/Install** y navegación de ubicaciones/días sincronizados con el idioma activo.
+- Estado de red actualizado mediante `navigator.onLine` y eventos nativos `online` / `offline`.
+- Piloto verde para online y rojo para offline.
+- Mayor separación y altura de los botones de Etihad y Día 1 durante la preparación del viaje.
+- Checkout del alojamiento y actividad del día 23 alineados: 23 de octubre antes de las 12:00.
+- Service Worker y cache-busting actualizados a `v8-6-3`.
+- Limpieza de la capa de compatibilidad para que no permanezcan observadores DOM continuos.
 
 ## Arquitectura
 
-La aplicación mantiene una segmentación progresiva sin framework. `script.js` conserva el núcleo heredado mientras los módulos específicos se separan progresivamente: `flights.js`, `today.js`, `budget.js`, `i18n.js` y `v86.js`. `v862.js` contiene únicamente correcciones de estabilidad/UI de esta versión y no utiliza observadores permanentes del DOM.
+La aplicación mantiene una segmentación progresiva sin framework. `script.js` conserva el núcleo heredado mientras los módulos específicos se separan progresivamente: `flights.js`, `today.js`, `budget.js`, `i18n.js` y `v86.js`. `v862.js` contiene únicamente la estabilización de shell/UI de V8.6.x.
+
+Principios establecidos para la base:
+
+- Renderizado controlado, sin observadores DOM permanentes.
+- Estado de idioma único mediante `state.lang` y persistencia local.
+- Iconos puramente visuales independientes de traducciones.
+- Estado de conectividad derivado del navegador y actualizado por eventos.
+- Versionado explícito del Service Worker para invalidar cachés anteriores.
 
 ## Privacidad y datos públicos
 
