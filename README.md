@@ -1,128 +1,105 @@
-# Filipinas Travel PWA — v8.4.0
+# Filipinas Travel PWA — v8.4.1
 
-Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. La aplicación está pensada para móvil, puede instalarse como PWA y mantiene presupuesto, gastos, progreso y preferencias en el dispositivo.
+Diario e itinerario bilingüe (ES/EN) para el viaje por Filipinas. Aplicación web móvil e instalable como PWA, diseñada para consultar el viaje, gestionar información práctica y mantener datos personales en el dispositivo.
 
-## 🌴 Web de la aplicación
+## 🌴 Aplicación
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
 
-## Qué incluye
-- Itinerario por días y destinos.
-- Navegación horizontal por los 26 días, optimizada para móvil.
-- Menú lateral compacto para funciones secundarias, evitando saturar la barra superior.
-- Acceso rápido a **Hoy** y **Presupuesto** desde el menú.
-- Contexto dinámico de **Hoy** antes, durante y después del viaje.
-- Antes del viaje, **Hoy** muestra la cuenta atrás y la fecha en la que estará disponible el check-in del primer vuelo.
-- El recordatorio de check-in usa la regla configurada de **48 horas antes de la salida**: para la salida del 27 de septiembre de 2026, la fecha mostrada es el **25 de septiembre de 2026**.
-- Durante el viaje, **Hoy** identifica el día actual, muestra el progreso y permite ir al día anterior/siguiente sin añadir navegación permanente a la cabecera.
-- Después del viaje, **Hoy** ofrece acceso al último día del itinerario.
-- Indicador discreto de conexión online/offline.
-- Puntos de interés con enlaces de Google Maps y notas del viaje.
-- Enlaces a los alojamientos incluidos en el itinerario.
-- Presupuesto total editable y registro de gastos local.
-- Progreso de actividades y checklist de grabación guardados localmente.
-- Cambio de idioma ES / EN.
-- PWA instalable y funcionamiento offline reforzado.
-- Aviso de nueva versión cuando el Service Worker detecta una actualización.
-- Shortcuts de PWA para **Hoy** y **Presupuesto** en dispositivos compatibles.
-- Fotografías reales almacenadas localmente en el propio repositorio.
+## Funcionalidades
 
-## V8.4.0 — Hoy + preparación del viaje
+- **Itinerario de 26 días** organizado por fechas, destinos y actividades.
+- Navegación horizontal por días, adaptada a pantallas móviles.
+- Vista **Hoy** dinámica que identifica automáticamente si el viaje está antes, durante o después de las fechas del itinerario.
+- Antes del viaje, **Hoy** muestra la cuenta atrás y la información completa de los vuelos de ida, incluido el localizador y el momento en que se abre el check-in según la regla de 48 horas antes de cada salida.
+- Durante el viaje, **Hoy** muestra el día correspondiente, destino, progreso de actividades y navegación contextual al día anterior/siguiente.
+- Después del viaje, **Hoy** mantiene el acceso al último día.
+- Información de vuelos de ida y vuelta integrada en el contexto de preparación del viaje.
+- Localizador de la reserva aérea: **8V4RGE**.
+- Menú lateral compacto para funciones secundarias como **Presupuesto**, **Hoy**, instalación y modo de itinerario.
+- Indicador de conexión **online/offline**.
+- **Presupuesto total editable**, con presupuesto inicial de 85.000 PHP.
+- Registro de gastos almacenado localmente.
+- Progreso de actividades y checklist de grabación guardados en el dispositivo.
+- Puntos de interés con información, notas y enlaces a Google Maps.
+- Información de alojamientos y enlaces de reserva incluidos en el itinerario.
+- Fotografías reales de destinos y POIs almacenadas localmente en `images/`.
+- Cambio de idioma **ES / EN**.
+- PWA instalable con iconos, shortcuts y soporte de funcionamiento offline.
+- Service Worker con App Shell, caché versionada, precarga de fotografías y eliminación de cachés anteriores.
+- Sistema de detección de nuevas versiones y aviso de actualización dentro de la aplicación.
+- Shortcuts PWA para acceder directamente a **Hoy** y **Presupuesto** en dispositivos compatibles.
 
-V8.4 convierte **Hoy** en el punto de entrada contextual de la aplicación sin añadir una nueva barra de navegación. La app determina automáticamente si el usuario está antes, durante o después del viaje.
+## ✈️ Vuelos
 
-Antes del viaje, el bloque **Hoy** muestra cuánto falta para comenzar y recuerda cuándo se puede hacer el check-in del primer vuelo. La fecha de salida configurada es el **27 de septiembre de 2026** y el check-in se calcula a 48 horas, por lo que la fecha mostrada es el **25 de septiembre de 2026**. Como el repositorio no contiene la hora de salida del vuelo, el recordatorio se expresa por fecha y no por hora exacta.
+**Localizador:** `8V4RGE`
 
-Durante el viaje, la aplicación selecciona automáticamente el día correspondiente a la fecha actual y ofrece un resumen compacto con progreso y navegación anterior/siguiente. Después del viaje, conserva el acceso rápido al último día.
+### Ida
 
-La funcionalidad se mantiene separada en `today.js` y `today.css` para no cargar `script.js` con otra responsabilidad y para que el bloque contextual pueda evolucionar de forma independiente.
+| Fecha | Ruta | Salida | Llegada |
+|---|---|---:|---:|
+| 26 sep 2026 | Madrid (MAD) → Abu Dhabi (AUH) | 21:50 | 06:45 (+1) |
+| 27 sep 2026 | Abu Dhabi (AUH) → Manila (MNL) | 21:45 | 11:05 (+1) |
+| 28 sep 2026 | Manila (MNL) → Cagayan de Oro (CGY) | 16:15 | 17:55 |
 
-## V8.3.0 — UX móvil + offline robusto
+### Vuelta
 
-Esta versión reorganiza la navegación para que la barra superior no se sature en móvil. **Presupuesto** deja de ocupar espacio permanente en la cabecera y pasa al menú lateral, mientras que las funciones principales quedan agrupadas de forma más coherente.
+| Fecha | Ruta | Salida | Llegada |
+|---|---|---:|---:|
+| 23 oct 2026 | Cagayan de Oro (CGY) → Manila (MNL) | 21:55 | 23:30 |
+| 24 oct 2026 | Manila (MNL) → Abu Dhabi (AUH) | 05:50 | 10:50 |
+| 24 oct 2026 | Abu Dhabi (AUH) → Madrid (MAD) | 14:05 | 19:40 |
 
-Se incorpora un indicador de conectividad visible y una estrategia offline más segura. El Service Worker precarga el App Shell y las 17 fotografías locales, elimina cachés de versiones anteriores y solo utiliza `index.html` como fallback cuando la petición es una navegación.
+En **Hoy**, el check-in se calcula individualmente para cada vuelo de ida como 48 horas antes de su hora de salida. Por tanto, el primer check-in se abre el **24 de septiembre a las 21:50**, el segundo el **25 de septiembre a las 21:45** y el tercero el **26 de septiembre a las 16:15**.
 
-También se incorpora un mecanismo de actualización: cuando hay una nueva versión instalada del Service Worker, la aplicación muestra un aviso para actualizar sin tener que desinstalar la PWA. El sistema de instalación se mantiene dentro del menú para no añadir otro botón a la cabecera.
+## 🏠 Alojamiento
 
-El manifest añade shortcuts para abrir rápidamente **Hoy** y **Presupuesto** desde el icono de la PWA en dispositivos compatibles.
+La aplicación incluye los alojamientos incorporados al itinerario, con fechas y enlaces correspondientes:
 
-## V8.2.1 — Corrección de fotografías
-
-Se corrigió la capa fotográfica local para que `photos.js` utilice correctamente la variable `tripData` declarada por `data.js`. Las portadas, galerías y fotografías de POIs vuelven a cargarse desde `images/` de forma consistente.
-
-## V8.2.0 — Fotografías locales
-
-La aplicación ya no depende de Wikimedia ni de otros servidores externos para mostrar fotografías. Las imágenes utilizadas por las portadas, galerías y POIs están almacenadas en `images/` dentro del repositorio y se cargan mediante `photos.js`.
-
-## Archivos principales
-- `index.html` — estructura de la aplicación, navegación principal, versión visible y crédito.
-- `style.css` — diseño responsive, navegación lateral y presentación de imágenes.
-- `script.js` — navegación, estado online/offline, actualización PWA, instalación, progreso, presupuesto y gastos.
-- `today.js` — contexto dinámico de **Hoy**, cuenta atrás del viaje y recordatorio de check-in.
-- `today.css` — estilos aislados del bloque **Hoy**.
-- `data.js` — itinerario, POIs, mapas y notas.
-- `photos.js` — asignación centralizada de fotografías locales.
-- `images/` — fotografías locales de destinos y POIs.
-- `manifest.json` — configuración PWA e iconos/shortcuts.
-- `service-worker.js` — App Shell, caché de fotografías y estrategia offline.
-- `icon-192.png`, `icon-512.png` — iconos de la aplicación.
-- `PHOTO-CREDITS.md` — fuentes y licencias de las fotografías.
-- `CHANGELOG.md` — historial de versiones.
-
-## Fotografías
-
-Las fotografías están incluidas físicamente en el repositorio para evitar dependencias externas durante el uso de la aplicación. Se han optimizado para reducir el peso de la PWA sin necesidad de descargar las versiones originales de gran tamaño.
-
-Consulta `PHOTO-CREDITS.md` para las fuentes y licencias correspondientes.
-
-## PC / Windows
-1. Descarga o clona el repositorio.
-2. Abre PowerShell en la carpeta que contiene directamente `index.html`.
-3. Ejecuta `python -m http.server 8000`.
-4. Abre `http://localhost:8000`.
-5. Debe aparecer la etiqueta `V8.4.0` abajo a la derecha.
-
-### Si aparecen datos o archivos de una versión anterior
-Abre DevTools (`F12`) → **Application** → **Service Workers** → **Unregister**. Después entra en **Storage** → **Clear site data** y recarga con `Ctrl+Shift+R`.
-
-## Android
-Para instalar la PWA usa la web de la aplicación por HTTPS:
-1. Abre la aplicación en Chrome Android.
-2. Selecciona `Instalar aplicación` / `Añadir a pantalla de inicio`.
-3. La instalación precarga las fotografías locales mediante el Service Worker.
-4. La aplicación y sus fotografías pueden utilizarse posteriormente sin conexión.
-5. Google Maps necesita conexión para abrir mapas y navegación.
-6. En dispositivos compatibles, mantén pulsado el icono de la PWA para acceder a los shortcuts **Hoy** y **Presupuesto**.
-
-## Presupuesto
-El presupuesto inicial es de **85.000 PHP**. Para cambiarlo, abre el menú lateral y pulsa **Presupuesto**, o abre cualquier día y pulsa **Modificar presupuesto / Edit budget** en la tarjeta de presupuesto. El nuevo valor se guarda en el dispositivo.
-
-Los gastos reales también se guardan localmente.
-
-## Actualizaciones y offline
-
-La aplicación utiliza un Service Worker versionado (`filipinas-v8-4-0`) que precarga los recursos principales, el módulo de **Hoy** y las fotografías locales. Al publicar una nueva versión, el Service Worker puede detectar el cambio y mostrar un aviso de actualización dentro de la aplicación.
-
-La información local —presupuesto, gastos, progreso, checklist y preferencias— se mantiene en el almacenamiento del dispositivo. Los enlaces externos, como Google Maps y reservas, necesitan conexión para abrir sus servicios.
-
-## GitHub Pages
-La versión publicada está disponible en:
-
-[https://nachhr.github.io/Filipinas/](https://nachhr.github.io/Filipinas/)
-
-Para configurar el despliegue, entra en `Settings → Pages` y selecciona `Deploy from a branch`, rama `main` y carpeta `/ (root)`.
-
-## Netlify
-Puedes conectar el repositorio de GitHub o desplegar manualmente la carpeta del proyecto.
-
-## Alojamiento
-La aplicación incluye los enlaces de:
 - Vinyce Studio — Cagayan de Oro.
 - Turtle Nest Guest House (Tinian Villa) — Camiguin.
 - CK Haven Suites • Clean & Cozy Stay - Tuscania CDO — Cagayan de Oro.
 
-Las fechas del itinerario y el checkout de CK Haven Suites (23 de octubre antes de las 12:00) están reflejados en la aplicación.
+## 📷 Fotografías
+
+Las fotografías utilizadas por la aplicación están almacenadas físicamente en el repositorio dentro de `images/`. Esto evita depender de servidores externos para la fotografía y permite que las imágenes principales estén disponibles sin conexión.
+
+Las fuentes y licencias están documentadas en `PHOTO-CREDITS.md`.
+
+## 📁 Estructura principal
+
+- `index.html` — estructura de la PWA y carga de recursos.
+- `style.css` — interfaz responsive general.
+- `today.css` — estilos específicos del contexto **Hoy**.
+- `script.js` — lógica principal de navegación, presupuesto, gastos, progreso, PWA y almacenamiento local.
+- `today.js` — contexto dinámico de **Hoy** y datos/recordatorios de vuelos.
+- `data.js` — itinerario, destinos, actividades, POIs, mapas y notas.
+- `photos.js` — asignación de fotografías locales.
+- `images/` — fotografías locales.
+- `manifest.json` — configuración de instalación, iconos y shortcuts.
+- `service-worker.js` — caché y funcionamiento offline.
+- `PHOTO-CREDITS.md` — fuentes y licencias de las fotografías.
+- `CHANGELOG.md` — historial técnico de cambios.
+
+## 📱 Instalación y uso offline
+
+La aplicación puede instalarse desde Chrome Android mediante **Instalar aplicación** o **Añadir a pantalla de inicio**. El Service Worker almacena los recursos principales y las fotografías locales para permitir el uso de la aplicación sin conexión.
+
+Los datos personales de presupuesto, gastos, progreso, checklist y preferencias se mantienen en el almacenamiento local del dispositivo. Los servicios externos, como Google Maps y páginas de reserva, requieren conexión cuando se abren.
+
+## 💻 Desarrollo local
+
+Desde la carpeta que contiene `index.html`:
+
+```bash
+python -m http.server 8000
+```
+
+Después, abre `http://localhost:8000` en el navegador.
+
+## 🌐 Despliegue
+
+El repositorio está preparado para GitHub Pages y también puede desplegarse en Netlify. La aplicación utiliza rutas relativas para que funcione correctamente bajo una subruta como `/Filipinas/`.
 
 ## Créditos
 
