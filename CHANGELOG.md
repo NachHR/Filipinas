@@ -1,6 +1,19 @@
 # Changelog
 
-## V8.8.1 — 2026-09-17 · Implementada
+## V8.9.0 — 2026-09-17 · Implementada
+
+- Exportación local de todas las notas a un único Markdown por día/fecha/lugar; texto intacto, días vacíos omitidos y borradores recuperables incluidos.
+- Exportación bloqueada con aviso ante datos ilegibles; no se genera una copia parcial ni se modifica el almacenamiento.
+- Solo itinerario oculta POI y pautas de grabación; nuevas etiquetas ES/EN Solo itinerario / Vista completa.
+- Presupuesto global accesible desde el menú, con total editable, saldo real, categorías y lista plegable de gastos agrupados por día/categoría con subtotales.
+- Editor compartido entre vistas diaria/global; altas, cambios de fecha/categoría, edición y eliminación confirmada. Importes en PHP con céntimos y cálculos en unidades menores.
+- Exportación del presupuesto y todos los conceptos a un único Markdown UTF-8. Normalización heredada en memoria: consultar/exportar no reescribe los gastos.
+- Fallos de guardado conservan el formulario; datos corruptos no se sobrescriben. Se elimina el lector duplicado de gastos del coordinador.
+- Nuevo `exports.js` precargado offline; badge, recursos, caché y paquetes a 8.9.0. Sin dependencias nuevas, migración `8.7` intacta.
+- 20 pruebas automatizadas superadas. Integración directa en main autorizada por el propietario; publicación pendiente de verificar.
+
+
+## V8.8.1 — 2026-09-17 · Publicada y validada
 
 - Navegación de lugares ordenada por su primera fecha en el itinerario completo; destinos de ida y vuelta mantienen sus claves.
 - Arranque en el día actual local en lugar del último día consultado; límites antes/después del viaje y navegación manual preservados.
@@ -9,7 +22,7 @@
 - Badge, recursos, paquetes de pruebas y caché actualizados a 8.8.1 / `filipinas-v8-8-1`; migración `8.7` intacta.
 - 14 pruebas automatizadas, incluidas regresiones de navegación, arranque, presets y limpieza de la caché anterior.
 - Exportación conjunta del diario a Markdown especificada para V8.9, sin implementarla en este parche.
-- Integración directa en `main` solicitada por el propietario; publicación a verificar tras el commit.
+- Integrada directamente en `main` (`5ecffe5`); [Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35182425077). El propietario confirma funcionamiento correcto.
 
 
 ## Mantenimiento documental — 2026-09-17

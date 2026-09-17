@@ -50,13 +50,6 @@ function setChecklist(dayId, key, val) {
   c[key] = val;
   localStorage.setItem(`check_${dayId}`, JSON.stringify(c));
 }
-function expenses() {
-  try {
-    return JSON.parse(localStorage.getItem("expenses") || "[]");
-  } catch {
-    return [];
-  }
-}
 function saveExpenses(items) {
   localStorage.setItem("expenses", JSON.stringify(items));
 }
@@ -176,14 +169,14 @@ function renderDay(id) {
     .forEach((b) =>
       b.classList.toggle("active", b.dataset.loc === day.locationKey),
     );
-  const allExpenses = expenses(),
-    spent = allExpenses.reduce((s, e) => s + Number(e.amount || 0), 0),
-    completed = day.activities.filter((a) => getActivityDone(day.id, a)).length,
+  let spent = null;
+  try { spent = budgetSum(budgetItems()); } catch { /* The budget view explains unreadable data. */ }
+  const completed = day.activities.filter((a) => getActivityDone(day.id, a)).length,
     total = day.activities.length,
     pct = total ? Math.round((completed / total) * 100) : 0,
     tripBudget = getTripBudget();
   $("#dayContent").innerHTML =
-    `<div class="day-head"><div class="day-meta"><span class="eyebrow">${t("day.day")} ${day.id} / ${tripData.meta.totalDays}</span>${isToday(day.date) ? `<span class="pill done">${t("day.todayBanner")}</span>` : ""}<span class="pill ${day.status}">${statusLabel(day.status)}</span></div><h1 class="day-title">${tr(day.title)}</h1><div class="date-line">${formatDate(day.date)} · ${tr(day.location)}</div><div class="progress-wrap"><div class="progress-line"><span style="width:${pct}%"></span></div><div class="progress-copy">${t("day.progress")}: ${completed}/${total} · ${pct}%</div></div><div class="card budget-box"><div class="budget-row"><span>${t("day.totalBudget")}</span><strong>${money(tripBudget)}</strong></div><div class="budget-row"><span>${t("day.spent")}</span><strong>${money(spent)}</strong></div><div class="budget-row"><span>${t("day.remaining")}</span><strong>${money(Math.max(0, tripBudget - spent))}</strong></div><div class="budget-quick"><button class="action primary" id="openBudgetEditor" type="button">✎ ${t("day.editBudget")}</button><span class="saved-budget">${t("day.savedDevice")}</span></div></div></div>${accommodationSection(day)}<div class="grid">${day.activities.map((act, i) => activityCard(day, act, i)).join("")}</div>${day.pois?.length ? `<section class="documentary"><div class="section-head"><h2>${t("day.poi")}</h2><span>${day.pois.length}</span></div><div class="grid two">${day.pois.map(poiCard).join("")}</div></section>` : ""}${day.loc ? recordingSection(day) : ""}${locationGallery(day.locationKey)}<section class="budget-section"></section>`;
+    `<div class="day-head"><div class="day-meta"><span class="eyebrow">${t("day.day")} ${day.id} / ${tripData.meta.totalDays}</span>${isToday(day.date) ? `<span class="pill done">${t("day.todayBanner")}</span>` : ""}<span class="pill ${day.status}">${statusLabel(day.status)}</span></div><h1 class="day-title">${tr(day.title)}</h1><div class="date-line">${formatDate(day.date)} · ${tr(day.location)}</div><div class="progress-wrap"><div class="progress-line"><span style="width:${pct}%"></span></div><div class="progress-copy">${t("day.progress")}: ${completed}/${total} · ${pct}%</div></div><div class="card budget-box"><div class="budget-row"><span>${t("day.totalBudget")}</span><strong>${money(tripBudget)}</strong></div><div class="budget-row"><span>${t("day.spent")}</span><strong>${spent === null ? "—" : money(spent)}</strong></div><div class="budget-row"><span>${t("day.remaining")}</span><strong>${spent === null ? "—" : money(Math.round((tripBudget - spent) * 100) / 100)}</strong></div><div class="budget-quick"><button class="action primary" id="openBudgetEditor" type="button">✎ ${t("day.editBudget")}</button><span class="saved-budget">${t("day.savedDevice")}</span></div></div></div>${accommodationSection(day)}<div class="grid">${day.activities.map((act, i) => activityCard(day, act, i)).join("")}</div>${day.pois?.length ? `<section class="documentary poi-section"><div class="section-head"><h2>${t("day.poi")}</h2><span>${day.pois.length}</span></div><div class="grid two">${day.pois.map(poiCard).join("")}</div></section>` : ""}${day.loc ? recordingSection(day) : ""}${locationGallery(day.locationKey)}<section class="budget-section"></section>`;
   if (typeof renderTodayContext === "function") renderTodayContext();
   const fieldNotes = document.createElement("div");
   fieldNotes.className = "field-notes";
@@ -248,7 +241,9 @@ function openBudgetEditor() {
   if (!dialog) return;
   applyShellTranslations();
   $("#budgetDialogInput").value = getTripBudget();
-  dialog.showModal();
+  $("#budgetTotalStatus").textContent = "";
+  renderGlobalBudget();
+  if (!dialog.open) dialog.showModal();
 }
 function setConnectionText(online) {
   const text = online ? t("connection.online") : t("connection.offline");
@@ -310,6 +305,7 @@ function watchSW(reg) {
   });
 }
 function bindGlobal() {
+  $("#menuExportJournal").onclick = Journal.exportAll;
   $("#menuBudget").onclick = () => {
     openBudgetEditor();
     closeMenu();
@@ -349,12 +345,19 @@ function bindGlobal() {
     $("#menuInstall").hidden = true;
     state.installedPrompt = null;
   });
+  $("#budgetCloseButton").onclick = () => $("#budgetDialog").close();
+  $("#budgetDialogCancel").onclick = () => $("#budgetDialog").close();
   $("#budgetDialogForm").addEventListener("submit", (e) => {
     if (e.submitter?.id !== "saveBudgetButton") return;
+    e.preventDefault();
     const amount = Number($("#budgetDialogInput").value);
-    if (Number.isFinite(amount) && amount > 0) {
-      saveTripBudget(amount);
-      renderDay(state.selectedDay);
+    if (!Number.isFinite(amount) || amount <= 0) return;
+    try {
+      saveTripBudget(Math.round(amount * 100) / 100);
+      refreshBudgetViews();
+      $("#budgetTotalStatus").textContent = t("budget.saved");
+    } catch {
+      $("#budgetTotalStatus").textContent = t("budget.saveError");
     }
   });
 }

@@ -1,6 +1,6 @@
 # QA — V8.8.1 Ajustes de navegación y rodaje
 
-Implementación: 17/09/2026, sobre `cb49ce4`. Integración directa en main solicitada por el propietario. Despliegue pendiente de verificación tras el commit.
+Implementación: 17/09/2026, sobre `cb49ce4`. Integración directa en main solicitada por el propietario. Integrada como `5ecffe5`; [Pages completado](https://github.com/NachHR/Filipinas/actions/runs/35182425077). El propietario confirma funcionamiento correcto antes de autorizar V8.9.0; no aporta resultados desglosados por dispositivo.
 
 ## Automatizado
 

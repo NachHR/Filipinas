@@ -1,8 +1,11 @@
 /* V8.6.4 — Single source of truth for all interface translations. */
 const I18N = {
   es: {
+    exports: { started: "Descarga solicitada. Comprueba tus descargas.", error: "No se ha podido exportar. Comprueba los datos guardados y vuelve a intentarlo." },
     journal: {
       title: "Mi diario",
+      export: "Exportar todas las notas",
+      noNotes: "No hay notas para exportar.",
       label: "Mi nota personal",
       placeholder: "¿Qué quieres recordar de este día?",
       saved: "Guardado en este dispositivo",
@@ -49,8 +52,8 @@ const I18N = {
       today: "Hoy",
       install: "Instalar aplicación",
       budget: "Presupuesto",
-      itinerary: "Ocultar rodaje",
-      documentary: "Mostrar rodaje",
+      itinerary: "Solo itinerario",
+      documentary: "Vista completa",
       menuOpen: "Abrir menú",
       menuClose: "Cerrar",
       dayNav: "Navegación por días",
@@ -100,6 +103,14 @@ const I18N = {
     },
     budget: {
       title: "Presupuesto",
+      all: "Todos los gastos por día",
+      export: "Exportar presupuesto (.md)",
+      confirmDelete: "¿Eliminar este gasto? Esta acción no se puede deshacer.",
+      saved: "Guardado en este dispositivo.",
+      deleted: "Gasto eliminado.",
+      invalid: "Revisa el concepto, importe, categoría y fecha del viaje.",
+      saveError: "No se ha podido guardar. Conserva los datos del formulario e inténtalo de nuevo.",
+      readError: "No se pueden leer los gastos guardados. No se han modificado; revisa los datos antes de continuar.",
       total: "Presupuesto total",
       spent: "Gastado",
       remaining: "Disponible",
@@ -162,8 +173,11 @@ const I18N = {
     },
   },
   en: {
+    exports: { started: "Download requested. Check your downloads.", error: "Export failed. Check your saved data and try again." },
     journal: {
       title: "My diary",
+      export: "Export all notes",
+      noNotes: "No notes to export.",
       label: "My personal note",
       placeholder: "What would you like to remember about this day?",
       saved: "Saved on this device",
@@ -210,8 +224,8 @@ const I18N = {
       today: "Today",
       install: "Install app",
       budget: "Budget",
-      itinerary: "Hide filming",
-      documentary: "Show filming",
+      itinerary: "Itinerary only",
+      documentary: "Full view",
       menuOpen: "Open menu",
       menuClose: "Close",
       dayNav: "Day navigation",
@@ -261,6 +275,14 @@ const I18N = {
     },
     budget: {
       title: "Budget",
+      all: "All expenses by day",
+      export: "Export budget (.md)",
+      confirmDelete: "Delete this expense? This cannot be undone.",
+      saved: "Saved on this device.",
+      deleted: "Expense deleted.",
+      invalid: "Check the description, amount, category and trip date.",
+      saveError: "Could not save. Keep your form details and try again.",
+      readError: "Cannot read saved expenses. They have not been changed; check the data before continuing.",
       total: "Total budget",
       spent: "Spent",
       remaining: "Remaining",
@@ -385,6 +407,7 @@ function applyShellTranslations() {
     todayButton: t("shell.today"),
     menuTodayText: t("shell.today"),
     menuBudgetText: t("shell.budget"),
+    menuExportJournalText: t("journal.export"),
     menuInstallText: t("shell.install"),
     modeLabel: state.itineraryOnly
       ? t("shell.documentary")
@@ -393,7 +416,7 @@ function applyShellTranslations() {
     budgetDialogTitle: t("budget.title"),
     budgetDialogHelp: t("budget.help"),
     budgetDialogLabel: t("budget.label"),
-    budgetDialogCancel: t("budget.cancel"),
+    budgetDialogCancel: t("shell.menuClose"),
     saveBudgetButton: t("shell.save"),
   };
   Object.entries(textMap).forEach(([id, text]) => {

@@ -219,12 +219,12 @@ test("filming toggle changes labels and preference but keeps the journal", () =>
   const a = app();
   a.doc.getElementById("itineraryModeButton").click();
   assert.equal(a.win.localStorage.getItem("itineraryOnly"), "true");
-  assert.equal(a.doc.getElementById("modeLabel").textContent, "Mostrar rodaje");
+  assert.equal(a.doc.getElementById("modeLabel").textContent, "Vista completa");
   assert.ok(a.doc.querySelector("#journalText"));
   a.run('setLanguage("en")');
-  assert.equal(a.doc.getElementById("modeLabel").textContent, "Show filming");
+  assert.equal(a.doc.getElementById("modeLabel").textContent, "Full view");
   a.doc.getElementById("itineraryModeButton").click();
-  assert.equal(a.doc.getElementById("modeLabel").textContent, "Hide filming");
+  assert.equal(a.doc.getElementById("modeLabel").textContent, "Itinerary only");
   assert.ok(!read("style.css").includes(".mode-only .budget-section"));
   a.dom.window.close();
 });
@@ -267,12 +267,12 @@ test("Today phases, independent check-ins, and quick access use the actual trip 
 
 test("versioned scripts/styles, offline shell and local images all exist", () => {
   const sw = read("service-worker.js");
-  assert.match(html, /V8\.8\.1/);
-  assert.match(sw, /filipinas-v8-8-1/);
+  assert.match(html, /V8\.9\.0/);
+  assert.match(sw, /filipinas-v8-9-0/);
   for (const match of html.matchAll(
     /(?:src|href)="([^"?]+\.(?:js|css))\?v=([^"&]+)/g,
   )) {
-    assert.equal(match[2], "8.8.1");
+    assert.equal(match[2], "8.9.0");
     assert.ok(sw.includes(`'./${match[1]}'`) || sw.includes(`"./${match[1]}"`), match[1]);
   }
   for (const match of sw.matchAll(/["']\.\/([^"']+)["']/g))
@@ -309,6 +309,7 @@ test("service worker waits for consent and deletes only old app caches", async (
         "filipinas-v8-7-1",
         "filipinas-v8-8-0",
         "filipinas-v8-8-1",
+        "filipinas-v8-9-0",
       ],
       delete: async (key) => deleted.push(key),
     },
@@ -330,7 +331,7 @@ test("service worker waits for consent and deletes only old app caches", async (
     },
   });
   await pending;
-  assert.deepEqual(deleted, ["filipinas-v8-7-1", "filipinas-v8-8-0"]);
+  assert.deepEqual(deleted, ["filipinas-v8-7-1", "filipinas-v8-8-0", "filipinas-v8-8-1"]);
   events.message({ data: { type: "SKIP_WAITING" } });
   assert.ok(messages.includes("skip"));
 });
@@ -391,5 +392,176 @@ test("all 29 filming guides display 16:9 and contextual filter advice in both la
       assert.doesNotMatch(a.doc.querySelector("#dayContent")?.textContent || a.doc.body.textContent, /\b4:3\b/);
     }
   }
+  a.win.close();
+});
+
+
+function openLedger(a) {
+  a.doc.getElementById('budgetDialog').showModal = function () { this.setAttribute('open', ''); };
+  a.doc.getElementById('menuBudget').click();
+  return a.doc.getElementById('globalBudget');
+}
+function submitExpense(a, section, values) {
+  const form = section.querySelector('form');
+  for (const [key, value] of Object.entries(values)) form.querySelector(`[data-field="${key}"]`).value = value;
+  form.dispatchEvent(new a.win.Event('submit', {bubbles:true,cancelable:true}));
+}
+function captureDownloads(a) {
+  const files = [];
+  a.win.URL.createObjectURL = blob => { files.push({blob}); return 'blob:test'; };
+  a.win.URL.revokeObjectURL = () => {};
+  a.win.HTMLAnchorElement.prototype.click = function () { files.at(-1).filename = this.download; };
+  return files;
+}
+async function blobText(a, blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new a.win.FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsText(blob);
+  });
+}
+
+test('journal export downloads one UTF-8 Markdown with chronological notes and unsaved drafts', async () => {
+  const a = app(), files = captureDownloads(a);
+  a.run('selectDay(11)'); input(a, 'Mañana 🌴\nSegunda línea');
+  a.run('selectDay(10)'); input(a, 'Texto antiguo');
+  const setItem = a.win.Storage.prototype.setItem;
+  a.win.Storage.prototype.setItem = function (key, value) {
+    if (key === 'filipinasJournal') throw new Error('quota');
+    return setItem.call(this, key, value);
+  };
+  input(a, 'Borrador áéí\n<script>texto literal</script>');
+  const before = snapshot(a.win);
+  a.doc.getElementById('menuExportJournal').click();
+  assert.equal(files.length, 1);
+  assert.equal(files[0].filename, 'filipinas-diario.md');
+  assert.equal(files[0].blob.type, 'text/markdown;charset=utf-8');
+  const text = await blobText(a, files[0].blob);
+  assert.ok(text.indexOf('## Día 10 · 2026-10-05') < text.indexOf('## Día 11 · 2026-10-06'));
+  assert.ok(text.includes('Borrador áéí\n<script>texto literal</script>'));
+  assert.ok(text.includes('Mañana 🌴\nSegunda línea'));
+  assert.ok(!text.includes('Texto antiguo'));
+  assert.equal((text.match(/^## /gm) || []).length, 2);
+  assert.deepEqual(snapshot(a.win), before);
+  assert.equal(a.run('Journal.hasUnsaved()'), true);
+  a.win.close();
+});
+
+test('empty exports and ES/EN menu labels; invalid journal refuses partial export', async () => {
+  const a = app(), files = captureDownloads(a);
+  a.run('setLanguage("en")');
+  assert.equal(a.doc.getElementById('menuExportJournalText').textContent, 'Export all notes');
+  a.doc.getElementById('menuExportJournal').click();
+  assert.match(await blobText(a, files[0].blob), /No notes to export/);
+  openLedger(a).querySelector('[data-export-budget]').click();
+  assert.match(await blobText(a, files[1].blob), /No expenses recorded/);
+  a.win.localStorage.setItem('filipinasJournal', '{broken');
+  a.doc.getElementById('menuExportJournal').click();
+  assert.equal(files.length, 2);
+  assert.match(a.doc.getElementById('exportStatus').textContent, /Export failed/);
+  assert.equal(a.win.localStorage.getItem('filipinasJournal'), '{broken');
+  a.win.close();
+});
+
+test('global and daily editors share CRUD, category totals, date moves and decimal amounts', () => {
+  const a = app({filipinasJourneyModel:'8.7', tripBudget:'1'});
+  a.run('selectDay(10)'); input(a, 'Keep my note');
+  let ledger = openLedger(a);
+  submitExpense(a, ledger, {detail:'Comida <img src=x>',amount:'0.10',category:'food',date:'2026-10-05'});
+  submitExpense(a, ledger, {detail:'Taxi',amount:'0.20',category:'local',date:'2026-10-06'});
+  assert.equal(a.run('budgetSummary(budgetItems()).spent'), 0.3);
+  assert.equal(a.run('budgetSummary(budgetItems()).remaining'), 0.7);
+  assert.equal(ledger.querySelectorAll('.budget-day').length, 2);
+  assert.equal(a.doc.querySelectorAll('.budget-section .budget-expense').length, 1);
+  assert.equal(ledger.querySelector('.budget-expense img'), null);
+  ledger.querySelector('[data-budget-edit]').click();
+  submitExpense(a, ledger, {detail:'Hotel',amount:'2.50',category:'accommodation',date:'2026-10-06'});
+  assert.equal(ledger.querySelectorAll('.budget-day').length, 1);
+  assert.equal(a.doc.querySelectorAll('.budget-section .budget-expense').length, 0);
+  assert.equal(a.run('budgetSummary(budgetItems()).spent'), 2.7);
+  assert.equal(a.run('budgetSummary(budgetItems()).remaining'), -1.7);
+  assert.match(ledger.querySelector('[data-budget-remaining]').textContent, /-1,7/);
+  a.win.confirm = () => false;
+  ledger.querySelector('[data-budget-delete]').click();
+  assert.equal(a.run('budgetItems().length'), 2);
+  a.win.confirm = () => true;
+  ledger.querySelector('[data-budget-delete]').click();
+  assert.equal(a.run('budgetItems().length'), 1);
+  submitExpense(a, a.doc.querySelector('.budget-section'), {detail:'Café',amount:'3.25',category:'food',date:'2026-10-05'});
+  assert.equal(ledger.querySelectorAll('.budget-day').length, 2);
+  const ids = [...a.doc.querySelectorAll('[id]')].map(el => el.id);
+  assert.equal(ids.length, new Set(ids).size);
+  assert.equal(a.doc.getElementById('journalText').value, 'Keep my note');
+  const b = app(snapshot(a.win));
+  assert.equal(b.run('budgetSummary(budgetItems()).spent'), a.run('budgetSummary(budgetItems()).spent'));
+  assert.equal(b.win.localStorage.getItem('filipinasJourneyModel'), '8.7');
+  b.win.close(); a.win.close();
+});
+
+test('budget export includes every day/category, totals and legacy items without rewriting storage', async () => {
+  const seed = {filipinasJourneyModel:'8.7',tripBudget:'100',expenses:JSON.stringify([
+    {dayId:11,description:'Taxi | <tag>',amount:30,category:'local'},
+    {id:'food',date:'2026-10-05',dayId:10,detail:'Piña',amount:10.5,category:'food'},
+    {id:'food2',date:'2026-10-05',dayId:10,detail:'Café',amount:0.5,category:'food'},
+  ])};
+  const a = app(seed), files = captureDownloads(a);
+  const before = a.win.localStorage.getItem('expenses');
+  openLedger(a).querySelector('[data-export-budget]').click();
+  assert.equal(files.length, 1);
+  assert.equal(files[0].filename, 'filipinas-presupuesto.md');
+  const md = await blobText(a, files[0].blob);
+  assert.match(md, /Gastado: 41 PHP/);
+  assert.match(md, /Disponible: 59 PHP/);
+  assert.match(md, /Comida: 11 PHP/);
+  assert.match(md, /## Día 10 · 2026-10-05 · 11 PHP/);
+  assert.match(md, /## Día 11 · 2026-10-06 · 30 PHP/);
+  assert.ok(md.indexOf('## Día 10') < md.indexOf('## Día 11'));
+  assert.match(md, /Piña/); assert.match(md, /Taxi/);
+  assert.ok(!md.includes('<tag>'));
+  assert.equal(a.win.localStorage.getItem('expenses'), before);
+  a.win.close();
+});
+
+test('budget save failures retain form and data; total edits stay open and update summaries', () => {
+  const a = app({filipinasJourneyModel:'8.7'}), ledger = openLedger(a);
+  const setItem = a.win.Storage.prototype.setItem;
+  a.win.Storage.prototype.setItem = function (key, value) {
+    if (key === 'expenses') throw new Error('quota');
+    return setItem.call(this,key,value);
+  };
+  submitExpense(a,ledger,{detail:'Keep draft',amount:'7',category:'food',date:'2026-10-05'});
+  assert.equal(ledger.querySelector('[data-field="detail"]').value, 'Keep draft');
+  assert.match(ledger.querySelector('[data-budget-status]').textContent, /No se ha podido guardar/);
+  assert.equal(a.win.localStorage.getItem('expenses'), null);
+  a.win.Storage.prototype.setItem = setItem;
+  submitExpense(a,ledger,{});
+  assert.equal(a.run('budgetItems().length'),1);
+  a.doc.getElementById('budgetDialogInput').value = '500.50';
+  a.doc.getElementById('saveBudgetButton').click();
+  assert.equal(a.win.localStorage.getItem('tripBudget'),'500.5');
+  assert.equal(a.doc.getElementById('budgetDialog').open, true);
+  assert.match(ledger.querySelector('[data-budget-remaining]').textContent,/493,5/);
+  a.win.localStorage.setItem('expenses','{invalid');
+  const saved = a.win.localStorage.getItem('expenses');
+  assert.throws(() => a.run('budgetMarkdown()'));
+  a.run('renderGlobalBudget()');
+  assert.match(ledger.textContent,/No se pueden leer/);
+  assert.equal(a.win.localStorage.getItem('expenses'),saved);
+  a.win.close();
+});
+
+test('itinerary-only CSS hides POI and filming while keeping notes and expenses', () => {
+  const a = app();
+  const css = a.doc.createElement('style'); css.textContent = read('style.css'); a.doc.head.appendChild(css);
+  a.run('selectDay(10)');
+  assert.ok(a.doc.querySelector('.poi-section'));
+  a.doc.getElementById('itineraryModeButton').click();
+  assert.equal(a.win.getComputedStyle(a.doc.querySelector('.poi-section')).display,'none');
+  assert.equal(a.win.getComputedStyle(a.doc.querySelector('.field-guide')).display,'none');
+  assert.notEqual(a.win.getComputedStyle(a.doc.querySelector('.journal-card')).display,'none');
+  assert.notEqual(a.win.getComputedStyle(a.doc.querySelector('.budget-section')).display,'none');
+  a.doc.getElementById('itineraryModeButton').click();
+  assert.notEqual(a.win.getComputedStyle(a.doc.querySelector('.poi-section')).display,'none');
   a.win.close();
 });

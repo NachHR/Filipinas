@@ -1,7 +1,7 @@
 {
   "name":"Filipinas / Philippines · Travel Diary",
   "short_name":"Filipinas",
-  "description":"Bilingual ES/EN door-to-door travel diary and 29-day itinerary for the Philippines trip.",
+  "description":"Bilingual ES/EN travel diary, 29-day itinerary and expense ledger with offline Markdown exports.",
   "start_url":"./",
   "scope":"./",
   "display":"standalone",

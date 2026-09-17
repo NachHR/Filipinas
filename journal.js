@@ -1,4 +1,4 @@
-/* V8.8.0 — Private, date-keyed notes. No network requests or legacy migration. */
+/* V8.9.0 — Private, date-keyed notes. No network requests or legacy migration. */
 const Journal = (() => {
   const KEY = "filipinasJournal";
   const drafts = new Map();
@@ -95,11 +95,35 @@ const Journal = (() => {
     });
   }
 
+  function markdown() {
+    const entries = { ...read().entries, ...Object.fromEntries(drafts) };
+    const lines = [`# Filipinas · ${t("journal.title")}`, ""];
+    let count = 0;
+    for (const date of Object.keys(entries).sort()) {
+      if (!entries[date].text.trim()) continue;
+      const day = tripData.days.find(day => day.date === date);
+      lines.push(`## ${day ? `${t("day.day")} ${day.id} · ` : ""}${date}${day ? ` · ${tr(day.location)}` : ""}`, "", entries[date].text, "");
+      count++;
+    }
+    if (!count) lines.push(t("journal.noNotes"), "");
+    return lines.join("\n");
+  }
+
+  function exportAll() {
+    try {
+      downloadMarkdown("filipinas-diario.md", markdown());
+      document.getElementById("exportStatus").textContent = t("exports.started");
+    } catch {
+      // Never silently export only a subset when stored data cannot be read.
+      document.getElementById("exportStatus").textContent = t("exports.error");
+    }
+  }
+
   window.addEventListener("beforeunload", (event) => {
     if (drafts.size) {
       event.preventDefault();
       event.returnValue = "";
     }
   });
-  return { render, bind, hasUnsaved: () => drafts.size > 0 };
+  return { render, bind, markdown, exportAll, hasUnsaved: () => drafts.size > 0 };
 })();

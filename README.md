@@ -1,8 +1,8 @@
 # Filipinas Travel PWA
 
-**Versión del código: V8.8.1 — Ajustes de navegación y rodaje** · 17/09/2026
+**Versión del código: V8.9.0 — Diario exportable y presupuesto global** · 17/09/2026
 
-**Estado:** implementada para integración directa en `main`. La publicación anterior verificada es V8.8.0; el despliegue de esta versión debe confirmarse en GitHub Pages. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.8.1](tests/QA_V8.8.1.md).
+**Estado:** V8.9.0 implementada para integración directa en `main`, pendiente de comprobar el despliegue. V8.8.1 fue probada por el propietario y desplegada correctamente. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.9.0](tests/QA_V8.9.0.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
@@ -10,20 +10,28 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
 
-## V8.8.1 — Ajustes de navegación y rodaje
+## V8.9.0 — Diario exportable y presupuesto global
+
+- **Exportar todas las notas**, desde el menú: un único `filipinas-diario.md` con días, fechas y lugares, en orden cronológico. Omite notas vacías y conserva el texto y sus saltos de línea; incluye borradores en memoria cuando el diario guardado se puede leer.
+- **Solo itinerario / Vista completa**: oculta o muestra conjuntamente POI y rodaje; mantiene diario, gastos, alojamiento y actividades.
+- **Presupuesto**, desde el menú: resumen global, total editable, gastos plegables por día y categoría, subtotales y totales por categoría.
+- Añadir, editar y eliminar conceptos desde el presupuesto global o el día usando los mismos registros. Confirmación antes de eliminar e importes con dos decimales.
+- **Exportar presupuesto (.md)**: un único `filipinas-presupuesto.md` con presupuesto, gastado, saldo (negativo si se ha excedido), categorías y detalle diario.
+- Descargas locales UTF-8, también offline tras cargar la app. Exportar no borra ni modifica los datos. Los textos de los conceptos se escapan para conservar su lectura como texto en Markdown.
+
+### Conservado de V8.8.1
 
 - Lugares ordenados por primera fecha del itinerario, conservando las etapas de ida y regreso.
 - Apertura en el día actual según la fecha local del dispositivo, aunque se hubiera consultado otro día. Antes del viaje abre el primero; después, el último.
 - Navegación manual conservada durante la sesión y al cambiar idioma.
 - Todos los presets en **16:9**, con indicación visible sobre el **ND8 polarizado** según el tipo de rodaje; no se presupone su uso en todas las escenas.
-- Exportación de todas las notas a un único Markdown, agrupadas por día, reservada para V8.9; aún no disponible.
 
 ## Cuaderno de campo
 
 - **Mi diario:** texto libre para cada uno de los 29 días, autoguardado inmediato y fecha/hora de última edición.
 - **Rodaje de hoy / Rodaje documental:** preset, excepción técnica y precauciones visibles; técnica ampliada y checklist plegables.
 - Contenido de rodaje de solo lectura. Solo se editan notas y casillas; el presupuesto conserva su edición habitual.
-- **Mostrar/Ocultar rodaje** en el menú existente, sin añadir botones a la cabecera ni ocultar diario, presupuesto o POIs.
+- **Solo itinerario / Vista completa** en el menú existente, sin añadir botones a la cabecera.
 - Los días 18–24 en Cebú siguen como **propuesta editorial, no confirmada**.
 - Diario y guía disponibles offline después de una primera carga completa online.
 - Notas asociadas a fechas ISO, independientes de la numeración del itinerario. No se vuelve a ejecutar la migración 8.7 en dispositivos ya migrados.
@@ -34,7 +42,7 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 
 La app abre en el día actual. Pulsa **Hoy** para volver a él; el diario está justo bajo su contexto. También puedes navegar a cualquier otro día para escribir. El encabezado del diario identifica siempre la fecha seleccionada: no confundirla con la fecha real si consultas días pasados o futuros.
 
-El texto se guarda al escribir y no se traduce al cambiar ES/EN. Si el navegador rechaza el guardado, aparece un error y se conserva un borrador en memoria durante esa sesión. **Copia el texto antes de cerrar o actualizar**: no es una copia de seguridad.
+El texto se guarda al escribir y no se traduce al cambiar ES/EN. Si el navegador rechaza el guardado, aparece un error y se conserva un borrador en memoria durante esa sesión. **Exporta o copia el texto antes de cerrar o actualizar**: el borrador no es persistente. Si el formato guardado es ilegible, la exportación se bloquea para evitar un archivo incompleto.
 
 En la guía, preset y precauciones son visibles; “Técnica y continuidad” amplía el detalle y enlaza a las pautas del destino. La checklist conserva las claves antiguas, incluida `macro`, cuya etiqueta ahora es “Detalle (a 0,4 m o más)”.
 
@@ -85,6 +93,7 @@ Filipinas/
 ├── photos.js
 ├── today.js
 ├── budget.js
+├── exports.js
 ├── documentary-data.js
 ├── documentary.js
 ├── journal.js
@@ -111,7 +120,8 @@ Filipinas/
 - `i18n.js` — catálogo ES/EN y traducción de la shell.
 - `flights.js` — datos y render específico de vuelos/check-in.
 - `today.js` — contexto Hoy/Today para el rango completo 26/09–24/10.
-- `budget.js` — presupuesto y gastos para los 29 días.
+- `budget.js` — editor compartido, agrupación diaria, totales y Markdown del presupuesto.
+- `exports.js` — descarga local de archivos Markdown UTF-8.
 - `photos.js` — fotografías locales del itinerario base.
 - `documentary-data.js` — presets y 29 pautas bilingües por fecha; no modifica el itinerario.
 - `documentary.js` — render de rodaje, pautas detalladas y checklist heredada.
@@ -121,8 +131,8 @@ Filipinas/
 
 ## PWA
 
-- Caché actual: `filipinas-v8-8-1`.
-- Los recursos utilizan cache-busting `?v=8.8.1`.
+- Caché actual: `filipinas-v8-9-0`.
+- Los recursos utilizan cache-busting `?v=8.9.0`.
 - Diario, guía, estilos nuevos, `journey.js` y las fotografías forman parte del app shell/caché offline.
 - El Service Worker elimina únicamente cachés anteriores con prefijo `filipinas-v` al activarse.
 - La primera instalación requiere una carga online completa. Maps, aerolíneas y otros enlaces externos no se garantizan offline.
@@ -133,7 +143,7 @@ El repositorio es público. No deben almacenarse identificadores de reserva, con
 
 El diario utiliza `filipinasJournal`: `{version: 1, entries: {"YYYY-MM-DD": {text, updatedAt}}}`. `updatedAt` se almacena en UTC y se muestra en la hora local del dispositivo. Los formatos desconocidos o corruptos no se sobrescriben. Si se edita una misma fecha desde dos pestañas, prevalece la última escritura.
 
-**No hay todavía exportación ni copia de seguridad automática.** Borrar los datos del sitio elimina las notas y el resto de datos personales; otro navegador o dispositivo no los comparte. No borrar almacenamiento para actualizar la app: usar el aviso **Actualizar**.
+**Hay exportación manual del diario y presupuesto; no hay importación ni copias automáticas.** Los ZIP del repositorio contienen el código público, no las notas ni gastos almacenados en tu navegador. Borrar los datos del sitio elimina las notas y el resto de datos personales; otro navegador o dispositivo no los comparte. No borrar almacenamiento para actualizar la app: usar el aviso **Actualizar**.
 
 ## Fotografías
 
@@ -151,7 +161,9 @@ Abre la aplicación publicada en Chrome Android y selecciona **Instalar aplicaci
 
 ## Presupuesto
 
-El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gastos se almacenan localmente. Los días de tránsito parten con presupuesto específico `0` hasta registrar o presupuestar sus costes reales.
+El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gastos se almacenan localmente. En **Menú → Presupuesto**, modifica el total, registra un concepto o abre un día para consultar sus categorías y editar/eliminar gastos. La fecha del formulario asigna el gasto al día correspondiente. Los cambios aparecen también en la vista diaria.
+
+Usa **Exportar presupuesto (.md)** para descargar el registro completo. Los importes permanecen en PHP; no hay conversión de moneda. Un error de guardado conserva el formulario para reintentar. Los datos ilegibles se señalan y no se sobrescriben.
 
 ## Alojamiento incluido
 
@@ -161,13 +173,13 @@ El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gast
 
 ## Pruebas
 
-Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **14 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.8.1.md](tests/QA_V8.8.1.md).
+Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **20 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, operaciones de gastos, exportaciones UTF-8, visibilidad de POI, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.9.0.md](tests/QA_V8.9.0.md).
 
 No hace falta Node, instalar paquetes ni compilar para usar o servir la app.
 
 ## Despliegue
 
-La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. La integración de V8.8.0 corresponde al commit `3bb4ccd` del 16/09/2026.
+La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. El propietario autoriza integrar V8.9.0 directamente en `main`, sin rama nueva.
 
 Antes de publicar cambios funcionales, ejecutar las pruebas y revisar la PWA en móvil. Después del merge, comprobar el workflow de Pages y la versión servida, y actualizar el estado de README, CHANGELOG y PROJECT_MASTER.
 

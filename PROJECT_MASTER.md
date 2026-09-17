@@ -4,9 +4,11 @@
 
 **Última actualización:** 17/09/2026
 
-**Versión del código:** **V8.8.1 — Ajustes de navegación y rodaje**
+**Versión del código:** **V8.9.0 — Diario exportable y presupuesto global**
 
-**Versión publicada verificada:** **V8.8.0**
+**Última versión validada por el propietario:** **V8.8.1**
+
+**Estado V8.9.0:** implementada, 20 pruebas superadas; integración directa en `main` autorizada, publicación pendiente de verificar.
 
 **Estado V8.8.0:** probada por el propietario, integrada en `main` y publicada. [PR #1](https://github.com/NachHR/Filipinas/pull/1), commit de merge `3bb4ccd` (16/09/2026), [despliegue Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35145442952). Versión servida comprobada el 17/09/2026.
 
@@ -28,13 +30,23 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 - Alojamiento, POIs, Maps, fotos locales, instalación PWA e indicador online/offline.
 - Fotografías de Madrid, Zayed y Sheikh Zayed Grand Mosque dentro de la caché.
 
-### Implementado en V8.8.1
+### Implementado en V8.9.0
+
+- Exportar todas las notas desde el menú a un único Markdown UTF-8 por día/fecha/lugar; omitir vacías y conservar el texto. Incluir borradores en memoria cuando se puede leer el diario; bloquear con aviso si no se puede leer, sin exportación parcial silenciosa.
+- Solo itinerario oculta POI y rodaje. Diario, presupuesto, galería y actividades siguen visibles. Etiquetas ES/EN Solo itinerario / Vista completa.
+- Presupuesto global en el diálogo del menú, con total editable, resumen, saldo incluso negativo, lista plegable por día/categoría y totales por categoría.
+- Editor y almacenamiento compartidos entre vistas global/diaria. Fecha y categoría editables, importes PHP con dos decimales, eliminación confirmada y refresco de ambas vistas.
+- Exportación de resumen, categorías y todos los gastos a un único Markdown. Sin red ni mutaciones al exportar. Los conceptos se escapan como texto Markdown.
+- Errores de escritura conservan el formulario. Los gastos se normalizan en memoria, sin reescribir por consultar. Datos ilegibles bloquean edición/exportación con aviso.
+- Exportación/importación no son equivalentes: no se implementan restauración, sincronización ni copias automáticas. Un ZIP del repositorio no incluye datos del navegador.
+
+### Conservado de V8.8.1
 
 - Lugares ordenados por primera fecha del itinerario, preservando claves y etapas de regreso.
 - Arranque en el día actual local, sin restaurar el último día consultado. Antes/después del viaje: primer/último día. La navegación manual se mantiene durante la sesión; no se fuerza un cambio al volver del segundo plano.
 - Seis presets y excepciones diarias en 16:9; indicación visible ES/EN sobre el ND8 polarizado según el preset. La instrucción del propietario prevalece sobre el 4:3 de la guía fuente.
 - ND8 polarizado opcional, no universal: comprobar exposición/reflejos; retirar con poca luz y bajo el agua, priorizar nitidez/estabilización en movimiento.
-- 14 pruebas automatizadas superadas; ver [QA V8.8.1](tests/QA_V8.8.1.md). Integración directa en `main` solicitada; despliegue pendiente de verificar tras el commit.
+- 14 pruebas automatizadas superadas; ver [QA V8.8.1](tests/QA_V8.8.1.md). Integrada en `main` (`5ecffe5`), [Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35182425077) y funcionamiento validado por el propietario.
 
 ### Implementado en V8.8.0
 
@@ -44,15 +56,15 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 - Consulta documental diaria: preset, excepción técnica y 1–3 precauciones visibles; técnica ampliada y checklist plegables.
 - Guía ES/EN basada en el documento de grabación actualizado de 29 días. Las notas personales no se traducen.
 - Cebú, días 18–24, permanece como `editorial-proposal`; el itinerario sigue pendiente.
-- Mostrar/Ocultar rodaje solo controla contenido de grabación; no oculta diario, presupuesto, POIs ni galería.
+- En V8.8.0 el control solo ocultaba grabación; V8.9.0 amplía el modo solo itinerario a POI.
 - Nuevos módulos y estilos incluidos en la shell offline.
 - Eliminado render/formulario de presupuesto obsoleto y adaptador `L()` sin uso.
 - Actualizaciones del worker con confirmación; no activación inmediata al instalar una versión nueva.
 
 ### Estado técnico
 
-- Badge y CSS/JS: `8.8.1`; Service Worker: `filipinas-v8-8-1`.
-- README, CHANGELOG y este documento distinguen V8.8.1 implementada de V8.8.0 publicada y verificada.
+- Badge y CSS/JS: `8.9.0`; Service Worker: `filipinas-v8-9-0`.
+- README, CHANGELOG y este documento reflejan V8.9.0 implementada y V8.8.1 validada por el propietario.
 - Migración de 26 a 29 días: **mantener identificador interno `8.7`**. No volver a desplazar gastos/checklists/actividades en equipos ya migrados.
 - Las notas nuevas no necesitan migrar IDs: usan fechas ISO.
 - Sin backend, framework, subida multimedia ni dependencias de ejecución. Node/jsdom solo se usan para pruebas.
@@ -85,7 +97,7 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 
 ### Arquitectura estable
 
-- `data.js`: núcleo de Filipinas; solo correcciones técnicas editoriales en esta versión, no cambios del viaje.
+- `data.js` y `documentary-data.js`: viaje y presets sin cambios en V8.9.0.
 - `journey.js`: composición de 29 días y migración heredada; no modificado en V8.8.0.
 - `i18n.js`: única fuente de textos de interfaz ES/EN.
 - `script.js`: coordinador de estado, navegación y render, no un módulo monolítico.
@@ -106,14 +118,16 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 | `field-notes.css` | Cuaderno y tarjetas de consulta rápida |
 | `i18n.js` | Catálogo ES/EN y traducción de la shell |
 | `today.js` / `flights.js` | Contexto temporal y vuelos/check-ins |
-| `budget.js` / `budget.css` | Presupuesto y gastos |
+| `budget.js` / `budget.css` | Presupuesto global/diario, editor compartido y exportación |
+| `exports.js` | Descargas Markdown UTF-8 y escape de conceptos |
 | `photos.js` / `images/` | Fotografías locales |
 | `script.js` | Coordinación, eventos, render y actualizaciones |
 | `style.css` / `today.css` | Estilos generales y contexto Hoy |
 | `service-worker.js` | Shell, caché y actualización con confirmación |
 | `manifest.json` | Instalación PWA |
 | `tests/app.test.cjs` | Regresión DOM y worker simulado |
-| `tests/QA_V8.8.0.md` / `tests/QA_V8.8.1.md` | Evidencia histórica y QA del parche actual |
+| `tests/QA_V8.9.0.md` | Pruebas de exportación, presupuesto y modo itinerario |
+| `tests/QA_V8.8.0.md` / `tests/QA_V8.8.1.md` | Evidencia histórica |
 | `package.json` / `package-lock.json` | Herramientas de pruebas; no hay build requerido |
 | `README.md` / `CHANGELOG.md` | Uso, estado e historial |
 | `PHOTO-CREDITS.md` | Créditos/licencias, sin cambios |
@@ -122,6 +136,12 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 Carga: datos → composición del viaje → módulos existentes → datos documentales/diario/render documental → coordinador. No modificar IDs para acoplar la guía.
 
 ## 4. QA y publicación
+
+### V8.9.0
+
+20 pruebas automatizadas superadas: las 14 regresiones previas más 6 casos de exportaciones, errores, CRUD compartido, decimales, subtotales, datos heredados y visibilidad. Ver [QA V8.9.0](tests/QA_V8.9.0.md). No se certifica instalación Android ni descarga real móvil mediante pruebas DOM. Validar en dispositivo tras publicar.
+
+El propietario solicita trabajar directamente sobre `main`; no abrir una rama adicional para esta entrega.
 
 ### Evidencia histórica V8.8.0: implementación y revisión posterior al merge
 
@@ -162,13 +182,11 @@ El worker precarga con `cache: reload`, espera confirmación en clientes existen
 
 ### Siguiente paso inmediato
 
-Validar V8.8.1 en el dispositivo instalado después de su integración directa en `main` y confirmar su despliegue. Mantener notas, presupuesto y casillas existentes; no cambiar el marcador de migración `8.7`.
+Comprobar despliegue y validar V8.9.0 en el dispositivo instalado: exportación de notas/gastos, actualización sin pérdida de datos y modo solo itinerario. Mantener marcador de migración `8.7`.
 
-### V8.9 — Exportación del diario
+### Protección de datos pendiente
 
-Un único botón «Exportar todas las notas» genera un solo archivo `.md` UTF-8 sin conexión. Agrupar notas no vacías cronológicamente con encabezado de día, fecha y lugar; conservar texto, acentos y saltos de línea. No borrar ni modificar el diario al exportar. Contemplar borradores en memoria para no omitir texto reciente ante fallos de guardado. No implementado en V8.8.1.
-
-Importación, copias automáticas y sincronización siguen fuera de alcance.
+La exportación manual está implementada. Importación, copias automáticas y sincronización siguen fuera de alcance. Conservar las descargas fuera del navegador si se van a borrar sus datos.
 
 ### Ubicación opcional — Sin versión asignada
 

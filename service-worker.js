@@ -1,5 +1,5 @@
-// V8.8.1 — Atomic shell install, explicit updates, app-owned caches only.
-const CACHE = "filipinas-v8-8-1";
+// V8.9.0 — Atomic shell install, explicit updates, app-owned caches only.
+const CACHE = "filipinas-v8-9-0";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -14,6 +14,7 @@ const APP_SHELL = [
   "./photos.js",
   "./today.js",
   "./budget.js",
+  "./exports.js",
   "./documentary-data.js",
   "./documentary.js",
   "./journal.js",
