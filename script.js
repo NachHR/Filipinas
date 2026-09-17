@@ -15,6 +15,12 @@ const imageSrc = (path) => {
     return String(path);
   }
 };
+function photoAttributes(path, primary = false) {
+  const filename = String(path || "").split("/").pop();
+  const dimensions = window.PHOTO_DIMENSIONS?.[filename];
+  const size = dimensions ? `width="${dimensions[0]}" height="${dimensions[1]}"` : "";
+  return `${size} loading="${primary ? "eager" : "lazy"}" decoding="async"${primary ? ' fetchpriority="high"' : ""}`;
+}
 const COMMON_KEYS = [
   "wide",
   "macro",
@@ -156,7 +162,7 @@ function renderHero(day) {
   const lm = locationMeta(day.locationKey),
     rec = day.loc?.recording;
   $("#hero").innerHTML =
-    `<img src="${imageSrc(day.loc?.cover || lm.cover)}" alt="${tr(day.location)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')"><div class="hero-content"><div class="hero-kicker">${tr(day.location)} · ${statusLabel(day.status)}</div><h1>${tr(day.title)}</h1><p>${rec ? tr(rec.theme) : tr(day.location)}</p></div>`;
+    `<img ${photoAttributes(day.loc?.cover || lm.cover, true)} src="${imageSrc(day.loc?.cover || lm.cover)}" alt="${tr(day.location)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')"><div class="hero-content"><div class="hero-kicker">${tr(day.location)} · ${statusLabel(day.status)}</div><h1>${tr(day.title)}</h1><p>${rec ? tr(rec.theme) : tr(day.location)}</p></div>`;
 }
 function renderDay(id) {
   const day = dayById(id);
@@ -212,7 +218,7 @@ function activityCard(day, act, i) {
   return `<article class="card activity-card ${act.status === "pending" ? "pending" : ""}"><div class="activity-top"><div><div class="time">${tr(act.time)}</div><h2>${tr(act.title)}</h2></div><label class="check" title="${t("day.check")}"><input type="checkbox" data-done="${i}" ${done ? "checked" : ""}> <span>${done ? "✓" : ""}</span></label></div><p class="activity-description">${tr(act.description)}</p><div class="chips"><span class="chip">${st}</span>${act.duration ? `<span class="chip">⏱ ${tr(act.duration)}</span>` : ""}</div>${actionHtml}${act.notes?.es || act.notes?.en ? `<div class="notes"><strong>${t("day.notes")}</strong><p>${tr(act.notes)}</p></div>` : ""}${act.transport?.es || act.transport?.en ? `<div class="transport"><b>↔ ${t("day.transport")}</b><br>${tr(act.transport)}</div>` : ""}${act.recording?.es || act.recording?.en ? `<div class="notes activity-recording"><strong>🎥 ${t("day.recording")}</strong><p>${(tr(act.recording) || []).join(" · ")}</p></div>` : ""}</article>`;
 }
 function poiCard(p) {
-  return `<article class="card poi-card">${p.image ? `<img src="${imageSrc(p.image)}" alt="${tr(p.name)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">` : ""}<div class="poi-body"><div class="chips"><span class="chip">${p.optional ? t("day.optional") : "POI"}</span></div><h3>${tr(p.name)}</h3><p>${tr(p.description)}</p><a class="action primary" target="_blank" rel="noopener" href="${p.maps}">⌖ ${t("day.maps")}</a></div></article>`;
+  return `<article class="card poi-card">${p.image ? `<img ${photoAttributes(p.image)} src="${imageSrc(p.image)}" alt="${tr(p.name)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">` : ""}<div class="poi-body"><div class="chips"><span class="chip">${p.optional ? t("day.optional") : "POI"}</span></div><h3>${tr(p.name)}</h3><p>${tr(p.description)}</p><a class="action primary" target="_blank" rel="noopener" href="${p.maps}">⌖ ${t("day.maps")}</a></div></article>`;
 }
 function accommodationSection(day) {
   if (day.accommodationStatus === "flexible")
@@ -224,7 +230,7 @@ function accommodationSection(day) {
 }
 function locationGallery(key) {
   const lm = locationMeta(key);
-  return `<section class="gallery-section"><div class="section-head"><h2>${t("day.gallery")}</h2><span>${tr(lm.name)}</span></div><div class="gallery">${lm.gallery.map((x, i) => `<img src="${imageSrc(x)}" alt="${tr(lm.name)} ${i + 1}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">`).join("")}</div></section>`;
+  return `<section class="gallery-section"><div class="section-head"><h2>${t("day.gallery")}</h2><span>${tr(lm.name)}</span></div><div class="gallery">${lm.gallery.map((x, i) => `<img ${photoAttributes(x)} src="${imageSrc(x)}" alt="${tr(lm.name)} ${i + 1}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">`).join("")}</div></section>`;
 }
 function bindDayEvents(day) {
   $("#openBudgetEditor")?.addEventListener("click", openBudgetEditor);

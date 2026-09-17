@@ -1,8 +1,9 @@
-// V8.10.0 — Atomic shell install, explicit updates, app-owned caches only.
-const CACHE = "filipinas-v8-10-0";
+// V8.11.0 — Atomic shell install, explicit updates, app-owned caches only.
+const CACHE = "filipinas-v8-11-0";
 const APP_SHELL = [
   "./",
   "./index.html",
+  "./PHOTO-CREDITS.md",
   "./style.css",
   "./today.css",
   "./budget.css",
@@ -37,7 +38,10 @@ const LOCAL_IMAGES = [
   "./images/guiob.webp",
   "./images/iligan.webp",
   "./images/kawasan.webp",
+  "./images/kitanglad.webp",
+  "./images/pearl-lounge.webp",
   "./images/madrid-barajas.webp",
+  "./images/magellans-cross.webp",
   "./images/mantigue.webp",
   "./images/oslob.webp",
   "./images/santo-nino.webp",

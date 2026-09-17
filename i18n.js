@@ -1,6 +1,7 @@
 /* V8.6.4 — Single source of truth for all interface translations. */
 const I18N = {
   es: {
+    photos: { credits: "Créditos de fotografías" },
     exports: { started: "Descarga solicitada. Comprueba tus descargas.", error: "No se ha podido exportar. Comprueba los datos guardados y vuelve a intentarlo." },
     journal: {
       title: "Mi diario",
@@ -178,6 +179,7 @@ const I18N = {
     },
   },
   en: {
+    photos: { credits: "Photo credits" },
     exports: { started: "Download requested. Check your downloads.", error: "Export failed. Check your saved data and try again." },
     journal: {
       title: "My diary",
@@ -423,6 +425,7 @@ function applyShellTranslations() {
       ? t("shell.documentary")
       : t("shell.itinerary"),
     footerCredit: t("shell.footer"),
+    photoCreditsLink: t("photos.credits"),
     budgetDialogTitle: t("budget.title"),
     budgetDialogHelp: t("budget.help"),
     budgetDialogLabel: t("budget.label"),

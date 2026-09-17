@@ -1,6 +1,16 @@
 # Changelog
 
-## V8.10.0 — 2026-09-17 · Implementada
+## V8.11.0 — 2026-09-17 · Implementada
+
+- Incorporadas las sustituciones fotográficas subidas por el propietario; ya optimizadas, sin nueva recompresión con pérdida. Nuevas fuentes contrastadas y licencias corregidas; limitaciones de verificación explícitas en PHOTO-CREDITS.
+- Galería oculta en Solo itinerario, con preferencia persistida. En vista completa conserva las proporciones originales.
+- Carga diferida de POI/galería, decodificación asíncrona y dimensiones reales. Portada con carga inmediata y prioridad alta.
+- Corregidas asociaciones de Santo Niño, Madrid-Barajas, Magellan’s Cross, Pearl Lounge y Kitanglad; las tres fotos nuevas también se precargan para uso offline.
+- Créditos enlazados desde el pie ES/EN y precargados para consulta offline.
+- Recursos, badge, paquetes y caché a 8.11.0; migración 8.7 y datos personales intactos. Se documenta validación de V8.10.0 por el propietario.
+- 27 pruebas de regresión; ver tests/QA_V8.11.0.md. Publicación pendiente de verificar.
+
+## V8.10.0 — 2026-09-17 · Validada por el propietario
 
 - Sustituida la estrella de instalación/arranque/favicon por PNG de la bandera circular (192/512 y variante maskable). SVG y presentación de la bandera superior intactos. Eliminados PNG antiguos sin referencias; generador reproducible en scripts.
 - Alojamiento flexible donde no existe reserva, incluyendo noche del 1 de octubre, Manolo/Kisolon, Iligan y Cebú. Añadida tarea Buscar alojamiento al inicio de cada estancia.

@@ -1,14 +1,23 @@
 # Filipinas Travel PWA
 
-**Versión del código: V8.10.0 — Rodaje diario y ajustes de viaje** · 17/09/2026
+**Versión del código: V8.11.0 — Fotografías y rendimiento** · 17/09/2026
 
-**Estado:** V8.10.0 implementada para integración directa en `main`; despliegue pendiente de comprobar. V8.9.0 fue probada por el propietario, con incidencia de codificación de exportaciones abordada en esta versión. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.10.0](tests/QA_V8.10.0.md).
+**Estado:** implementada; publicación pendiente de comprobar. V8.10.0 probada y validada por el propietario. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.11.0](tests/QA_V8.11.0.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
 ## Aplicación
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
+
+## V8.11.0 — Fotografías y rendimiento
+
+- Fotos sustituidas por el propietario, ya reducidas a WebP. Se conservan los archivos optimizados sin recomprimirlos con pérdida.
+- Galería oculta junto con POI y rodaje en **Solo itinerario**; notas, gastos y actividades siguen disponibles.
+- POI y galería con carga diferida y decodificación asíncrona; portada con carga prioritaria. Dimensiones intrínsecas declaradas para reservar espacio.
+- Galería con proporciones originales, sin recortar los edificios y paisajes. Corregidas asociaciones de Santo Niño, Barajas, Magellan’s Cross, Pearl Lounge y Kitanglad. Las fotos genéricas se conservan como contexto del destino.
+- [Créditos de fotografías](PHOTO-CREDITS.md) con autores, fuentes y enlaces de licencia; acceso desde el pie de la app y copia offline. El documento identifica cualquier fuente pendiente de verificar.
+- Se mantiene la precarga de todas las fotografías para poder consultar cualquier día sin conexión. La carga diferida no reduce esa descarga inicial de caché.
 
 ## V8.10.0 — Rodaje diario y ajustes de viaje
 
@@ -188,13 +197,13 @@ Usa **Exportar presupuesto (.md)** para descargar el registro completo. Los impo
 
 ## Pruebas
 
-Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **25 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, operaciones de gastos, exportaciones UTF-8, visibilidad de POI, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.10.0.md](tests/QA_V8.10.0.md).
+Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **27 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, operaciones de gastos, exportaciones UTF-8, visibilidad de POI, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.11.0.md](tests/QA_V8.11.0.md).
 
 No hace falta Node, instalar paquetes ni compilar para usar o servir la app.
 
 ## Despliegue
 
-La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. El propietario autoriza integrar V8.10.0 directamente en `main`, sin rama nueva.
+La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. El propietario autoriza integrar V8.11.0 directamente en `main`, sin rama nueva.
 
 Antes de publicar cambios funcionales, ejecutar las pruebas y revisar la PWA en móvil. Después del merge, comprobar el workflow de Pages y la versión servida, y actualizar el estado de README, CHANGELOG y PROJECT_MASTER.
 
@@ -208,4 +217,8 @@ El sistema operativo puede tardar en actualizar el icono de una PWA ya instalada
 
 ## Créditos
 
+23 fotografías locales: **2,36 MB** en total, incluidas las tres incorporaciones.
+
 Aplicación creada con la ayuda de ChatGPT.
+
+Fotografías: [autores, fuentes y licencias](PHOTO-CREDITS.md).

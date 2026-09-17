@@ -4,11 +4,11 @@
 
 **Última actualización:** 17/09/2026
 
-**Versión del código:** **V8.10.0 — Rodaje diario y ajustes de viaje**
+**Versión del código:** **V8.11.0 — Fotografías y rendimiento**
 
-**Última versión probada por el propietario:** **V8.9.0**, con incidencia de codificación de exportaciones abordada en V8.10.0.
+**Última versión probada por el propietario:** **V8.10.0**, declarada probada y validada.
 
-**Estado V8.10.0:** implementada, 25 pruebas superadas; integración directa en `main` autorizada, despliegue pendiente de verificar.
+**Estado V8.11.0:** implementada, integración directa en `main` autorizada; publicación pendiente de verificar. V9.0 sigue reservada para la validación final.
 
 **Estado V8.8.0:** probada por el propietario, integrada en `main` y publicada. [PR #1](https://github.com/NachHR/Filipinas/pull/1), commit de merge `3bb4ccd` (16/09/2026), [despliegue Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35145442952). Versión servida comprobada el 17/09/2026.
 
@@ -30,6 +30,15 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 - Alojamiento, POIs, Maps, fotos locales, instalación PWA e indicador online/offline.
 - Fotografías de Madrid, Zayed y Sheikh Zayed Grand Mosque dentro de la caché.
 
+### Implementado en V8.11.0
+
+- Fotografías reemplazadas por el propietario y conservadas en WebP reducido. Antes de esta intervención ya pesaban 2.134.926 bytes (20 archivos), frente a 9.143.271 bytes en V8.10.0: reducción del 76,65 %, atribuida a su actualización.
+- Galería oculta con POI/rodaje en Solo itinerario; visible con proporción completa al volver a Vista completa.
+- Carga diferida en imágenes secundarias, decodificación asíncrona, dimensiones reales en `PHOTO_DIMENSIONS`; portada eager/prioridad alta.
+- Corregidas asociaciones de fotos al modelo compuesto; Santo Niño y Barajas reutilizan su archivo correcto. Nuevos POI solo se enlazan cuando existe su fotografía, sin suplirlos con otro lugar.
+- PHOTO-CREDITS documenta fuentes, autores, licencias, modificaciones y cualquier verificación pendiente; disponible desde el pie ES/EN y en caché.
+- No alterar marcador de migración 8.7, estado personal ni bandera superior.
+
 ### Implementado en V8.10.0
 
 - Iconos PNG de instalación/arranque/favicon derivados del SVG existente, con tamaños 192/512 y versión maskable. No modificar `flag-ph.svg` ni tamaño/posición de la bandera superior. Nuevos nombres de archivo; PNG antiguos retirados.
@@ -45,7 +54,7 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 ### Conservado de V8.9.0
 
 - Exportar todas las notas desde el menú a un único Markdown UTF-8 por día/fecha/lugar; omitir vacías y conservar el texto. Incluir borradores en memoria cuando se puede leer el diario; bloquear con aviso si no se puede leer, sin exportación parcial silenciosa.
-- Solo itinerario oculta POI y rodaje. Diario, presupuesto, galería y actividades siguen visibles. Etiquetas ES/EN Solo itinerario / Vista completa.
+- Desde V8.11.0 Solo itinerario oculta POI, rodaje y galería. Diario, presupuesto y actividades siguen visibles. Etiquetas ES/EN Solo itinerario / Vista completa.
 - Presupuesto global en el diálogo del menú, con total editable, resumen, saldo incluso negativo, lista plegable por día/categoría y totales por categoría.
 - Editor y almacenamiento compartidos entre vistas global/diaria. Fecha y categoría editables, importes PHP con dos decimales, eliminación confirmada y refresco de ambas vistas.
 - Exportación de resumen, categorías y todos los gastos a un único Markdown. Sin red ni mutaciones al exportar. Los conceptos se escapan como texto Markdown.
@@ -75,8 +84,8 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 
 ### Estado técnico
 
-- Badge y CSS/JS: `8.10.0`; Service Worker: `filipinas-v8-10-0`.
-- README, CHANGELOG y este documento reflejan V8.10.0 implementada y la validación del propietario de V8.9.0.
+- Badge y CSS/JS: `8.11.0`; Service Worker: `filipinas-v8-11-0`.
+- README, CHANGELOG y este documento reflejan V8.11.0 implementada y V8.10.0 validada por el propietario.
 - Migración de 26 a 29 días: **mantener identificador interno `8.7`**. No volver a desplazar gastos/checklists/actividades en equipos ya migrados.
 - Las notas nuevas no necesitan migrar IDs: usan fechas ISO.
 - Sin backend, framework, subida multimedia ni dependencias de ejecución. Node/jsdom solo se usan para pruebas.
@@ -113,8 +122,8 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 - `journey.js`: composición de 29 días y migración heredada; no modificado en V8.8.0.
 - `i18n.js`: única fuente de textos de interfaz ES/EN.
 - `script.js`: coordinador de estado, navegación y render, no un módulo monolítico.
-- `images/`: fotos locales; no se añadieron imágenes ni cambiaron licencias.
-- `photos.js` resuelve las rutas históricas de imágenes presentes en `data.js` antes de renderizar. La revisión comprueba el modelo compuesto, no solo cadenas de archivos aislados: 176 referencias resueltas, ninguna a un archivo inexistente. `PHOTO_VERSION='8.2.1'` identifica esa capa heredada; no es la versión publicada de la app.
+- `images/`: fotos locales actualizadas; fuentes y licencias revisadas en PHOTO-CREDITS.
+- `photos.js` resuelve las rutas históricas de imágenes presentes en `data.js` antes de renderizar. La revisión comprueba el modelo compuesto, no solo cadenas de archivos aislados: Referencias y dimensiones comprobadas en los 29 días. `PHOTO_VERSION='8.11.0'` identifica la capa fotográfica vigente.
 - El nombre heredado `itineraryOnly` y la clave de checklist `macro` permanecen para compatibilidad; sus etiquetas/UI se aclaran.
 
 ## 3. Archivos y responsabilidades
@@ -145,12 +154,16 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 | `tests/QA_V8.8.0.md` / `tests/QA_V8.8.1.md` | Evidencia histórica |
 | `package.json` / `package-lock.json` | Herramientas de pruebas; no hay build requerido |
 | `README.md` / `CHANGELOG.md` | Uso, estado e historial |
-| `PHOTO-CREDITS.md` | Créditos/licencias, sin cambios |
+| `PHOTO-CREDITS.md` | Créditos/licencias revisados y disponibles offline |
 | `PROJECT_MASTER.md` | Este documento |
 
 Carga: datos → composición del viaje → módulos existentes → datos documentales/diario/render documental → coordinador. No modificar IDs para acoplar la guía.
 
 ## 4. QA y publicación
+
+### V8.11.0
+
+27 pruebas de regresión, incluyendo imágenes de los 29 días ES/EN, asociaciones, archivos locales, presupuesto de peso y galería tras alternar, navegar y recargar. Véase [QA V8.11.0](tests/QA_V8.11.0.md). No equivale a una prueba real de red/offline en smartphone.
 
 ### V8.10.0
 
@@ -201,7 +214,7 @@ El worker precarga con `cache: reload`, espera confirmación en clientes existen
 
 ### Siguiente paso inmediato
 
-Comprobar despliegue y validar V8.10.0 en el dispositivo instalado: icono, lector Markdown, P1, alojamiento flexible y actualización sin pérdida de datos. Mantener marcador de migración `8.7`.
+Comprobar despliegue y validar V8.11.0 en el dispositivo instalado: galería oculta, fotografías y créditos offline, actualización sin pérdida de datos. Cerrar la validación V9.0 y las verificaciones de licencia indicadas en PHOTO-CREDITS. Mantener marcador de migración `8.7`.
 
 ### Protección de datos pendiente
 

@@ -267,12 +267,12 @@ test("Today phases, independent check-ins, and quick access use the actual trip 
 
 test("versioned scripts/styles, offline shell and local images all exist", () => {
   const sw = read("service-worker.js");
-  assert.match(html, /V8\.10\.0/);
-  assert.match(sw, /filipinas-v8-10-0/);
+  assert.match(html, /V8\.11\.0/);
+  assert.match(sw, /filipinas-v8-11-0/);
   for (const match of html.matchAll(
     /(?:src|href)="([^"?]+\.(?:js|css))\?v=([^"&]+)/g,
   )) {
-    assert.equal(match[2], "8.10.0");
+    assert.equal(match[2], "8.11.0");
     assert.ok(sw.includes(`'./${match[1]}'`) || sw.includes(`"./${match[1]}"`), match[1]);
   }
   for (const match of sw.matchAll(/["']\.\/([^"']+)["']/g))
@@ -310,7 +310,7 @@ test("service worker waits for consent and deletes only old app caches", async (
         "filipinas-v8-8-0",
         "filipinas-v8-8-1",
         "filipinas-v8-9-0",
-        "filipinas-v8-10-0",
+        "filipinas-v8-11-0",
       ],
       delete: async (key) => deleted.push(key),
     },
@@ -677,4 +677,58 @@ test('preparation has no first-day shortcut; installed icons differ from the unc
     assert.ok(!/^icon-(192|512)/.test(icon.src));
   }
   a.win.close();
+});
+
+test("photo associations, dimensions and loading cover every rendered travel day", () => {
+  const a = app();
+  const dimensions = a.win.PHOTO_DIMENSIONS;
+  const files = fs.readdirSync(path.join(root, "images")).filter(x => x.endsWith(".webp"));
+  assert.deepEqual(Object.keys(dimensions).sort(), files.sort());
+  assert.ok(files.reduce((sum, file) => sum + fs.statSync(path.join(root, "images", file)).size, 0) < 3_000_000);
+  for (const lang of ["es", "en"]) {
+    a.run(`setLanguage("${lang}")`);
+    for (let id = 1; id <= 29; id++) {
+      a.run(`selectDay(${id})`);
+      const hero = a.doc.querySelector("#hero img");
+      assert.equal(hero.getAttribute("loading"), "eager");
+      assert.equal(hero.getAttribute("fetchpriority"), "high");
+      for (const img of a.doc.querySelectorAll("#hero img, .poi-card img, .gallery img")) {
+        const file = new URL(img.src).pathname.split("/").pop();
+        assert.ok(fs.existsSync(path.join(root, "images", file)), file);
+        assert.equal(Number(img.getAttribute("width")), dimensions[file][0]);
+        assert.equal(Number(img.getAttribute("height")), dimensions[file][1]);
+        if (img !== hero) assert.equal(img.getAttribute("loading"), "lazy");
+        assert.equal(img.getAttribute("decoding"), "async");
+      }
+    }
+  }
+  const pois = a.run("tripData.days.flatMap(d => d.pois || [])");
+  for (const poi of pois) {
+    const name = poi.name.en || poi.name.es;
+    if (name.includes("Santo Niño")) assert.equal(poi.image, "./images/santo-nino.webp");
+    if (name.includes("Madrid-Barajas")) assert.equal(poi.image, "./images/madrid-barajas.webp");
+    if (name.includes("Magellan's Cross")) assert.equal(poi.image, "./images/magellans-cross.webp");
+    if (name.includes("Pearl Lounge")) assert.equal(poi.image, "./images/pearl-lounge.webp");
+    if (name.includes("Kitanglad")) assert.equal(poi.image, "./images/kitanglad.webp");
+  }
+  assert.equal(a.doc.querySelector("#photoCreditsLink").textContent, "Photo credits");
+  a.dom.window.close();
+});
+
+test("itinerary-only hides gallery on toggle, navigation and persisted reload", () => {
+  const a = app();
+  const style = a.doc.createElement("style"); style.textContent = read("style.css"); a.doc.head.append(style);
+  assert.notEqual(a.win.getComputedStyle(a.doc.querySelector(".gallery-section")).display, "none");
+  a.doc.getElementById("itineraryModeButton").click();
+  for (const id of [2, 7, 18, 29]) {
+    a.run(`selectDay(${id})`);
+    assert.equal(a.win.getComputedStyle(a.doc.querySelector(".gallery-section")).display, "none");
+    assert.ok(a.doc.querySelector("#journalText"));
+  }
+  const b = app(snapshot(a.win));
+  const css = b.doc.createElement("style"); css.textContent = read("style.css"); b.doc.head.append(css);
+  assert.equal(b.win.getComputedStyle(b.doc.querySelector(".gallery-section")).display, "none");
+  b.doc.getElementById("itineraryModeButton").click();
+  assert.notEqual(b.win.getComputedStyle(b.doc.querySelector(".gallery-section")).display, "none");
+  a.dom.window.close(); b.dom.window.close();
 });
