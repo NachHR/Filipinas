@@ -1,6 +1,11 @@
 # Changelog
 
-## V8.11.0 — 2026-09-17 · Implementada
+## Mantenimiento documental — 2026-09-17 · Validación V8.11.0
+
+- El propietario confirma V8.11.0 probada y validada. README, PROJECT_MASTER y QA registran esta validación general sin atribuir pruebas específicas no detalladas.
+- Confirmado despliegue Pages correcto para `202643f`. Sin cambios de código, versión, caché o datos personales.
+
+## V8.11.0 — 2026-09-17 · Publicada y validada
 
 - Incorporadas las sustituciones fotográficas subidas por el propietario; ya optimizadas, sin nueva recompresión con pérdida. Nuevas fuentes contrastadas y licencias corregidas; limitaciones de verificación explícitas en PHOTO-CREDITS.
 - Galería oculta en Solo itinerario, con preferencia persistida. En vista completa conserva las proporciones originales.
@@ -8,7 +13,7 @@
 - Corregidas asociaciones de Santo Niño, Madrid-Barajas, Magellan’s Cross, Pearl Lounge y Kitanglad; las tres fotos nuevas también se precargan para uso offline.
 - Créditos enlazados desde el pie ES/EN y precargados para consulta offline.
 - Recursos, badge, paquetes y caché a 8.11.0; migración 8.7 y datos personales intactos. Se documenta validación de V8.10.0 por el propietario.
-- 27 pruebas de regresión; ver tests/QA_V8.11.0.md. Publicación pendiente de verificar.
+- 27 pruebas de regresión; ver tests/QA_V8.11.0.md. Integrada en `main` (`202643f`); V8.11.0 comprobada en la web. [Despliegue Pages](https://github.com/NachHR/Filipinas/actions/runs/35247903562).
 
 ## V8.10.0 — 2026-09-17 · Validada por el propietario
 

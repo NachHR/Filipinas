@@ -6,9 +6,9 @@
 
 **Versión del código:** **V8.11.0 — Fotografías y rendimiento**
 
-**Última versión probada por el propietario:** **V8.10.0**, declarada probada y validada.
+**Última versión probada por el propietario:** **V8.11.0**, declarada probada y validada.
 
-**Estado V8.11.0:** implementada, integración directa en `main` autorizada; publicación pendiente de verificar. V9.0 sigue reservada para la validación final.
+**Estado V8.11.0:** integrada directamente en `main` (`202643f`), versión servida comprobada. [Despliegue Pages](https://github.com/NachHR/Filipinas/actions/runs/35247903562). 27 pruebas superadas; probada y validada por el propietario. V9.0 sigue reservada para la validación final.
 
 **Estado V8.8.0:** probada por el propietario, integrada en `main` y publicada. [PR #1](https://github.com/NachHR/Filipinas/pull/1), commit de merge `3bb4ccd` (16/09/2026), [despliegue Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35145442952). Versión servida comprobada el 17/09/2026.
 
@@ -85,7 +85,7 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 ### Estado técnico
 
 - Badge y CSS/JS: `8.11.0`; Service Worker: `filipinas-v8-11-0`.
-- README, CHANGELOG y este documento reflejan V8.11.0 implementada y V8.10.0 validada por el propietario.
+- README, CHANGELOG y este documento reflejan V8.11.0 implementada y V8.11.0 validada por el propietario.
 - Migración de 26 a 29 días: **mantener identificador interno `8.7`**. No volver a desplazar gastos/checklists/actividades en equipos ya migrados.
 - Las notas nuevas no necesitan migrar IDs: usan fechas ISO.
 - Sin backend, framework, subida multimedia ni dependencias de ejecución. Node/jsdom solo se usan para pruebas.
@@ -214,7 +214,7 @@ El worker precarga con `cache: reload`, espera confirmación en clientes existen
 
 ### Siguiente paso inmediato
 
-Comprobar despliegue y validar V8.11.0 en el dispositivo instalado: galería oculta, fotografías y créditos offline, actualización sin pérdida de datos. Cerrar la validación V9.0 y las verificaciones de licencia indicadas en PHOTO-CREDITS. Mantener marcador de migración `8.7`.
+V8.11.0 publicada y validada por el propietario. Preparar la auditoría final V9.0 y cerrar las verificaciones de licencia indicadas en PHOTO-CREDITS. La validación comunicada no detalla resultados por dispositivo, modo avión o actualización; conservar esas comprobaciones en el cierre final. Mantener marcador de migración `8.7`.
 
 ### Protección de datos pendiente
 

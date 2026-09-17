@@ -21,9 +21,17 @@ PHOTO-CREDITS enlaza cada ficha y licencia. La verificación pendiente, si exist
 
 Total final: **23 fotografías, 2,363,756 bytes** (2,36 MB decimales). Las tres incorporaciones fueron inspeccionadas y miden 783×576, 1280×853 y 1200×884; sin recompresión adicional.
 
-## Validación manual pendiente
+## Comprobaciones específicas para el cierre V9.0
 
 - Smartphone instalado: aceptar actualización y confirmar que conserva notas, gastos y progreso.
 - Alternar Solo itinerario/Vista completa y comprobar la galería.
 - Tras completar la carga online, abrir distintos destinos y créditos en modo avión.
 - Comprobar carga y encuadres en pantalla estrecha y escritorio. La prueba DOM verifica atributos y CSS, no tiempos de red ni render visual de un navegador real.
+
+## Publicación
+
+Integrada en main como `202643f`. HTML público comprobado con badge V8.11.0 y enlace local de créditos. [Workflow Pages](https://github.com/NachHR/Filipinas/actions/runs/35247903562). Repositorio revisado sin temporales versionados.
+
+## Validación del propietario
+
+El 17/09/2026 el propietario comunica: «Versión 8.11.0 probada y validada». Se registra como validación general de la versión publicada. No se han detallado dispositivos ni resultados por caso; la lista anterior se mantiene para el cierre final V9.0, sin afirmar que cada prueba manual se haya realizado.

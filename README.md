@@ -2,7 +2,7 @@
 
 **Versión del código: V8.11.0 — Fotografías y rendimiento** · 17/09/2026
 
-**Estado:** implementada; publicación pendiente de comprobar. V8.10.0 probada y validada por el propietario. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.11.0](tests/QA_V8.11.0.md).
+**Estado:** integrada en `main` (`202643f`) y V8.11.0 comprobada en la web publicada. [Despliegue Pages](https://github.com/NachHR/Filipinas/actions/runs/35247903562). V8.11.0 probada y validada por el propietario. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.11.0](tests/QA_V8.11.0.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
