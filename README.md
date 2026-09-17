@@ -1,8 +1,8 @@
 # Filipinas Travel PWA
 
-**Versión del código: V8.8.0 — Cuaderno de campo** · 16/09/2026
+**Versión publicada: V8.8.0 — Cuaderno de campo** · Publicada el 16/09/2026 · Revisión documental: 17/09/2026
 
-**Estado:** implementada para revisión; publicación pendiente de QA móvil/PWA. La última versión publicada verificada es V8.7.1. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA de V8.8.0](tests/QA_V8.8.0.md).
+**Estado:** probada por el propietario y fusionada en `main` mediante el [PR #1](https://github.com/NachHR/Filipinas/pull/1). [Despliegue de GitHub Pages completado](https://github.com/NachHR/Filipinas/actions/runs/35145442952); versión servida comprobada el 17/09/2026. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y el [registro de QA](tests/QA_V8.8.0.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
@@ -19,7 +19,7 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 - Los días 18–24 en Cebú siguen como **propuesta editorial, no confirmada**.
 - Diario y guía disponibles offline después de una primera carga completa online.
 - Notas asociadas a fechas ISO, independientes de la numeración del itinerario. No se vuelve a ejecutar la migración 8.7 en dispositivos ya migrados.
-- Actualización PWA con confirmación: el nuevo worker espera; las notas no se exponen a una recarga forzada durante la escritura.
+- Actualización PWA con confirmación: el nuevo worker espera; las notas se guardan al escribir y un borrador con error de guardado bloquea la recarga automática.
 - Limpieza de renderizado duplicado del presupuesto y separación de la UI documental.
 
 ### Uso del cuaderno
@@ -121,7 +121,11 @@ Filipinas/
 
 ## Privacidad y datos públicos
 
-El repositorio es público. No deben almacenarse identificadores de reserva, contraseñas, tokens, datos bancarios ni otros secretos en el código público. Las preferencias, presupuesto, gastos, progreso y checklist se guardan localmente en el dispositivo.
+El repositorio es público. No deben almacenarse identificadores de reserva, contraseñas, tokens, datos bancarios ni otros secretos en el código público. Las preferencias, presupuesto, gastos, progreso, checklist y diario se guardan localmente en el navegador/dispositivo. Las notas no se envían a GitHub ni se sincronizan.
+
+El diario utiliza `filipinasJournal`: `{version: 1, entries: {"YYYY-MM-DD": {text, updatedAt}}}`. `updatedAt` se almacena en UTC y se muestra en la hora local del dispositivo. Los formatos desconocidos o corruptos no se sobrescriben. Si se edita una misma fecha desde dos pestañas, prevalece la última escritura.
+
+**No hay todavía exportación ni copia de seguridad automática.** Borrar los datos del sitio elimina las notas y el resto de datos personales; otro navegador o dispositivo no los comparte. No borrar almacenamiento para actualizar la app: usar el aviso **Actualizar**.
 
 ## Fotografías
 
@@ -149,13 +153,17 @@ El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gast
 
 ## Pruebas
 
-Con Node >=22.19, ejecutar `npm ci` y `npm test`. La suite DOM comprueba los 29 días/idiomas, persistencia, compatibilidad, errores, versiones y caché simulada. No sustituye las pruebas en Chrome Android ni como PWA instalada: véase [QA_V8.8.0.md](tests/QA_V8.8.0.md).
+Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **11 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.8.0.md](tests/QA_V8.8.0.md).
 
 No hace falta Node, instalar paquetes ni compilar para usar o servir la app.
 
 ## Despliegue
 
-La aplicación está preparada para GitHub Pages y Netlify. GitHub Pages utiliza la rama `main` y la carpeta raíz.
+La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. La integración de V8.8.0 corresponde al commit `3bb4ccd` del 16/09/2026.
+
+Antes de publicar cambios funcionales, ejecutar las pruebas y revisar la PWA en móvil. Después del merge, comprobar el workflow de Pages y la versión servida, y actualizar el estado de README, CHANGELOG y PROJECT_MASTER.
+
+Los cambios exclusivamente documentales no requieren incrementar la versión de la app ni invalidar su caché. Si cambian recursos de ejecución, sincronizar badge, cache-busting, Service Worker y versión del paquete según PROJECT_MASTER.
 
 ## Créditos
 

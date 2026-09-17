@@ -1,6 +1,17 @@
 # Changelog
 
-## V8.8.0 — 2026-09-16 · Implementada, pendiente de publicación
+## Mantenimiento documental — 2026-09-17
+
+- Confirmados el merge del PR #1 (`3bb4ccd`, 16/09/2026), el despliegue satisfactorio de Pages y la versión V8.8.0 servida.
+- README y PROJECT_MASTER pasan de estado de revisión a versión publicada; se retiran los bloqueos de publicación ya superados.
+- Actualizado el registro QA: prueba y merge comunicados por el propietario, 11 pruebas automatizadas repetidas y comprobación HTTP de recursos publicados. No se atribuyen al propietario verificaciones específicas que no detalló.
+- Completada la documentación de privacidad, almacenamiento y actualización del diario, así como las reglas para cambios documentales y futuras publicaciones.
+- Revisión de 50 archivos versionados y 176 referencias de imágenes en el modelo compuesto: sin temporales versionados ni imágenes inexistentes tras aplicar `photos.js`. Se documenta la capa fotográfica heredada; no se eliminan archivos utilizados ni se modifica el comportamiento de la app.
+- Se mantienen V8.8.0, caché `filipinas-v8-8-0`, migración `8.7` y todos los datos del viaje.
+
+## V8.8.0 — 2026-09-16 · Publicada
+
+- Probada por el propietario, fusionada mediante [PR #1](https://github.com/NachHR/Filipinas/pull/1) y [desplegada en GitHub Pages](https://github.com/NachHR/Filipinas/actions/runs/35145442952).
 
 - Añadido diario personal por fecha ISO para los 29 días, con autoguardado inmediato, última edición y funcionamiento local/offline.
 - Tratamiento del texto como texto plano; no se envía ni sincroniza. Los errores de almacenamiento muestran aviso y conservan un borrador en memoria; los esquemas corruptos o desconocidos no se sobrescriben.
@@ -13,7 +24,7 @@
 - Eliminados el adaptador de traducción `L()` sin uso y el antiguo render/formulario de presupuesto sustituido por `budget.js`; movido el render documental fuera del coordinador.
 - Cache-busting y badge `8.8.0`; caché `filipinas-v8-8-0` incluye nuevos módulos. Worker con activación explícita, precarga evitando caché HTTP y limpieza solo de cachés de esta app.
 - Se mantienen el identificador de migración `8.7`, fechas, vuelos, check-ins y datos de gastos/progreso existentes.
-- Añadidas 11 pruebas automatizadas de regresión y guía de QA manual; README y PROJECT_MASTER actualizados. Validación real móvil/PWA y despliegue pendientes, no afirmados como completados.
+- Añadidas 11 pruebas automatizadas de regresión y guía de QA manual; README y PROJECT_MASTER actualizados. La implementación se entregó inicialmente en borrador; la validación del propietario y el despliegue posterior constan en el registro QA.
 
 ## V8.7.1 — 2026-09-16
 - Sustituido el placeholder genérico `images/airport.webp` de los días internacionales por fotografías locales específicas.

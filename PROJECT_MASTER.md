@@ -2,13 +2,13 @@
 
 > Referencia viva del estado real, decisiones y hoja de ruta. El repositorio y el código son la fuente de verdad técnica.
 
-**Última actualización:** 16/09/2026
+**Última actualización:** 17/09/2026
 
 **Versión del código:** **V8.8.0 — Cuaderno de campo**
 
-**Última versión publicada verificada:** **V8.7.1**
+**Versión publicada verificada:** **V8.8.0**
 
-**Estado V8.8.0:** implementada para revisión; pendiente de QA móvil/PWA y publicación.
+**Estado V8.8.0:** probada por el propietario, integrada en `main` y publicada. [PR #1](https://github.com/NachHR/Filipinas/pull/1), commit de merge `3bb4ccd` (16/09/2026), [despliegue Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35145442952). Versión servida comprobada el 17/09/2026.
 
 **Aplicación:** https://nachhr.github.io/Filipinas/
 
@@ -44,7 +44,7 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 ### Estado técnico
 
 - Badge y CSS/JS: `8.8.0`; Service Worker: `filipinas-v8-8-0`.
-- README, CHANGELOG y este documento distinguen código preparado de versión publicada.
+- README, CHANGELOG y este documento reflejan V8.8.0 publicada y el mantenimiento documental del 17/09/2026.
 - Migración de 26 a 29 días: **mantener identificador interno `8.7`**. No volver a desplazar gastos/checklists/actividades en equipos ya migrados.
 - Las notas nuevas no necesitan migrar IDs: usan fechas ISO.
 - Sin backend, framework, subida multimedia ni dependencias de ejecución. Node/jsdom solo se usan para pruebas.
@@ -82,6 +82,7 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 - `i18n.js`: única fuente de textos de interfaz ES/EN.
 - `script.js`: coordinador de estado, navegación y render, no un módulo monolítico.
 - `images/`: fotos locales; no se añadieron imágenes ni cambiaron licencias.
+- `photos.js` resuelve las rutas históricas de imágenes presentes en `data.js` antes de renderizar. La revisión comprueba el modelo compuesto, no solo cadenas de archivos aislados: 176 referencias resueltas, ninguna a un archivo inexistente. `PHOTO_VERSION='8.2.1'` identifica esa capa heredada; no es la versión publicada de la app.
 - El nombre heredado `itineraryOnly` y la clave de checklist `macro` permanecen para compatibilidad; sus etiquetas/UI se aclaran.
 
 ## 3. Archivos y responsabilidades
@@ -114,21 +115,25 @@ Carga: datos → composición del viaje → módulos existentes → datos docume
 
 ## 4. QA y publicación
 
-### Verificado en esta implementación
+### Verificado en la implementación y revisión posterior al merge
 
 - Revisión de V8.7.1: modelo de 29 días, fechas de ambos check-ins, imágenes de caché presentes y conservación de estado ya migrado.
 - **11 pruebas de regresión superadas**, incluyendo render de 29 días en ambos idiomas, persistencia, errores de cuota/formato, conservación de datos V8.7.1 y comportamiento simulado del worker.
 - Sintaxis JavaScript y comprobación de diferencias.
 - Verificación de recursos offline y consistencia de versión en código.
 - No se publicaron ni copiaron PDFs privados al repositorio.
+- Repetidas las 11 pruebas sobre `main` tras el merge, el 17/09/2026.
+- Verificados el PR fusionado y el workflow de Pages completado con éxito para `3bb4ccd`.
+- HTML servido con badge y recursos `8.8.0`; `service-worker.js`, `journal.js`, `documentary-data.js` y `manifest.json` publicados coinciden byte a byte con el repositorio.
+- Revisados los 50 archivos versionados, recursos locales y referencias de versiones: sin temporales versionados ni imágenes inexistentes en el modelo final tras aplicar `photos.js`. La limpieza de código de V8.8.0 ya está integrada; esta revisión modifica solo documentación.
 
-### Pendiente: no confundir tests DOM con QA real
+### Validación del propietario y alcance de la evidencia
 
-La revisión visual en Chromium no pudo completarse en el entorno. Chrome Android, PWA instalada, modo avión real y actualización desde una instalación anterior **no se han validado**.
+El propietario comunica que ha probado la rama y ha realizado el merge a `main`. Esa validación y la publicación cierran el estado de borrador de V8.8.0.
 
-**Puerta de publicación:** mantener V8.8.0 en revisión hasta completar [QA_V8.8.0.md](tests/QA_V8.8.0.md). No afirmar que la versión ya está publicada ni cambiar la etiqueta de última versión publicada verificada antes de comprobar Pages.
+No se especificaron dispositivos ni resultados caso por caso; no marcar automáticamente como superados Chrome Android instalado, modo avión, actualización entre versiones o pruebas de zonas horarias. El fallo del navegador del entorno durante la implementación queda como antecedente, no como impedimento de una publicación ya realizada. Véase [QA_V8.8.0.md](tests/QA_V8.8.0.md).
 
-Revisar especialmente:
+Conservar como comprobaciones de regresión para futuras versiones:
 
 1. UX móvil, teclado/foco y nota + preset accesibles en menos de 20 s.
 2. Carga offline real tras primera carga online; fotos de Madrid/AUH/mezquita.
@@ -141,13 +146,15 @@ Revisar especialmente:
 
 En cada publicación alinear badge, CSS/JS, caché, README, CHANGELOG y PROJECT_MASTER; también `package.json` si existe. Registrar el estado real de despliegue. No cambiar marcadores de migración por una subida de versión visual.
 
+Si un commit cambia exclusivamente documentación o metadatos de mantenimiento ajenos a la ejecución, conservar versión, cache-busting y nombre de caché. Registrar su fecha en CHANGELOG; no crear una versión patch solo por cerrar el estado documental de un release.
+
 El worker precarga con `cache: reload`, espera confirmación en clientes existentes y limpia solo cachés `filipinas-v*`. La disponibilidad de Maps/aerolíneas u otros enlaces externos no se garantiza offline.
 
 ## 5. Pendientes y hoja de ruta
 
 ### Siguiente paso inmediato
 
-Completar QA manual y publicar V8.8.0 si pasa. Si hay incidencias, resolverlas antes de añadir nuevas funciones.
+V8.8.0 ya está publicada. Priorizar incidencias observadas durante el uso, protección de datos locales y confirmación de los planes pendientes de Cebú/ferris. Definir el siguiente alcance antes de añadir funciones; no volver a proponer publicar V8.8.0.
 
 ### Protección de datos
 
