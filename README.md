@@ -1,8 +1,8 @@
 # Filipinas Travel PWA
 
-**Versión del código: V8.9.0 — Diario exportable y presupuesto global** · 17/09/2026
+**Versión del código: V8.10.0 — Rodaje diario y ajustes de viaje** · 17/09/2026
 
-**Estado:** V8.9.0 implementada para integración directa en `main`, pendiente de comprobar el despliegue. V8.8.1 fue probada por el propietario y desplegada correctamente. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.9.0](tests/QA_V8.9.0.md).
+**Estado:** V8.10.0 implementada para integración directa en `main`; despliegue pendiente de comprobar. V8.9.0 fue probada por el propietario, con incidencia de codificación de exportaciones abordada en esta versión. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.10.0](tests/QA_V8.10.0.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
@@ -10,14 +10,23 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
 
-## V8.9.0 — Diario exportable y presupuesto global
+## V8.10.0 — Rodaje diario y ajustes de viaje
+
+- Iconos de instalación, arranque y favicon derivados de la bandera circular existente, con variante adaptable a Android. **La bandera de la barra superior no cambia**: mismo SVG, tamaño y posición.
+- Alojamiento flexible sin reserva confirmada el 1 de octubre, en Manolo/Kisolon, Iligan y Cebú. Buscar alojamiento aparece como tarea pendiente al inicio de cada estancia, sin repetirla todos los días.
+- Tres tomas **P1** con casillas por fecha y dos recomendaciones de clips/sonido por día. Las casillas antiguas se conservan. P1 y clips se ocultan en Solo itinerario.
+- Pautas detalladas revisadas: itinerario de 29 días, 16:9, ND8 polarizado contextual, alojamientos flexibles y Cebú condicional.
+- Eliminado «Ver Día 1» de Preparación; se conservan vuelos y check-ins.
+- Ambas exportaciones usan **UTF-8 con BOM** para ayudar a detectar la codificación de acentos, símbolos y emojis. No se altera el texto guardado. Si un lector fuerza otra codificación, abrir el archivo como UTF-8.
+
+### Conservado de V8.9.0
 
 - **Exportar todas las notas**, desde el menú: un único `filipinas-diario.md` con días, fechas y lugares, en orden cronológico. Omite notas vacías y conserva el texto y sus saltos de línea; incluye borradores en memoria cuando el diario guardado se puede leer.
 - **Solo itinerario / Vista completa**: oculta o muestra conjuntamente POI y rodaje; mantiene diario, gastos, alojamiento y actividades.
 - **Presupuesto**, desde el menú: resumen global, total editable, gastos plegables por día y categoría, subtotales y totales por categoría.
 - Añadir, editar y eliminar conceptos desde el presupuesto global o el día usando los mismos registros. Confirmación antes de eliminar e importes con dos decimales.
 - **Exportar presupuesto (.md)**: un único `filipinas-presupuesto.md` con presupuesto, gastado, saldo (negativo si se ha excedido), categorías y detalle diario.
-- Descargas locales UTF-8, también offline tras cargar la app. Exportar no borra ni modifica los datos. Los textos de los conceptos se escapan para conservar su lectura como texto en Markdown.
+- Descargas locales UTF-8 con BOM, también offline tras cargar la app. Exportar no borra ni modifica los datos. Los textos de los conceptos se escapan para conservar su lectura como texto en Markdown.
 
 ### Conservado de V8.8.1
 
@@ -95,6 +104,7 @@ Filipinas/
 ├── budget.js
 ├── exports.js
 ├── documentary-data.js
+├── shooting-data.js
 ├── documentary.js
 ├── journal.js
 ├── field-notes.css
@@ -102,8 +112,10 @@ Filipinas/
 ├── service-worker.js
 ├── manifest.json
 ├── flag-ph.svg
-├── icon-192.png
-├── icon-512.png
+├── icon-flag-192.png
+├── icon-flag-512.png
+├── icon-flag-maskable-512.png
+├── scripts/build-icons.cjs
 ├── images/
 ├── PHOTO-CREDITS.md
 ├── CHANGELOG.md
@@ -124,15 +136,16 @@ Filipinas/
 - `exports.js` — descarga local de archivos Markdown UTF-8.
 - `photos.js` — fotografías locales del itinerario base.
 - `documentary-data.js` — presets y 29 pautas bilingües por fecha; no modifica el itinerario.
-- `documentary.js` — render de rodaje, pautas detalladas y checklist heredada.
+- `shooting-data.js` — tres P1 y dos clips complementarios por fecha, con IDs estables.
+- `documentary.js` — render de rodaje, P1 persistentes, pautas y checklist heredada.
 - `journal.js` — notas privadas, validación del almacenamiento y autoguardado.
 - `field-notes.css` — estilos del cuaderno y tarjetas de rodaje.
 - `script.js` — estado, navegación, eventos, render principal, idioma, conexión y Service Worker.
 
 ## PWA
 
-- Caché actual: `filipinas-v8-9-0`.
-- Los recursos utilizan cache-busting `?v=8.9.0`.
+- Caché actual: `filipinas-v8-10-0`.
+- Los recursos utilizan cache-busting `?v=8.10.0`.
 - Diario, guía, estilos nuevos, `journey.js` y las fotografías forman parte del app shell/caché offline.
 - El Service Worker elimina únicamente cachés anteriores con prefijo `filipinas-v` al activarse.
 - La primera instalación requiere una carga online completa. Maps, aerolíneas y otros enlaces externos no se garantizan offline.
@@ -140,6 +153,8 @@ Filipinas/
 ## Privacidad y datos públicos
 
 El repositorio es público. No deben almacenarse identificadores de reserva, contraseñas, tokens, datos bancarios ni otros secretos en el código público. Las preferencias, presupuesto, gastos, progreso, checklist y diario se guardan localmente en el navegador/dispositivo. Las notas no se envían a GitHub ni se sincronizan.
+
+Las P1 utilizan `filipinasP1_YYYY-MM-DD`, un objeto de IDs de toma y booleanos. Exportar el diario no incluye estas casillas; su progreso permanece local.
 
 El diario utiliza `filipinasJournal`: `{version: 1, entries: {"YYYY-MM-DD": {text, updatedAt}}}`. `updatedAt` se almacena en UTC y se muestra en la hora local del dispositivo. Los formatos desconocidos o corruptos no se sobrescriben. Si se edita una misma fecha desde dos pestañas, prevalece la última escritura.
 
@@ -173,17 +188,23 @@ Usa **Exportar presupuesto (.md)** para descargar el registro completo. Los impo
 
 ## Pruebas
 
-Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **20 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, operaciones de gastos, exportaciones UTF-8, visibilidad de POI, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.9.0.md](tests/QA_V8.9.0.md).
+Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **25 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, operaciones de gastos, exportaciones UTF-8, visibilidad de POI, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.10.0.md](tests/QA_V8.10.0.md).
 
 No hace falta Node, instalar paquetes ni compilar para usar o servir la app.
 
 ## Despliegue
 
-La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. El propietario autoriza integrar V8.9.0 directamente en `main`, sin rama nueva.
+La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. El propietario autoriza integrar V8.10.0 directamente en `main`, sin rama nueva.
 
 Antes de publicar cambios funcionales, ejecutar las pruebas y revisar la PWA en móvil. Después del merge, comprobar el workflow de Pages y la versión servida, y actualizar el estado de README, CHANGELOG y PROJECT_MASTER.
 
 Los cambios exclusivamente documentales no requieren incrementar la versión de la app ni invalidar su caché. Si cambian recursos de ejecución, sincronizar badge, cache-busting, Service Worker y versión del paquete según PROJECT_MASTER.
+
+## Iconos
+
+`flag-ph.svg` es la fuente existente y permanece intacta. Los PNG nuevos usan nombres distintos para evitar reutilizar la estrella antigua. `scripts/build-icons.cjs` los regenera con Sharp disponible en el entorno de desarrollo; Sharp no es necesario para ejecutar la app ni sus pruebas. Ejemplo: `NODE_PATH=/ruta/a/node_modules node scripts/build-icons.cjs`.
+
+El sistema operativo puede tardar en actualizar el icono de una PWA ya instalada. Usar el aviso de actualización de la app; no borrar datos del sitio para forzar el cambio, porque contienen notas, gastos y progreso.
 
 ## Créditos
 

@@ -49,8 +49,8 @@ const tripData = {
           "en": "From 14:00 · check the booking instructions"
         },
         "checkout": {
-          "es": "Salida el 1 de octubre, antes de ir a casa de Claire",
-          "en": "Check out on 1 October before going to Claire’s place"
+          "es": "Salida el 1 de octubre; siguiente alojamiento flexible",
+          "en": "Check out on 1 October; next accommodation flexible"
         }
       },
       "camiguin": {
@@ -245,12 +245,12 @@ const tripData = {
             ]
           },
           "narration": {
-            "es": "En el norte de Mindanao, donde el aire ya huele a mar y a motor de tricycle, comienza un viaje de veintiséis días hacia el interior de las islas.",
-            "en": "In northern Mindanao, where the air already smells of sea and tricycle engines, a twenty-six-day journey begins into the islands."
+            "es": "En Cagayan de Oro, el viaje encuentra sus primeros ritmos urbanos: tráfico, mercados y comida compartida.",
+            "en": "In Cagayan de Oro, the journey finds its first urban rhythms: traffic, markets and shared food."
           },
           "technical": {
-            "es": "Único capítulo puramente urbano: fija aquí el look de color que mantendrás el resto del viaje.",
-            "en": "This is the only purely urban chapter: lock in the colour look you will keep for the rest of the trip."
+            "es": "4K 16:9 a 25 fps para planos fijos; 50 fps en movimiento. High Ridge: trípode al caer la luz, sin ND8 polarizado con poca luz. Pedir permiso en mercados.",
+            "en": "4K 16:9 at 25 fps for static shots; 50 fps in motion. High Ridge: tripod as light fades, no polarised ND8 in low light. Ask permission at markets."
           }
         }
       },
@@ -618,13 +618,13 @@ const tripData = {
         "en": "1 October"
       },
       "location": {
-        "es": "Cagayan de Oro → casa de Claire",
-        "en": "Cagayan de Oro → Claire’s place"
+        "es": "Cagayan de Oro · alojamiento flexible",
+        "en": "Cagayan de Oro · flexible accommodation"
       },
       "locationKey": "cdo",
       "title": {
-        "es": "Preparativos",
-        "en": "Getting ready"
+        "es": "Cagayan de Oro · estancia flexible",
+        "en": "Cagayan de Oro · flexible stay"
       },
       "status": "planned",
       "budget": 1000,
@@ -667,8 +667,8 @@ const tripData = {
             "en": "Check-out"
           },
           "description": {
-            "es": "Salir de Vinyce Studio y dirigirse a casa de Claire.",
-            "en": "Check out from Vinyce Studio and head to Claire’s place."
+            "es": "Salir de Vinyce Studio. Buscar alojamiento para esta noche antes del viaje a Camiguin.",
+            "en": "Check out of Vinyce Studio. Find accommodation for tonight before travelling to Camiguin."
           },
           "notes": {
             "es": "",
@@ -684,6 +684,36 @@ const tripData = {
             "en": "Local transport"
           },
           "budget": 1000,
+          "recording": {}
+        },
+        {
+          "id": "find-accommodation",
+          "time": {
+            "es": "Antes de la estancia",
+            "en": "Before the stay"
+          },
+          "title": {
+            "es": "Buscar alojamiento",
+            "en": "Find accommodation"
+          },
+          "description": {
+            "es": "Elegir y confirmar alojamiento según la ruta, disponibilidad y presupuesto. Todavía no hay reserva confirmada.",
+            "en": "Choose and confirm accommodation based on route, availability and budget. No booking is confirmed yet."
+          },
+          "notes": {
+            "es": "Confirmar ubicación, precio y hora de llegada antes de desplazarse.",
+            "en": "Confirm location, price and arrival time before travelling."
+          },
+          "status": "pending",
+          "place": null,
+          "maps": "",
+          "directions": "",
+          "duration": null,
+          "transport": {
+            "es": "",
+            "en": ""
+          },
+          "budget": 0,
           "recording": {}
         }
       ],
@@ -703,7 +733,7 @@ const tripData = {
           "image": null
         }
       ],
-      "accommodationKey": "cdo"
+      "accommodationStatus": "flexible"
     },
     {
       "id": 5,
@@ -756,12 +786,12 @@ const tripData = {
             ]
           },
           "narration": {
-            "es": "Camiguin tiene más volcanes por kilómetro cuadrado que cualquier otro lugar de Filipinas — un recordatorio constante de que esta tierra todavía se está formando.",
-            "en": "Camiguin has more volcanoes per square kilometre than anywhere else in the Philippines — a constant reminder that this land is still being formed."
+            "es": "El relieve volcánico de Camiguin se prolonga entre bosque, costa y arrecife.",
+            "en": "Camiguin’s volcanic landscape continues through forest, coast and reef."
           },
           "technical": {
-            "es": "Este capítulo es tu mejor material para el hero shot: White Island al amanecer, sin nadie en cuadro durante los primeros segundos.",
-            "en": "This chapter is your best hero-shot material: White Island at sunrise, with no one in frame for the first seconds."
+            "es": "White Island: plano amplio fijo de 10–15 s. Mantigue: 4K 16:9 a 50/60 fps, carcasa revisada y sin ND8 polarizado bajo el agua. Detalles desde 0,4 m. No sumergir en aguas termales.",
+            "en": "White Island: hold a wide shot for 10–15 s. Mantigue: 4K 16:9 at 50/60 fps, checked housing and no polarised ND8 underwater. Details from 0.4 m. Never submerge in hot springs."
           }
         }
       },
@@ -1346,12 +1376,12 @@ const tripData = {
             ]
           },
           "narration": {
-            "es": "Lejos de la costa, en las tierras altas de Bukidnon, el tiempo transcurre de otra manera.",
-            "en": "Away from the coast, in the Bukidnon highlands, time moves differently."
+            "es": "Entre Manolo Fortich y Kisolon, la montaña y el río marcan el ritmo de la observación.",
+            "en": "Between Manolo Fortich and Kisolon, mountains and river set the pace of observation."
           },
           "technical": {
-            "es": "Trípode imprescindible: es el tramo más observacional; la paciencia del plano fijo le dará peso.",
-            "en": "A small tripod is essential: this is the most observational section, so patience in locked-off shots creates weight."
+            "es": "Trípode en lugar seguro, 4K 16:9 a 25 fps y planos de 12–20 s. ND8 polarizado solo con luz suficiente; sin estabilización en trípode. No dar por confirmado acceso al campamento ni alojamiento.",
+            "en": "Safe tripod position, 4K 16:9 at 25 fps and 12–20 s shots. Polarised ND8 only with sufficient light; stabilisation off on a tripod. Do not assume campsite access or accommodation is confirmed."
           }
         }
       },
@@ -1385,12 +1415,12 @@ const tripData = {
         {
           "time": "Después",
           "title": {
-            "es": "Llegar a casa familiar",
-            "en": "Arrive at family home"
+            "es": "Llegada a Manolo Fortich",
+            "en": "Arrive in Manolo Fortich"
           },
           "description": {
-            "es": "Llegada y asentamiento en la casa familiar.",
-            "en": "Arrive and settle in at the family home."
+            "es": "Llegada a Manolo Fortich y descanso; alojamiento flexible, sin reserva confirmada.",
+            "en": "Arrive in Manolo Fortich and rest; flexible accommodation, no confirmed booking."
           },
           "notes": {
             "es": "",
@@ -1400,6 +1430,38 @@ const tripData = {
           "maps": "",
           "directions": "",
           "status": "planned",
+          "duration": null,
+          "transport": {
+            "es": "",
+            "en": ""
+          },
+          "budget": 0,
+          "recording": {},
+          "id": "arrival-manolo",
+          "legacyTitle": "Llegar a casa familiar"
+        },
+        {
+          "id": "find-accommodation",
+          "time": {
+            "es": "Antes de la estancia",
+            "en": "Before the stay"
+          },
+          "title": {
+            "es": "Buscar alojamiento",
+            "en": "Find accommodation"
+          },
+          "description": {
+            "es": "Elegir y confirmar alojamiento según la ruta, disponibilidad y presupuesto. Todavía no hay reserva confirmada.",
+            "en": "Choose and confirm accommodation based on route, availability and budget. No booking is confirmed yet."
+          },
+          "notes": {
+            "es": "Confirmar ubicación, precio y hora de llegada antes de desplazarse.",
+            "en": "Confirm location, price and arrival time before travelling."
+          },
+          "status": "pending",
+          "place": null,
+          "maps": "",
+          "directions": "",
           "duration": null,
           "transport": {
             "es": "",
@@ -1438,7 +1500,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 10,
@@ -1524,6 +1587,36 @@ const tripData = {
               "Ambient sound"
             ]
           }
+        },
+        {
+          "id": "find-accommodation",
+          "time": {
+            "es": "Antes de la estancia",
+            "en": "Before the stay"
+          },
+          "title": {
+            "es": "Buscar alojamiento",
+            "en": "Find accommodation"
+          },
+          "description": {
+            "es": "Elegir y confirmar alojamiento según la ruta, disponibilidad y presupuesto. Todavía no hay reserva confirmada.",
+            "en": "Choose and confirm accommodation based on route, availability and budget. No booking is confirmed yet."
+          },
+          "notes": {
+            "es": "Confirmar ubicación, precio y hora de llegada antes de desplazarse.",
+            "en": "Confirm location, price and arrival time before travelling."
+          },
+          "status": "pending",
+          "place": null,
+          "maps": "",
+          "directions": "",
+          "duration": null,
+          "transport": {
+            "es": "",
+            "en": ""
+          },
+          "budget": 0,
+          "recording": {}
         }
       ],
       "pois": [
@@ -1541,7 +1634,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 11,
@@ -1618,7 +1712,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 12,
@@ -1695,7 +1790,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 13,
@@ -1746,12 +1842,12 @@ const tripData = {
             ]
           },
           "narration": {
-            "es": "Iligan esconde más de veinte cascadas dentro de sus límites — Tinago, la más oculta de todas, solo se revela al final del descenso.",
-            "en": "Iligan hides more than twenty waterfalls within its boundaries — Tinago, one of the most concealed, only revealed at the end of the descent."
+            "es": "En Tinago, el sonido del agua anuncia el paisaje antes de que la vegetación lo revele.",
+            "en": "At Tinago, the sound of water announces the landscape before the vegetation reveals it."
           },
           "technical": {
-            "es": "Graba el plano fijo amplio de la cascada antes de que nadie entre al agua — lo necesitarás para el contraste de escala.",
-            "en": "Capture the wide locked-off waterfall shot before anyone enters the water — you will need it for scale contrast."
+            "es": "Primero plano amplio fijo 4K 16:9/25; 100/120 fps solo con luz abundante. Filmar escaleras únicamente estando detenido en un punto seguro. Limpiar gotas y pedir permiso para personas reconocibles.",
+            "en": "Start with a static wide 4K 16:9/25 shot; 100/120 fps only in bright light. Film stairs only while stopped at a safe spot. Wipe droplets and ask permission for recognisable people."
           }
         }
       },
@@ -1807,6 +1903,36 @@ const tripData = {
           },
           "budget": 0,
           "recording": {}
+        },
+        {
+          "id": "find-accommodation",
+          "time": {
+            "es": "Antes de la estancia",
+            "en": "Before the stay"
+          },
+          "title": {
+            "es": "Buscar alojamiento",
+            "en": "Find accommodation"
+          },
+          "description": {
+            "es": "Elegir y confirmar alojamiento según la ruta, disponibilidad y presupuesto. Todavía no hay reserva confirmada.",
+            "en": "Choose and confirm accommodation based on route, availability and budget. No booking is confirmed yet."
+          },
+          "notes": {
+            "es": "Confirmar ubicación, precio y hora de llegada antes de desplazarse.",
+            "en": "Confirm location, price and arrival time before travelling."
+          },
+          "status": "pending",
+          "place": null,
+          "maps": "",
+          "directions": "",
+          "duration": null,
+          "transport": {
+            "es": "",
+            "en": ""
+          },
+          "budget": 0,
+          "recording": {}
         }
       ],
       "pois": [
@@ -1838,7 +1964,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 14,
@@ -1959,7 +2086,8 @@ const tripData = {
           "optional": false,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 15,
@@ -1997,25 +2125,25 @@ const tripData = {
           "key": "ferry",
           "points": {
             "es": [
-              "Hyperlapse de la carretera",
-              "Salida del ferry al atardecer",
-              "Cubierta de noche",
-              "Amanecer llegando a Cebú"
+              "Carretera desde un punto seguro",
+              "Amarras y salida del puerto según horario",
+              "Cubierta iluminada con cámara apoyada",
+              "Primera luz si coincide con la travesía"
             ],
             "en": [
-              "Road hyperlapse",
-              "Ferry departure at sunset",
-              "Night deck",
-              "Sunrise arriving in Cebu"
+              "Road from a safe position",
+              "Moorings and departure according to schedule",
+              "Lit deck with supported camera",
+              "First light if it coincides with the crossing"
             ]
           },
           "narration": {
-            "es": "Durante la noche, el barco cruza las aguas que separan Mindanao de Cebú — un puente líquido entre dos mundos.",
-            "en": "During the night, the ship crosses the waters separating Mindanao from Cebu — a liquid bridge between two worlds."
+            "es": "Durante la travesía, las luces del puerto ceden su lugar al horizonte.",
+            "en": "During the crossing, harbour lights give way to the horizon."
           },
           "technical": {
-            "es": "Prioriza las luces del barco y el horizonte sobre intentar captar oscuridad total; la Action 4 tiene límites en muy poca luz.",
-            "en": "Prioritise ship lights and the horizon rather than trying to capture total darkness; the Action 4 has limits in very low light."
+            "es": "4K 16:9/50 en movimiento con buena luz; 25 fps y cámara apoyada de noche, sin ND8 polarizado. No caminar grabando por cubierta oscura. Amanecer y salida dependen del horario real.",
+            "en": "4K 16:9/50 in motion with good light; 25 fps and a supported camera at night, no polarised ND8. Do not walk filming on a dark deck. Dawn and departure depend on the actual schedule."
           }
         }
       },
@@ -2152,12 +2280,12 @@ const tripData = {
             ]
           },
           "narration": {
-            "es": "Cebú combina siglos de historia colonial con algunos de los encuentros de vida marina más singulares de Filipinas.",
-            "en": "Cebu combines centuries of colonial history with some of the Philippines’ most distinctive marine encounters."
+            "es": "Cebú ofrece un contraste entre ciudad, arquitectura y costa; el recorrido se decidirá durante el viaje.",
+            "en": "Cebu offers contrasts between city, architecture and coast; the route will be decided during the trip."
           },
           "technical": {
-            "es": "En Oslob, respeta las distancias con los tiburones ballena. Un plano amplio que muestre la escala funciona mejor que acercarte.",
-            "en": "In Oslob, respect distance from whale sharks. A wide shot showing scale works better than trying to get close."
+            "es": "Propuestas, no ruta confirmada. Priorizar planos fijos 4K 16:9/25. Comprobar acceso y permisos antes de templos o cascadas. Si se realiza Oslob, no tocar, alimentar ni perseguir animales; contemplar una alternativa.",
+            "en": "Proposals, not a confirmed route. Prioritise static 4K 16:9/25 shots. Check access and permissions before temples or waterfalls. If visiting Oslob, do not touch, feed or chase animals; consider an alternative."
           }
         }
       },
@@ -2180,6 +2308,36 @@ const tripData = {
           "maps": "",
           "directions": "",
           "status": "pending",
+          "duration": null,
+          "transport": {
+            "es": "",
+            "en": ""
+          },
+          "budget": 0,
+          "recording": {}
+        },
+        {
+          "id": "find-accommodation",
+          "time": {
+            "es": "Antes de la estancia",
+            "en": "Before the stay"
+          },
+          "title": {
+            "es": "Buscar alojamiento",
+            "en": "Find accommodation"
+          },
+          "description": {
+            "es": "Elegir y confirmar alojamiento según la ruta, disponibilidad y presupuesto. Todavía no hay reserva confirmada.",
+            "en": "Choose and confirm accommodation based on route, availability and budget. No booking is confirmed yet."
+          },
+          "notes": {
+            "es": "Confirmar ubicación, precio y hora de llegada antes de desplazarse.",
+            "en": "Confirm location, price and arrival time before travelling."
+          },
+          "status": "pending",
+          "place": null,
+          "maps": "",
+          "directions": "",
           "duration": null,
           "transport": {
             "es": "",
@@ -2386,7 +2544,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 17,
@@ -2636,7 +2795,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 18,
@@ -2886,7 +3046,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 19,
@@ -3136,7 +3297,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 20,
@@ -3386,7 +3548,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 21,
@@ -3636,7 +3799,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 22,
@@ -3886,7 +4050,8 @@ const tripData = {
           "optional": true,
           "image": null
         }
-      ]
+      ],
+      "accommodationStatus": "flexible"
     },
     {
       "id": 23,
@@ -3935,12 +4100,12 @@ const tripData = {
             ]
           },
           "narration": {
-            "es": "Veintidós días después, el mismo mar devuelve al viajero al punto donde todo comenzó.",
-            "en": "Twenty-two days later, the same sea returns the traveller to where it began."
+            "es": "La ruta se repite, pero otra luz transforma los lugares conocidos.",
+            "en": "The route repeats, but different light transforms familiar places."
           },
           "technical": {
-            "es": "El eco visual del mismo plano con distinta luz es el recurso más efectivo para dar estructura al montaje final.",
-            "en": "Repeating the same composition in different light is the most effective way to give the final edit structure."
+            "es": "Repetir encuadre, altura y dirección del ferry de ida. 4K 16:9; conservar perfil y WB por secuencia. Amaya View es opcional. Grabar ambiente limpio para unir capítulos.",
+            "en": "Repeat the framing, height and direction of the outbound ferry shot. 4K 16:9; keep profile and WB consistent within scenes. Amaya View is optional. Record clean ambience to bridge chapters."
           }
         }
       },
@@ -4254,12 +4419,12 @@ const tripData = {
             ]
           },
           "narration": {
-            "es": "Y así, un viaje de veintiséis días entre volcanes, cascadas y mar termina donde empezó — con el sonido de un motor y el cielo abriéndose paso.",
-            "en": "And so a twenty-six-day journey among volcanoes, waterfalls and sea ends where it began — with the sound of an engine and the sky opening up."
+            "es": "La despedida empieza al cerrar el equipaje y continúa hasta el regreso a Madrid.",
+            "en": "The farewell begins with closing the luggage and continues until returning to Madrid."
           },
           "technical": {
-            "es": "Evita un gran plano final: un detalle pequeño y cotidiano puede cerrar mejor el relato.",
-            "en": "Avoid a grand final shot: a small everyday detail can close the story better."
+            "es": "4K 16:9. Reservar batería y espacio para el día 29: el viaje no termina en la salida de CDO. Evitar documentos y datos personales; retirar ND8 polarizado en interiores y de noche.",
+            "en": "4K 16:9. Reserve battery and space for day 29: the trip does not end when leaving CDO. Avoid documents and personal data; remove polarised ND8 indoors and at night."
           }
         }
       },

@@ -4,7 +4,7 @@ function markdownText(value) {
     .replace(/([\\`*_{}\[\]()#+.!|~-])/g, '\\$1').replace(/\r?\n/g, ' ');
 }
 function downloadMarkdown(filename, text) {
-  const blob = new Blob([text], {type:'text/markdown;charset=utf-8'});
+  const blob = new Blob(["\uFEFF", text], {type:'text/markdown;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;

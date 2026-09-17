@@ -1,4 +1,26 @@
-/* V8.8.1 — Read-only filming UI; reuse legacy checklist keys without migration. */
+// Separate, date-keyed progress; no changes to legacy checklist storage.
+function readP1(date) {
+  const data = JSON.parse(localStorage.getItem(`filipinasP1_${date}`) || "{}");
+  if (!data || typeof data !== "object" || Array.isArray(data) || Object.values(data).some(value => typeof value !== "boolean"))
+    throw new Error("Invalid P1 progress");
+  return data;
+}
+function renderShootingPlan(day) {
+  const plan = SHOOTING_PLANS[day.date];
+  if (!plan) return "";
+  let checks = {}, valid = true;
+  try { checks = readP1(day.date); } catch { valid = false; }
+  const count = plan.p1.filter(shot => checks[shot.id]).length;
+  return `<div class="p1-section"><h3>${t("field.p1")}</h3>
+    <p class="journal-help">${t("field.p1Help")}</p>
+    <div class="p1-checklist">${plan.p1.map(shot => `<label class="check"><input type="checkbox" data-p1="${shot.id}" ${checks[shot.id] ? "checked" : ""}><span>${tr(shot.text)}<small>${shot.duration}</small></span></label>`).join("")}</div>
+    <p id="p1Progress" role="status" aria-live="polite">${count}/${plan.p1.length} · ${t("field.captured")}</p>
+    <p id="p1Status" class="journal-help" role="status">${t(valid ? "day.savedDevice" : "field.saveError")}</p>
+    <details class="field-details"><summary>${t("field.clips")}</summary><ul>${plan.clips.map(clip => `<li>${tr(clip)}</li>`).join("")}</ul></details>
+  </div>`;
+}
+
+/* V8.10.0 — Read-only filming UI; reuse legacy checklist keys without migration. */
 function renderDocumentary(day) {
   const guide = DOCUMENTARY.days[day.date];
   if (!guide) return "";
@@ -13,6 +35,7 @@ function renderDocumentary(day) {
     <p class="field-filter"><strong>${t("field.filter")}</strong> ${tr(preset.filter)}</p>
     <p class="field-exception"><strong>${t("field.exception")}</strong> ${tr(guide.exception)}</p>
     <div class="field-safety"><h3>${t("field.safety")}</h3><ul>${guide.safety.map((item) => `<li>${tr(item)}</li>`).join("")}</ul></div>
+    ${renderShootingPlan(day)}
     <details class="field-details"><summary>${t("field.details")}</summary>
       <p>${tr(preset.support)}</p><p>${t("field.continuity")}</p>
       <p>${t("field.sound")}</p><p>${t("field.limits")}</p>
@@ -41,6 +64,19 @@ function recordingSection(day) {
 }
 
 function bindDocumentary(day) {
+  document.querySelectorAll("[data-p1]").forEach(box => box.addEventListener("change", () => {
+    try {
+      const checks = readP1(day.date);
+      checks[box.dataset.p1] = box.checked;
+      localStorage.setItem(`filipinasP1_${day.date}`, JSON.stringify(checks));
+      const shots = SHOOTING_PLANS[day.date].p1;
+      document.getElementById("p1Progress").textContent = `${shots.filter(shot => checks[shot.id]).length}/${shots.length} · ${t("field.captured")}`;
+      document.getElementById("p1Status").textContent = t("day.savedDevice");
+    } catch {
+      box.checked = !box.checked;
+      document.getElementById("p1Status").textContent = t("field.saveError");
+    }
+  }));
   document.querySelectorAll("[data-rec]").forEach((box) =>
     box.addEventListener("change", () => {
       try {

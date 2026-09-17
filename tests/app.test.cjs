@@ -267,12 +267,12 @@ test("Today phases, independent check-ins, and quick access use the actual trip 
 
 test("versioned scripts/styles, offline shell and local images all exist", () => {
   const sw = read("service-worker.js");
-  assert.match(html, /V8\.9\.0/);
-  assert.match(sw, /filipinas-v8-9-0/);
+  assert.match(html, /V8\.10\.0/);
+  assert.match(sw, /filipinas-v8-10-0/);
   for (const match of html.matchAll(
     /(?:src|href)="([^"?]+\.(?:js|css))\?v=([^"&]+)/g,
   )) {
-    assert.equal(match[2], "8.9.0");
+    assert.equal(match[2], "8.10.0");
     assert.ok(sw.includes(`'./${match[1]}'`) || sw.includes(`"./${match[1]}"`), match[1]);
   }
   for (const match of sw.matchAll(/["']\.\/([^"']+)["']/g))
@@ -310,6 +310,7 @@ test("service worker waits for consent and deletes only old app caches", async (
         "filipinas-v8-8-0",
         "filipinas-v8-8-1",
         "filipinas-v8-9-0",
+        "filipinas-v8-10-0",
       ],
       delete: async (key) => deleted.push(key),
     },
@@ -331,7 +332,7 @@ test("service worker waits for consent and deletes only old app caches", async (
     },
   });
   await pending;
-  assert.deepEqual(deleted, ["filipinas-v8-7-1", "filipinas-v8-8-0", "filipinas-v8-8-1"]);
+  assert.deepEqual(deleted, ["filipinas-v8-7-1", "filipinas-v8-8-0", "filipinas-v8-8-1", "filipinas-v8-9-0"]);
   events.message({ data: { type: "SKIP_WAITING" } });
   assert.ok(messages.includes("skip"));
 });
@@ -563,5 +564,117 @@ test('itinerary-only CSS hides POI and filming while keeping notes and expenses'
   assert.notEqual(a.win.getComputedStyle(a.doc.querySelector('.budget-section')).display,'none');
   a.doc.getElementById('itineraryModeButton').click();
   assert.notEqual(a.win.getComputedStyle(a.doc.querySelector('.poi-section')).display,'none');
+  a.win.close();
+});
+
+
+test('three date-keyed P1 and two clips for every day in both languages; progress survives reload', () => {
+  const a = app();
+  for (const lang of ['es','en']) {
+    a.run(`setLanguage('${lang}')`);
+    for (let day=1;day<=29;day++) {
+      a.run(`selectDay(${day})`);
+      const boxes = [...a.doc.querySelectorAll('[data-p1]')];
+      assert.equal(boxes.length,3);
+      assert.equal(new Set(boxes.map(b=>b.dataset.p1)).size,3);
+      assert.equal(a.doc.querySelectorAll('.p1-section li').length,2);
+      assert.doesNotMatch(a.doc.querySelector('.p1-section').textContent, /undefined|field\.p1/);
+    }
+  }
+  a.run('selectDay(10)'); input(a,'Keep this note');
+  const shotId = a.doc.querySelector('[data-p1]').dataset.p1;
+  a.doc.querySelector('[data-p1]').click();
+  assert.match(a.doc.getElementById('p1Progress').textContent,/1\/3/);
+  assert.equal(a.doc.getElementById('journalText').value,'Keep this note');
+  a.run('selectDay(11)');
+  assert.equal(a.doc.querySelector('[data-p1]').checked,false);
+  const b = app(snapshot(a.win));
+  b.run('selectDay(10);setLanguage("es")');
+  assert.equal(b.doc.querySelector(`[data-p1="${shotId}"]`).checked,true);
+  b.run('tripData.days.find(d=>d.id===10).id=110;selectDay(110)');
+  assert.equal(b.doc.querySelector(`[data-p1="${shotId}"]`).checked,true);
+  a.win.close(); b.win.close();
+});
+
+test('P1 storage failures revert checkbox; corrupt data is never overwritten', () => {
+  for (const corrupt of [false,true]) {
+    const a = app();
+    a.run('selectDay(10)');
+    const key = 'filipinasP1_2026-10-05';
+    if (corrupt) a.win.localStorage.setItem(key,'{"unknown":"wrong type"}');
+    else {
+      const setItem = a.win.Storage.prototype.setItem;
+      a.win.Storage.prototype.setItem = function(k,v) { if(k===key) throw new Error('quota'); return setItem.call(this,k,v); };
+    }
+    a.doc.querySelector('[data-p1]').click();
+    assert.equal(a.doc.querySelector('[data-p1]').checked,false);
+    assert.match(a.doc.getElementById('p1Status').textContent,/No se ha podido guardar/);
+    assert.equal(a.win.localStorage.getItem(key),corrupt ? '{"unknown":"wrong type"}' : null);
+    a.win.close();
+  }
+});
+
+test('flexible stays and search tasks replace assumptions without losing activity progress', () => {
+  const a=app({filipinasJourneyModel:'8.7','done_11_Llegar a casa familiar':'true','check_11':'{"wide":true}'});
+  const searchDays=[];
+  for (let day=1;day<=29;day++) {
+    a.run(`selectDay(${day})`);
+    const flexible = [6,11,12,13,14,15,16,18,19,20,21,22,23,24].includes(day);
+    assert.equal(Boolean(a.doc.querySelector('.accommodation-section')?.textContent.includes('Alojamiento flexible')),flexible);
+    if (flexible) assert.equal(a.doc.querySelectorAll('.accommodation-section a').length,0);
+    if (a.run(`dayById(${day}).activities.some(a=>a.id==='find-accommodation')`)) searchDays.push(day);
+    assert.doesNotMatch(a.doc.getElementById('dayContent').textContent,/casa familiar|Claire|family home/i);
+  }
+  assert.deepEqual(searchDays,[6,11,12,15,18]);
+  a.run('selectDay(11)');
+  const arrivalIndex=a.run('dayById(11).activities.findIndex(a=>a.id==="arrival-manolo")');
+  const box=a.doc.querySelector(`[data-done="${arrivalIndex}"]`);
+  assert.equal(box.checked,true); box.click();
+  assert.equal(a.doc.querySelector(`[data-done="${arrivalIndex}"]`).checked,false);
+  assert.equal(a.win.localStorage.getItem('check_11'),'{"wide":true}');
+  const b=app(snapshot(a.win)); b.run('selectDay(11)');
+  assert.equal(b.doc.querySelector(`[data-done="${arrivalIndex}"]`).checked,false);
+  assert.equal(b.run('getActivityDone(11,dayById(11).activities.find(a=>a.id==="find-accommodation"))'),false);
+  a.run('setLanguage("en")');
+  assert.match(a.doc.querySelector('.accommodation-section').textContent,/Flexible accommodation/);
+  a.win.close(); b.win.close();
+});
+
+test('both downloaded Markdown files start with a UTF-8 signature and preserve accented text and emoji bytes', async () => {
+  const a=app(), files=captureDownloads(a);
+  input(a,'Día · mañana → Filipinas 🍜');
+  a.doc.getElementById('menuExportJournal').click();
+  const ledger=openLedger(a);
+  submitExpense(a,ledger,{detail:'Piña y café',amount:'10',category:'food',date:'2026-10-05'});
+  ledger.querySelector('[data-export-budget]').click();
+  assert.equal(files.length,2);
+  for (let i=0;i<files.length;i++) {
+    const bytes=await new Promise((resolve,reject)=>{const reader=new a.win.FileReader();reader.onload=()=>resolve(new Uint8Array(reader.result));reader.onerror=reject;reader.readAsArrayBuffer(files[i].blob);});
+    assert.deepEqual(Array.from(bytes.slice(0,3)),[0xef,0xbb,0xbf]);
+    const decoded=new TextDecoder('utf-8',{fatal:true}).decode(bytes);
+    assert.ok(decoded.startsWith('# Filipinas ·'));
+    assert.doesNotMatch(decoded,/DÃ|Â·|ðŸ/);
+    if(i===0) assert.ok(decoded.includes('Día · mañana → Filipinas 🍜'));
+    else {assert.ok(decoded.includes('Piña y café'));assert.ok(decoded.includes('🍜'));}
+  }
+  a.win.close();
+});
+
+test('preparation has no first-day shortcut; installed icons differ from the unchanged header flag', () => {
+  const a=app({},'2026-09-17T12:00:00');
+  assert.equal(a.doc.querySelector('[data-today-action="first"]'),null);
+  assert.ok(a.doc.querySelector('#todayContext a[href]'));
+  assert.equal(a.doc.getElementById('brandFlag').getAttribute('src'),'flag-ph.svg');
+  const crypto=require('node:crypto');
+  assert.equal(crypto.createHash('sha256').update(read('flag-ph.svg')).digest('hex'), 'fa3df691007302b9576a268d3673ab622c726e6c9b28f0080a59b31d274ff495');
+  const manifest=JSON.parse(read('manifest.json'));
+  assert.ok(manifest.icons.some(icon=>icon.purpose==='maskable'));
+  for(const icon of manifest.icons) {
+    const bytes=fs.readFileSync(path.join(root,icon.src));
+    assert.deepEqual(Array.from(bytes.subarray(0,8)),[137,80,78,71,13,10,26,10]);
+    assert.equal(`${bytes.readUInt32BE(16)}x${bytes.readUInt32BE(20)}`,icon.sizes);
+    assert.ok(read('service-worker.js').includes(icon.src));
+    assert.ok(!/^icon-(192|512)/.test(icon.src));
+  }
   a.win.close();
 });

@@ -1,19 +1,45 @@
 {
-  "name":"Filipinas / Philippines · Travel Diary",
-  "short_name":"Filipinas",
-  "description":"Bilingual ES/EN travel diary, 29-day itinerary and expense ledger with offline Markdown exports.",
-  "start_url":"./",
-  "scope":"./",
-  "display":"standalone",
-  "orientation":"portrait",
-  "background_color":"#f5f3ee",
-  "theme_color":"#17211f",
-  "icons":[
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+  "name": "Filipinas / Philippines · Travel Diary",
+  "short_name": "Filipinas",
+  "description": "Bilingual ES/EN travel diary, 29-day itinerary and expense ledger with offline Markdown exports.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f3ee",
+  "theme_color": "#17211f",
+  "icons": [
+    {
+      "src": "icon-flag-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-flag-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-flag-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
-  "shortcuts":[
-    {"name":"Hoy / Today","short_name":"Hoy / Today","description":"Open the current travel day / Abrir el día actual del viaje.","url":"./?shortcut=today"},
-    {"name":"Presupuesto / Budget","short_name":"Budget","description":"Open the trip budget / Abrir el presupuesto del viaje.","url":"./?shortcut=budget"}
+  "shortcuts": [
+    {
+      "name": "Hoy / Today",
+      "short_name": "Hoy / Today",
+      "description": "Open the current travel day / Abrir el día actual del viaje.",
+      "url": "./?shortcut=today"
+    },
+    {
+      "name": "Presupuesto / Budget",
+      "short_name": "Budget",
+      "description": "Open the trip budget / Abrir el presupuesto del viaje.",
+      "url": "./?shortcut=budget"
+    }
   ]
 }

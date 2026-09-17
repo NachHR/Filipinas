@@ -88,8 +88,8 @@ const DOCUMENTARY = (() => {
       "Ask permission for recognisable close-ups; do not record private conversations.",
     ),
     home: bi(
-      "Grabar en casas solo con consentimiento; no mostrar direcciones, accesos ni números de unidad.",
-      "Film homes only with consent; do not show addresses, access details or unit numbers.",
+      "Grabar en alojamientos solo con consentimiento; no mostrar direcciones, accesos ni números de unidad.",
+      "Film accommodation only with consent; do not show addresses, access details or unit numbers.",
     ),
     worship: bi(
       "Comprobar normas de filmación, vestimenta y trípodes en lugares de culto.",
@@ -178,8 +178,8 @@ const DOCUMENTARY = (() => {
     ],
     [
       "2026-10-01",
-      "Umbral doméstico",
-      "A domestic threshold",
+      "Entre estancias",
+      "Between stays",
       "A",
       "Planos sencillos de 8–10 s: mochila, puerta y carretera.",
       "Simple 8–10 s shots: bag, door and road.",

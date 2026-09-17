@@ -4,11 +4,11 @@
 
 **Última actualización:** 17/09/2026
 
-**Versión del código:** **V8.9.0 — Diario exportable y presupuesto global**
+**Versión del código:** **V8.10.0 — Rodaje diario y ajustes de viaje**
 
-**Última versión validada por el propietario:** **V8.8.1**
+**Última versión probada por el propietario:** **V8.9.0**, con incidencia de codificación de exportaciones abordada en V8.10.0.
 
-**Estado V8.9.0:** implementada, 20 pruebas superadas; integración directa en `main` autorizada, publicación pendiente de verificar.
+**Estado V8.10.0:** implementada, 25 pruebas superadas; integración directa en `main` autorizada, despliegue pendiente de verificar.
 
 **Estado V8.8.0:** probada por el propietario, integrada en `main` y publicada. [PR #1](https://github.com/NachHR/Filipinas/pull/1), commit de merge `3bb4ccd` (16/09/2026), [despliegue Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35145442952). Versión servida comprobada el 17/09/2026.
 
@@ -30,7 +30,19 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 - Alojamiento, POIs, Maps, fotos locales, instalación PWA e indicador online/offline.
 - Fotografías de Madrid, Zayed y Sheikh Zayed Grand Mosque dentro de la caché.
 
-### Implementado en V8.9.0
+### Implementado en V8.10.0
+
+- Iconos PNG de instalación/arranque/favicon derivados del SVG existente, con tamaños 192/512 y versión maskable. No modificar `flag-ph.svg` ni tamaño/posición de la bandera superior. Nuevos nombres de archivo; PNG antiguos retirados.
+- Alojamiento flexible sin reserva en las noches del 01/10, 06–11/10 y 13–19/10. Esto incluye Kisolon: el campamento sigue siendo opción, no reserva confirmada. No añadir hoteles ficticios ni enlaces de reserva inexistentes. No convertir noches de vuelo/ferry en noches de hotel.
+- Buscar alojamiento pendiente al inicio de cada estancia (días 6, 11, 12, 15, 18). No duplicar diariamente.
+- P1: tres casillas por fecha con IDs estables y dos clips complementarios de solo lectura. Almacenamiento `filipinasP1_YYYY-MM-DD`: objeto `{id: boolean}`; leer fresco, guardar al marcar, revertir checkbox y avisar si falla. Datos inválidos no se sobrescriben. No exportar automáticamente casillas con el diario.
+- `shooting-data.js` adapta la guía suministrada a las preferencias vigentes: 16:9, ND8 polarizado, tres P1 realizables, Cebú condicional y alojamientos flexibles.
+- Revisión bilingüe de pautas detalladas: eliminar duración antigua de 26 días, alojamiento familiar supuesto y afirmaciones geográficas superlativas no necesarias; mantener seguridad y permisos.
+- Actividades renombradas usan ID estable y `legacyTitle` solo para leer progreso existente. Si el nuevo valor está guardado, prevalece incluso cuando es falso. No ejecutar otra migración 8.7. La nueva búsqueda de alojamiento no hereda una casilla antigua.
+- Exportaciones UTF-8 con BOM (`EF BB BF`) para mejorar autodetección. No transformar el texto guardado ni prometer compatibilidad con lectores que fuerzan otra codificación.
+- Retirados Ver Día 1, traducciones, controlador y regla CSS adyacente sin uso.
+
+### Conservado de V8.9.0
 
 - Exportar todas las notas desde el menú a un único Markdown UTF-8 por día/fecha/lugar; omitir vacías y conservar el texto. Incluir borradores en memoria cuando se puede leer el diario; bloquear con aviso si no se puede leer, sin exportación parcial silenciosa.
 - Solo itinerario oculta POI y rodaje. Diario, presupuesto, galería y actividades siguen visibles. Etiquetas ES/EN Solo itinerario / Vista completa.
@@ -63,8 +75,8 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 
 ### Estado técnico
 
-- Badge y CSS/JS: `8.9.0`; Service Worker: `filipinas-v8-9-0`.
-- README, CHANGELOG y este documento reflejan V8.9.0 implementada y V8.8.1 validada por el propietario.
+- Badge y CSS/JS: `8.10.0`; Service Worker: `filipinas-v8-10-0`.
+- README, CHANGELOG y este documento reflejan V8.10.0 implementada y la validación del propietario de V8.9.0.
 - Migración de 26 a 29 días: **mantener identificador interno `8.7`**. No volver a desplazar gastos/checklists/actividades en equipos ya migrados.
 - Las notas nuevas no necesitan migrar IDs: usan fechas ISO.
 - Sin backend, framework, subida multimedia ni dependencias de ejecución. Node/jsdom solo se usan para pruebas.
@@ -97,7 +109,7 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 
 ### Arquitectura estable
 
-- `data.js` y `documentary-data.js`: viaje y presets sin cambios en V8.9.0.
+- `data.js`: alojamiento, actividades y pautas detalladas revisados en V8.10.0; vuelos y reservas existentes conservados. `documentary-data.js` mantiene presets y aclara contexto de estancia.
 - `journey.js`: composición de 29 días y migración heredada; no modificado en V8.8.0.
 - `i18n.js`: única fuente de textos de interfaz ES/EN.
 - `script.js`: coordinador de estado, navegación y render, no un módulo monolítico.
@@ -113,6 +125,8 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 | `data.js` | Itinerario base y pautas existentes |
 | `journey.js` | Composición puerta a puerta y migración 8.7 |
 | `documentary-data.js` | Seis presets y 29 pautas bilingües por fecha |
+| `shooting-data.js` | Tres P1 con IDs estables y dos clips complementarios por día |
+| `scripts/build-icons.cjs` | Generación de PNG desde el SVG de cabecera intacto |
 | `documentary.js` | Consulta documental, detalle y checklist compatible |
 | `journal.js` | Diario, validación, autoguardado y borrador ante errores |
 | `field-notes.css` | Cuaderno y tarjetas de consulta rápida |
@@ -126,7 +140,8 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 | `service-worker.js` | Shell, caché y actualización con confirmación |
 | `manifest.json` | Instalación PWA |
 | `tests/app.test.cjs` | Regresión DOM y worker simulado |
-| `tests/QA_V8.9.0.md` | Pruebas de exportación, presupuesto y modo itinerario |
+| `tests/QA_V8.10.0.md` | QA de iconos, alojamientos, P1 y bytes UTF-8 con BOM |
+| `tests/QA_V8.9.0.md` | Evidencia histórica de exportación y presupuesto |
 | `tests/QA_V8.8.0.md` / `tests/QA_V8.8.1.md` | Evidencia histórica |
 | `package.json` / `package-lock.json` | Herramientas de pruebas; no hay build requerido |
 | `README.md` / `CHANGELOG.md` | Uso, estado e historial |
@@ -137,7 +152,11 @@ Carga: datos → composición del viaje → módulos existentes → datos docume
 
 ## 4. QA y publicación
 
-### V8.9.0
+### V8.10.0
+
+25 pruebas superadas. Las cinco nuevas cubren P1 en los 29 días ES/EN y persistencia/errores, alojamientos flexibles, conservación de actividades marcadas, firma binaria UTF-8, iconos/manifest y eliminación del botón. SVG de cabecera verificado por hash. PNG generados inspeccionados visualmente. Ver [QA V8.10.0](tests/QA_V8.10.0.md).
+
+### Evidencia V8.9.0
 
 20 pruebas automatizadas superadas: las 14 regresiones previas más 6 casos de exportaciones, errores, CRUD compartido, decimales, subtotales, datos heredados y visibilidad. Ver [QA V8.9.0](tests/QA_V8.9.0.md). No se certifica instalación Android ni descarga real móvil mediante pruebas DOM. Validar en dispositivo tras publicar.
 
@@ -182,7 +201,7 @@ El worker precarga con `cache: reload`, espera confirmación en clientes existen
 
 ### Siguiente paso inmediato
 
-Comprobar despliegue y validar V8.9.0 en el dispositivo instalado: exportación de notas/gastos, actualización sin pérdida de datos y modo solo itinerario. Mantener marcador de migración `8.7`.
+Comprobar despliegue y validar V8.10.0 en el dispositivo instalado: icono, lector Markdown, P1, alojamiento flexible y actualización sin pérdida de datos. Mantener marcador de migración `8.7`.
 
 ### Protección de datos pendiente
 
@@ -194,7 +213,7 @@ La exportación manual está implementada. Importación, copias automáticas y s
 
 ### Modo documental posterior
 
-La consulta rápida está implementada. Quedan fuera de V8.8.0: checklist de tomas P1 específicas, registro de clips, editor de guion/presets, montaje, multimedia y sincronización. Decidir su prioridad tras usar el cuaderno, sin asumir que sean necesarios antes del viaje.
+La consulta rápida, checklist P1 y recomendaciones de clips están implementadas. Siguen fuera de alcance el registro de archivos de clips, editor de guion/presets, montaje, multimedia y sincronización. Decidir su prioridad tras usar el cuaderno, sin asumir que sean necesarios antes del viaje.
 
 Confirmar reparto/alojamiento de Cebú, ferris, accesos, operadores y actividades antes de promover cualquier propuesta a itinerario real.
 

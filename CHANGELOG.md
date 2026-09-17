@@ -1,6 +1,19 @@
 # Changelog
 
-## V8.9.0 — 2026-09-17 · Implementada
+## V8.10.0 — 2026-09-17 · Implementada
+
+- Sustituida la estrella de instalación/arranque/favicon por PNG de la bandera circular (192/512 y variante maskable). SVG y presentación de la bandera superior intactos. Eliminados PNG antiguos sin referencias; generador reproducible en scripts.
+- Alojamiento flexible donde no existe reserva, incluyendo noche del 1 de octubre, Manolo/Kisolon, Iligan y Cebú. Añadida tarea Buscar alojamiento al inicio de cada estancia.
+- Eliminadas referencias visibles a alojamiento familiar; compatibilidad de casilla de llegada mediante ID estable y lectura de su clave histórica, sin reescribir datos.
+- Tres tomas P1 y dos clips complementarios/sonido para cada uno de los 29 días. Progreso por fecha e ID, sin duplicar ni migrar checklist heredada; errores de guardado visibles.
+- Pautas detalladas del destino revisadas en ES/EN: 29 días, 16:9, ND8 contextual, horarios de ferry condicionados y Cebú como propuesta.
+- Eliminado botón Ver Día 1 y traducciones/controlador/CSS sin uso.
+- Diario y presupuesto exportados en UTF-8 con BOM; prueba binaria de firma y conservación de acentos/símbolos/emojis. No se modifica el contenido guardado.
+- Badge, recursos, caché, manifest y paquetes a 8.10.0; sin cambios de dependencias ni de migración 8.7. 25 pruebas superadas.
+- Integración directa en main autorizada; despliegue pendiente de verificar.
+
+
+## V8.9.0 — 2026-09-17 · Publicada y probada
 
 - Exportación local de todas las notas a un único Markdown por día/fecha/lugar; texto intacto, días vacíos omitidos y borradores recuperables incluidos.
 - Exportación bloqueada con aviso ante datos ilegibles; no se genera una copia parcial ni se modifica el almacenamiento.
@@ -10,7 +23,7 @@
 - Exportación del presupuesto y todos los conceptos a un único Markdown UTF-8. Normalización heredada en memoria: consultar/exportar no reescribe los gastos.
 - Fallos de guardado conservan el formulario; datos corruptos no se sobrescriben. Se elimina el lector duplicado de gastos del coordinador.
 - Nuevo `exports.js` precargado offline; badge, recursos, caché y paquetes a 8.9.0. Sin dependencias nuevas, migración `8.7` intacta.
-- 20 pruebas automatizadas superadas. Integración directa en main autorizada por el propietario; publicación pendiente de verificar.
+- 20 pruebas superadas. Integrada como `9e7a6da`; [Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35184193889). Probada por el propietario; incidencia de lectura de caracteres en Markdown tratada en V8.10.0.
 
 
 ## V8.8.1 — 2026-09-17 · Publicada y validada

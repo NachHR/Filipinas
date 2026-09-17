@@ -193,10 +193,12 @@ function renderDay(id) {
   bindDayEvents(day);
 }
 function getActivityDone(dayId, act) {
-  return localStorage.getItem(`done_${dayId}_${act.title.es}`) === "true";
+  const saved = localStorage.getItem(`done_${dayId}_${act.id || act.title.es}`);
+  return (saved === null && act.legacyTitle
+    ? localStorage.getItem(`done_${dayId}_${act.legacyTitle}`) : saved) === "true";
 }
 function setActivityDone(dayId, act, val) {
-  localStorage.setItem(`done_${dayId}_${act.title.es}`, String(val));
+  localStorage.setItem(`done_${dayId}_${act.id || act.title.es}`, String(val));
 }
 function activityCard(day, act, i) {
   const done = getActivityDone(day.id, act),
@@ -213,6 +215,8 @@ function poiCard(p) {
   return `<article class="card poi-card">${p.image ? `<img src="${imageSrc(p.image)}" alt="${tr(p.name)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">` : ""}<div class="poi-body"><div class="chips"><span class="chip">${p.optional ? t("day.optional") : "POI"}</span></div><h3>${tr(p.name)}</h3><p>${tr(p.description)}</p><a class="action primary" target="_blank" rel="noopener" href="${p.maps}">⌖ ${t("day.maps")}</a></div></article>`;
 }
 function accommodationSection(day) {
+  if (day.accommodationStatus === "flexible")
+    return `<section class="accommodation-section"><div class="section-head"><h2>🏠 ${t("day.accommodation")}</h2></div><div class="card"><h3>${t("day.flexibleStay")}</h3><p>${t("day.noBooking")}</p></div></section>`;
   const key = day.accommodationKey || day.locationKey,
     a = tripData.meta.accommodations?.[key];
   if (!a) return "";
