@@ -1,5 +1,17 @@
 # Changelog
 
+## V8.8.1 — 2026-09-17 · Implementada
+
+- Navegación de lugares ordenada por su primera fecha en el itinerario completo; destinos de ida y vuelta mantienen sus claves.
+- Arranque en el día actual local en lugar del último día consultado; límites antes/después del viaje y navegación manual preservados.
+- Seis presets explícitamente en 16:9 y recomendaciones diarias coherentes en ES/EN.
+- Indicación visible sobre el ND8 polarizado: uso opcional contextual, exposición/reflejos y retirada en poca luz o bajo el agua.
+- Badge, recursos, paquetes de pruebas y caché actualizados a 8.8.1 / `filipinas-v8-8-1`; migración `8.7` intacta.
+- 14 pruebas automatizadas, incluidas regresiones de navegación, arranque, presets y limpieza de la caché anterior.
+- Exportación conjunta del diario a Markdown especificada para V8.9, sin implementarla en este parche.
+- Integración directa en `main` solicitada por el propietario; publicación a verificar tras el commit.
+
+
 ## Mantenimiento documental — 2026-09-17
 
 - Confirmados el merge del PR #1 (`3bb4ccd`, 16/09/2026), el despliegue satisfactorio de Pages y la versión V8.8.0 servida.

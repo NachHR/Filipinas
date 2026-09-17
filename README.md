@@ -1,8 +1,8 @@
 # Filipinas Travel PWA
 
-**Versión publicada: V8.8.0 — Cuaderno de campo** · Publicada el 16/09/2026 · Revisión documental: 17/09/2026
+**Versión del código: V8.8.1 — Ajustes de navegación y rodaje** · 17/09/2026
 
-**Estado:** probada por el propietario y fusionada en `main` mediante el [PR #1](https://github.com/NachHR/Filipinas/pull/1). [Despliegue de GitHub Pages completado](https://github.com/NachHR/Filipinas/actions/runs/35145442952); versión servida comprobada el 17/09/2026. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y el [registro de QA](tests/QA_V8.8.0.md).
+**Estado:** implementada para integración directa en `main`. La publicación anterior verificada es V8.8.0; el despliegue de esta versión debe confirmarse en GitHub Pages. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.8.1](tests/QA_V8.8.1.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
@@ -10,7 +10,15 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
 
-## V8.8.0 — Cuaderno de campo
+## V8.8.1 — Ajustes de navegación y rodaje
+
+- Lugares ordenados por primera fecha del itinerario, conservando las etapas de ida y regreso.
+- Apertura en el día actual según la fecha local del dispositivo, aunque se hubiera consultado otro día. Antes del viaje abre el primero; después, el último.
+- Navegación manual conservada durante la sesión y al cambiar idioma.
+- Todos los presets en **16:9**, con indicación visible sobre el **ND8 polarizado** según el tipo de rodaje; no se presupone su uso en todas las escenas.
+- Exportación de todas las notas a un único Markdown, agrupadas por día, reservada para V8.9; aún no disponible.
+
+## Cuaderno de campo
 
 - **Mi diario:** texto libre para cada uno de los 29 días, autoguardado inmediato y fecha/hora de última edición.
 - **Rodaje de hoy / Rodaje documental:** preset, excepción técnica y precauciones visibles; técnica ampliada y checklist plegables.
@@ -24,7 +32,7 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 
 ### Uso del cuaderno
 
-Pulsa **Hoy** para ir al día actual; el diario está justo bajo su contexto. También puedes navegar a cualquier otro día para escribir. El encabezado del diario identifica siempre la fecha seleccionada: no confundirla con la fecha real si consultas días pasados o futuros.
+La app abre en el día actual. Pulsa **Hoy** para volver a él; el diario está justo bajo su contexto. También puedes navegar a cualquier otro día para escribir. El encabezado del diario identifica siempre la fecha seleccionada: no confundirla con la fecha real si consultas días pasados o futuros.
 
 El texto se guarda al escribir y no se traduce al cambiar ES/EN. Si el navegador rechaza el guardado, aparece un error y se conserva un borrador en memoria durante esa sesión. **Copia el texto antes de cerrar o actualizar**: no es una copia de seguridad.
 
@@ -113,8 +121,8 @@ Filipinas/
 
 ## PWA
 
-- Caché actual: `filipinas-v8-8-0`.
-- Los recursos utilizan cache-busting `?v=8.8.0`.
+- Caché actual: `filipinas-v8-8-1`.
+- Los recursos utilizan cache-busting `?v=8.8.1`.
 - Diario, guía, estilos nuevos, `journey.js` y las fotografías forman parte del app shell/caché offline.
 - El Service Worker elimina únicamente cachés anteriores con prefijo `filipinas-v` al activarse.
 - La primera instalación requiere una carga online completa. Maps, aerolíneas y otros enlaces externos no se garantizan offline.
@@ -153,7 +161,7 @@ El presupuesto inicial del viaje es de **85.000 PHP**. El presupuesto y los gast
 
 ## Pruebas
 
-Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **11 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.8.0.md](tests/QA_V8.8.0.md).
+Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **14 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.8.1.md](tests/QA_V8.8.1.md).
 
 No hace falta Node, instalar paquetes ni compilar para usar o servir la app.
 

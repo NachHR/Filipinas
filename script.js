@@ -1,6 +1,6 @@
 const state = {
   lang: localStorage.getItem("filipinasLang") === "en" ? "en" : "es",
-  selectedDay: Number(localStorage.getItem("selectedDay") || 1),
+  selectedDay: todayDay().id,
   itineraryOnly: localStorage.getItem("itineraryOnly") === "true",
   installedPrompt: null,
   pendingWorker: null,
@@ -111,7 +111,12 @@ function renderApp() {
   updateConnectionUI();
 }
 function renderLocationNav() {
-  $("#locationNav").innerHTML = tripData.locations
+  const orderedDays = [...tripData.days].sort((a, b) => a.date.localeCompare(b.date));
+  const locationKeys = [...new Set(orderedDays.map((day) => day.locationKey))];
+  const locations = locationKeys
+    .map((key) => tripData.locations.find((location) => location.key === key))
+    .filter(Boolean);
+  $("#locationNav").innerHTML = locations
     .map(
       (loc) =>
         `<button class="location-link" data-loc="${loc.key}">${tr(loc.name)}</button>`,
@@ -120,7 +125,7 @@ function renderLocationNav() {
   document.querySelectorAll(".location-link").forEach(
     (b) =>
       (b.onclick = () => {
-        const d = tripData.days.find((x) => x.locationKey === b.dataset.loc);
+        const d = orderedDays.find((x) => x.locationKey === b.dataset.loc);
         if (d) selectDay(d.id);
         closeMenu();
       }),

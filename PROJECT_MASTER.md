@@ -4,7 +4,7 @@
 
 **Última actualización:** 17/09/2026
 
-**Versión del código:** **V8.8.0 — Cuaderno de campo**
+**Versión del código:** **V8.8.1 — Ajustes de navegación y rodaje**
 
 **Versión publicada verificada:** **V8.8.0**
 
@@ -28,6 +28,14 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 - Alojamiento, POIs, Maps, fotos locales, instalación PWA e indicador online/offline.
 - Fotografías de Madrid, Zayed y Sheikh Zayed Grand Mosque dentro de la caché.
 
+### Implementado en V8.8.1
+
+- Lugares ordenados por primera fecha del itinerario, preservando claves y etapas de regreso.
+- Arranque en el día actual local, sin restaurar el último día consultado. Antes/después del viaje: primer/último día. La navegación manual se mantiene durante la sesión; no se fuerza un cambio al volver del segundo plano.
+- Seis presets y excepciones diarias en 16:9; indicación visible ES/EN sobre el ND8 polarizado según el preset. La instrucción del propietario prevalece sobre el 4:3 de la guía fuente.
+- ND8 polarizado opcional, no universal: comprobar exposición/reflejos; retirar con poca luz y bajo el agua, priorizar nitidez/estabilización en movimiento.
+- 14 pruebas automatizadas superadas; ver [QA V8.8.1](tests/QA_V8.8.1.md). Integración directa en `main` solicitada; despliegue pendiente de verificar tras el commit.
+
 ### Implementado en V8.8.0
 
 - Diario personal por fecha para los 29 días: texto libre, guardado inmediato y última edición.
@@ -43,8 +51,8 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 
 ### Estado técnico
 
-- Badge y CSS/JS: `8.8.0`; Service Worker: `filipinas-v8-8-0`.
-- README, CHANGELOG y este documento reflejan V8.8.0 publicada y el mantenimiento documental del 17/09/2026.
+- Badge y CSS/JS: `8.8.1`; Service Worker: `filipinas-v8-8-1`.
+- README, CHANGELOG y este documento distinguen V8.8.1 implementada de V8.8.0 publicada y verificada.
 - Migración de 26 a 29 días: **mantener identificador interno `8.7`**. No volver a desplazar gastos/checklists/actividades en equipos ya migrados.
 - Las notas nuevas no necesitan migrar IDs: usan fechas ISO.
 - Sin backend, framework, subida multimedia ni dependencias de ejecución. Node/jsdom solo se usan para pruebas.
@@ -105,7 +113,7 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 | `service-worker.js` | Shell, caché y actualización con confirmación |
 | `manifest.json` | Instalación PWA |
 | `tests/app.test.cjs` | Regresión DOM y worker simulado |
-| `tests/QA_V8.8.0.md` | Evidencia y checklist manual de publicación |
+| `tests/QA_V8.8.0.md` / `tests/QA_V8.8.1.md` | Evidencia histórica y QA del parche actual |
 | `package.json` / `package-lock.json` | Herramientas de pruebas; no hay build requerido |
 | `README.md` / `CHANGELOG.md` | Uso, estado e historial |
 | `PHOTO-CREDITS.md` | Créditos/licencias, sin cambios |
@@ -115,7 +123,7 @@ Carga: datos → composición del viaje → módulos existentes → datos docume
 
 ## 4. QA y publicación
 
-### Verificado en la implementación y revisión posterior al merge
+### Evidencia histórica V8.8.0: implementación y revisión posterior al merge
 
 - Revisión de V8.7.1: modelo de 29 días, fechas de ambos check-ins, imágenes de caché presentes y conservación de estado ya migrado.
 - **11 pruebas de regresión superadas**, incluyendo render de 29 días en ambos idiomas, persistencia, errores de cuota/formato, conservación de datos V8.7.1 y comportamiento simulado del worker.
@@ -154,15 +162,17 @@ El worker precarga con `cache: reload`, espera confirmación en clientes existen
 
 ### Siguiente paso inmediato
 
-V8.8.0 ya está publicada. Priorizar incidencias observadas durante el uso, protección de datos locales y confirmación de los planes pendientes de Cebú/ferris. Definir el siguiente alcance antes de añadir funciones; no volver a proponer publicar V8.8.0.
+Validar V8.8.1 en el dispositivo instalado después de su integración directa en `main` y confirmar su despliegue. Mantener notas, presupuesto y casillas existentes; no cambiar el marcador de migración `8.7`.
 
-### Protección de datos
+### V8.9 — Exportación del diario
 
-Exportación/importación y copia de seguridad local siguen pendientes y ganan prioridad al incorporar notas personales. No se incluyeron en el alcance aprobado de V8.8.0.
+Un único botón «Exportar todas las notas» genera un solo archivo `.md` UTF-8 sin conexión. Agrupar notas no vacías cronológicamente con encabezado de día, fecha y lugar; conservar texto, acentos y saltos de línea. No borrar ni modificar el diario al exportar. Contemplar borradores en memoria para no omitir texto reciente ante fallos de guardado. No implementado en V8.8.1.
 
-### V8.9 — Ubicación opcional
+Importación, copias automáticas y sincronización siguen fuera de alcance.
 
-“Estoy aquí”, solo bajo acción explícita; contextualizar lugar y accesos a Maps sin rastreo ni almacenamiento persistente de ubicación por defecto.
+### Ubicación opcional — Sin versión asignada
+
+«Estoy aquí», solo bajo acción explícita; contextualizar lugar y accesos a Maps sin rastreo ni almacenamiento persistente de ubicación por defecto. Pospuesto tras la exportación del diario.
 
 ### Modo documental posterior
 

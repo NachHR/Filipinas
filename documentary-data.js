@@ -1,14 +1,16 @@
-/* V8.8.0 — Read-only field guide, keyed by ISO date rather than mutable day IDs.
+/* V8.8.1 — Read-only field guide, keyed by ISO date rather than mutable day IDs.
    Source: GUIA_GRABACION_DOCUMENTAL_FILIPINAS_2026, supplied 16/09/2026.
+   V8.8.1: owner requires 16:9 throughout; ND8 polarised filter available.
    Editorial advice is not a reservation, access permit or camera configuration API. */
 const DOCUMENTARY = (() => {
   const bi = (es, en) => ({ es, en });
   const presets = {
     A: {
+      filter: bi("ND8 polarizado opcional en exteriores luminosos con cámara apoyada. Comprobar exposición, reflejos y uniformidad del cielo; no garantiza 1/50 s. Retirarlo en interiores, poca luz y bajo el agua.", "Optional polarised ND8 in bright outdoor scenes with a supported camera. Check exposure, reflections and even skies; it does not guarantee 1/50 s. Remove indoors, in low light and underwater."),
       name: bi("Base documental", "Documentary base"),
       settings: bi(
-        "4K 4:3 · 25 fps · D-Log M 10-bit si etalonas · WB bloqueado · ISO 100–800",
-        "4K 4:3 · 25 fps · D-Log M 10-bit if grading · locked WB · ISO 100–800",
+        "4K 16:9 · 25 fps · D-Log M 10-bit si etalonas · WB bloqueado · ISO 100–800",
+        "4K 16:9 · 25 fps · D-Log M 10-bit if grading · locked WB · ISO 100–800",
       ),
       support: bi(
         "RockSteady 3.0 a pulso; estabilización desactivada en trípode.",
@@ -16,6 +18,7 @@ const DOCUMENTARY = (() => {
       ),
     },
     B: {
+      filter: bi("Sin ND8 polarizado por defecto al caminar o en vehículos. Priorizar nitidez y estabilización; no forzar una obturación lenta.", "No polarised ND8 by default when walking or in vehicles. Prioritise sharpness and stabilisation; do not force a slow shutter."),
       name: bi("Movimiento", "Movement"),
       settings: bi(
         "4K 16:9 · 50 fps · ISO 100–1600 · WB bloqueado",
@@ -27,6 +30,7 @@ const DOCUMENTARY = (() => {
       ),
     },
     C: {
+      filter: bi("Sin ND8 polarizado por defecto: la cámara lenta necesita luz abundante. Comprobar exposición antes de cada toma.", "No polarised ND8 by default: slow motion needs abundant light. Check exposure before each take."),
       name: bi("Agua lenta", "Slow water"),
       settings: bi(
         "4K 16:9 · 100/120 fps · solo con luz abundante",
@@ -38,10 +42,11 @@ const DOCUMENTARY = (() => {
       ),
     },
     D: {
+      filter: bi("Retirar el ND8 polarizado con poca luz, en interiores y de noche.", "Remove the polarised ND8 in low light, indoors and at night."),
       name: bi("Trípode / poca luz", "Tripod / low light"),
       settings: bi(
-        "4K · 25 fps · 1/50 s si es viable · ISO máximo 800–1600",
-        "4K · 25 fps · 1/50 s where feasible · maximum ISO 800–1600",
+        "4K 16:9 · 25 fps · 1/50 s si es viable · ISO máximo 800–1600",
+        "4K 16:9 · 25 fps · 1/50 s where feasible · maximum ISO 800–1600",
       ),
       support: bi(
         "Trípode fijo, estabilización desactivada. Mantener el perfil elegido; revisar ruido y luces.",
@@ -49,10 +54,11 @@ const DOCUMENTARY = (() => {
       ),
     },
     E: {
+      filter: bi("ND8 polarizado opcional con luz abundante. Comprobar reflejos y cielo antes de iniciar; evitar usarlo si la secuencia terminará con poca luz.", "Optional polarised ND8 in bright light. Check reflections and skies before starting; avoid it if the sequence will end in low light."),
       name: bi("Timelapse", "Timelapse"),
       settings: bi(
-        "4K timelapse · intervalo 2–5 s para nubes; 5–10 s para luz lenta · WB bloqueado",
-        "4K timelapse · 2–5 s interval for clouds; 5–10 s for slow light changes · locked WB",
+        "4K 16:9 timelapse · intervalo 2–5 s para nubes; 5–10 s para luz lenta · WB bloqueado",
+        "4K 16:9 timelapse · 2–5 s interval for clouds; 5–10 s for slow light changes · locked WB",
       ),
       support: bi(
         "Trípode fijo, sin cambiar el encuadre.",
@@ -60,10 +66,11 @@ const DOCUMENTARY = (() => {
       ),
     },
     F: {
+      filter: bi("Retirar el ND8 polarizado bajo el agua; comprobar el cierre de la carcasa antes de entrar.", "Remove the polarised ND8 underwater; check the case seal before entering."),
       name: bi("Bajo el agua", "Underwater"),
       settings: bi(
-        "4K · 50/60 fps · RockSteady · WB bloqueado a profundidad estable",
-        "4K · 50/60 fps · RockSteady · locked WB at a stable depth",
+        "4K 16:9 · 50/60 fps · RockSteady · WB bloqueado a profundidad estable",
+        "4K 16:9 · 50/60 fps · RockSteady · locked WB at a stable depth",
       ),
       support: bi(
         "Carcasa revisada. Perfil normal o D-Log M si se corregirá el color.",
@@ -124,8 +131,8 @@ const DOCUMENTARY = (() => {
       "Comienza el viaje",
       "The journey begins",
       "A",
-      "B para rodaje y despegue: 4K/50.",
-      "B for taxiing and take-off: 4K/50.",
+      "B para rodaje y despegue: 4K 16:9/50.",
+      "B for taxiing and take-off: 4K 16:9/50.",
       ["airport", "rest"],
       "planned",
     ],
@@ -214,8 +221,8 @@ const DOCUMENTARY = (() => {
       "Entre arena y arrecife",
       "Between sand and reef",
       "A",
-      "F bajo el agua en Mantigue: 4K/50–60. Revisar mar y acceso.",
-      "F underwater at Mantigue: 4K/50–60. Check sea conditions and access.",
+      "F bajo el agua en Mantigue: 4K 16:9/50–60. Revisar mar y acceso.",
+      "F underwater at Mantigue: 4K 16:9/50–60. Check sea conditions and access.",
       ["water", "wildlife", "boat"],
       "weather-dependent",
     ],
@@ -284,8 +291,8 @@ const DOCUMENTARY = (() => {
       "La travesía",
       "The crossing",
       "B",
-      "D por la noche: trípode, 4K/25 y luces del barco; no perseguir oscuridad total.",
-      "D at night: tripod, 4K/25 and ship lights; do not chase total darkness.",
+      "D por la noche: trípode, 4K 16:9/25 y luces del barco; no perseguir oscuridad total.",
+      "D at night: tripod, 4K 16:9/25 and ship lights; do not chase total darkness.",
       ["boat", "water", "rest"],
       "planned",
     ],

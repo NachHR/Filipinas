@@ -1,4 +1,4 @@
-/* V8.8.0 — Read-only filming UI; reuse legacy checklist keys without migration. */
+/* V8.8.1 — Read-only filming UI; reuse legacy checklist keys without migration. */
 function renderDocumentary(day) {
   const guide = DOCUMENTARY.days[day.date];
   if (!guide) return "";
@@ -10,6 +10,7 @@ function renderDocumentary(day) {
     <h3>${tr(guide.storyBeat)}</h3>
     <p class="field-plan ${proposal ? "field-proposal" : ""}">${t(`field.status.${guide.planStatus}`)}</p>
     <div class="field-preset"><strong>${t("field.preset")} ${guide.preset} · ${tr(preset.name)}</strong><p>${tr(preset.settings)}</p></div>
+    <p class="field-filter"><strong>${t("field.filter")}</strong> ${tr(preset.filter)}</p>
     <p class="field-exception"><strong>${t("field.exception")}</strong> ${tr(guide.exception)}</p>
     <div class="field-safety"><h3>${t("field.safety")}</h3><ul>${guide.safety.map((item) => `<li>${tr(item)}</li>`).join("")}</ul></div>
     <details class="field-details"><summary>${t("field.details")}</summary>

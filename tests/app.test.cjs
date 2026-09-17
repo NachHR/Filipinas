@@ -267,12 +267,12 @@ test("Today phases, independent check-ins, and quick access use the actual trip 
 
 test("versioned scripts/styles, offline shell and local images all exist", () => {
   const sw = read("service-worker.js");
-  assert.match(html, /V8\.8\.0/);
-  assert.match(sw, /filipinas-v8-8-0/);
+  assert.match(html, /V8\.8\.1/);
+  assert.match(sw, /filipinas-v8-8-1/);
   for (const match of html.matchAll(
     /(?:src|href)="([^"?]+\.(?:js|css))\?v=([^"&]+)/g,
   )) {
-    assert.equal(match[2], "8.8.0");
+    assert.equal(match[2], "8.8.1");
     assert.ok(sw.includes(`'./${match[1]}'`) || sw.includes(`"./${match[1]}"`), match[1]);
   }
   for (const match of sw.matchAll(/["']\.\/([^"']+)["']/g))
@@ -308,6 +308,7 @@ test("service worker waits for consent and deletes only old app caches", async (
         "other-project",
         "filipinas-v8-7-1",
         "filipinas-v8-8-0",
+        "filipinas-v8-8-1",
       ],
       delete: async (key) => deleted.push(key),
     },
@@ -329,7 +330,66 @@ test("service worker waits for consent and deletes only old app caches", async (
     },
   });
   await pending;
-  assert.deepEqual(deleted, ["filipinas-v8-7-1"]);
+  assert.deepEqual(deleted, ["filipinas-v8-7-1", "filipinas-v8-8-0"]);
   events.message({ data: { type: "SKIP_WAITING" } });
   assert.ok(messages.includes("skip"));
+});
+
+
+test("startup uses today's local date instead of stored selection, with trip boundaries", () => {
+  for (const [now, expected] of [
+    ["2026-09-01T12:00:00", 1],
+    ["2026-09-26T00:00:00", 1],
+    ["2026-10-05T00:01:00", 10],
+    ["2026-10-24T23:59:00", 29],
+    ["2026-11-01T12:00:00", 29],
+  ]) {
+    const a = app({ filipinasJourneyModel: "8.7", selectedDay: "17" }, now);
+    assert.equal(a.run("state.selectedDay"), expected);
+    a.run("selectDay(6);setLanguage('en')");
+    input(a, "Manual day stays editable");
+    assert.equal(a.run("state.selectedDay"), 6);
+    const b = app(snapshot(a.win), now);
+    assert.equal(b.run("state.selectedDay"), expected);
+    b.run("selectDay(6)");
+    assert.equal(b.doc.getElementById("journalText").value, "Manual day stays editable");
+    a.win.close();
+    b.win.close();
+  }
+});
+
+test("place navigation follows first visit dates, preserving return stages and targets", () => {
+  const a = app();
+  const expected = JSON.parse(a.run("JSON.stringify([...new Set([...tripData.days].sort((a,b)=>a.date.localeCompare(b.date)).map(d=>d.locationKey))])"));
+  // Sorting must not depend on the storage order of either collection.
+  a.run("tripData.locations.reverse();tripData.days.reverse();renderLocationNav()");
+  for (const lang of ["es", "en"]) {
+    a.run(`setLanguage('${lang}')`);
+    const buttons = [...a.doc.querySelectorAll(".location-link")];
+    assert.deepEqual(buttons.map(b => b.dataset.loc), expected);
+    assert.equal(expected[0], "madrid-departure");
+    assert.equal(expected[1], "abu-dhabi");
+    assert.equal(expected.at(-1), "madrid-return");
+    for (const button of buttons) {
+      button.click();
+      const firstId = a.run(`([...tripData.days].sort((a,b)=>a.date.localeCompare(b.date))).find(d=>d.locationKey===${JSON.stringify(button.dataset.loc)}).id`);
+      assert.equal(a.run("state.selectedDay"), firstId);
+    }
+  }
+  a.win.close();
+});
+
+test("all 29 filming guides display 16:9 and contextual filter advice in both languages", () => {
+  const a = app();
+  for (const lang of ["es", "en"]) {
+    a.run(`setLanguage('${lang}')`);
+    assert.equal(a.run(`Object.values(DOCUMENTARY.presets).every(p=>p.settings.${lang}.includes('16:9') && p.filter.${lang}.includes('ND8'))`), true);
+    for (let day=1; day<=29; day++) {
+      a.run(`selectDay(${day})`);
+      assert.match(a.doc.querySelector(".field-preset").textContent, /16:9/);
+      assert.match(a.doc.querySelector(".field-filter").textContent, /ND8/);
+      assert.doesNotMatch(a.doc.querySelector("#dayContent")?.textContent || a.doc.body.textContent, /\b4:3\b/);
+    }
+  }
+  a.win.close();
 });
