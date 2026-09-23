@@ -267,12 +267,12 @@ test("Today phases, independent check-ins, and quick access use the actual trip 
 
 test("versioned scripts/styles, offline shell and local images all exist", () => {
   const sw = read("service-worker.js");
-  assert.match(html, /V8\.11\.0/);
-  assert.match(sw, /filipinas-v8-11-0/);
+  assert.match(html, /V8\.12\.0/);
+  assert.match(sw, /filipinas-v8-12-0/);
   for (const match of html.matchAll(
     /(?:src|href)="([^"?]+\.(?:js|css))\?v=([^"&]+)/g,
   )) {
-    assert.equal(match[2], "8.11.0");
+    assert.equal(match[2], "8.12.0");
     assert.ok(sw.includes(`'./${match[1]}'`) || sw.includes(`"./${match[1]}"`), match[1]);
   }
   for (const match of sw.matchAll(/["']\.\/([^"']+)["']/g))
@@ -310,7 +310,7 @@ test("service worker waits for consent and deletes only old app caches", async (
         "filipinas-v8-8-0",
         "filipinas-v8-8-1",
         "filipinas-v8-9-0",
-        "filipinas-v8-11-0",
+        "filipinas-v8-12-0",
       ],
       delete: async (key) => deleted.push(key),
     },
@@ -619,13 +619,13 @@ test('flexible stays and search tasks replace assumptions without losing activit
   const searchDays=[];
   for (let day=1;day<=29;day++) {
     a.run(`selectDay(${day})`);
-    const flexible = [6,11,12,13,14,15,16,18,19,20,21,22,23,24].includes(day);
+    const flexible = [6,11,15,16,18,19,20,21,22,23,24].includes(day);
     assert.equal(Boolean(a.doc.querySelector('.accommodation-section')?.textContent.includes('Alojamiento flexible')),flexible);
     if (flexible) assert.equal(a.doc.querySelectorAll('.accommodation-section a').length,0);
     if (a.run(`dayById(${day}).activities.some(a=>a.id==='find-accommodation')`)) searchDays.push(day);
     assert.doesNotMatch(a.doc.getElementById('dayContent').textContent,/casa familiar|Claire|family home/i);
   }
-  assert.deepEqual(searchDays,[6,11,12,15,18]);
+  assert.deepEqual(searchDays,[6,11,15,18]);
   a.run('selectDay(11)');
   const arrivalIndex=a.run('dayById(11).activities.findIndex(a=>a.id==="arrival-manolo")');
   const box=a.doc.querySelector(`[data-done="${arrivalIndex}"]`);
@@ -684,7 +684,7 @@ test("photo associations, dimensions and loading cover every rendered travel day
   const dimensions = a.win.PHOTO_DIMENSIONS;
   const files = fs.readdirSync(path.join(root, "images")).filter(x => x.endsWith(".webp"));
   assert.deepEqual(Object.keys(dimensions).sort(), files.sort());
-  assert.ok(files.reduce((sum, file) => sum + fs.statSync(path.join(root, "images", file)).size, 0) < 3_000_000);
+  assert.ok(files.reduce((sum, file) => sum + fs.statSync(path.join(root, "images", file)).size, 0) < 4_000_000);
   for (const lang of ["es", "en"]) {
     a.run(`setLanguage("${lang}")`);
     for (let id = 1; id <= 29; id++) {
@@ -731,4 +731,118 @@ test("itinerary-only hides gallery on toggle, navigation and persisted reload", 
   b.doc.getElementById("itineraryModeButton").click();
   assert.notEqual(b.win.getComputedStyle(b.doc.querySelector(".gallery-section")).display, "none");
   a.dom.window.close(); b.dom.window.close();
+});
+
+test('updated flights expose all six segments, terminals, baggage and connections in ES/EN', () => {
+  const a=app({},'2026-09-23T12:00:00Z');
+  const flights=JSON.parse(a.run('JSON.stringify([...TRIP_FLIGHTS.outbound,...TRIP_FLIGHTS.return])'));
+  assert.deepEqual(flights.map(f=>f.number),['EY104','EY440','PR2525','PR2528','EY447','EY103']);
+  assert.deepEqual(flights.map(f=>[f.departureTerminal,f.arrivalTerminal]),[['4','A'],['A','3'],['2',null],[null,'2'],['3','A'],['A','4']]);
+  assert.deepEqual(flights.map(f=>f.checkedBags),[0,0,0,1,1,1]);
+  assert.ok(flights.slice(3).every(f=>f.checkedBagKg===25));
+  for(const lang of ['es','en']){
+    a.run(`setLanguage('${lang}')`);
+    const preparation=a.doc.querySelector('#todayContext');
+    assert.equal(preparation.querySelectorAll('.flight-detail').length,6);
+    for(const duration of ['15 h 00 min','5 h 10 min','6 h 20 min','3 h 15 min'])assert.ok(preparation.textContent.includes(duration));
+    assert.ok(preparation.textContent.includes(lang==='es'?'La tarifa no incluye maletas facturadas.':'The fare does not include checked baggage.'));
+    for(const id of [1,2,3,28,29]){
+      a.run(`selectDay(${id})`);
+      assert.equal(a.doc.querySelectorAll('.flight-section .flight-detail').length,3);
+      assert.doesNotMatch(a.doc.querySelector('.flight-section').textContent,/undefined|flights\./);
+    }
+    a.run('selectDay(3)');
+    const transfer=[...a.doc.querySelectorAll('.activity-card')].find(el=>el.textContent.includes(lang==='es'?'Conexión en Manila':'Connection in Manila'));
+    assert.match(transfer.textContent,/Terminal 3/);assert.match(transfer.textContent,/Terminal 2/);
+    a.run('selectDay(29)');
+    assert.match(a.doc.querySelector('.activity-card').textContent,/6 h 20 min/);
+  }
+  a.win.close();
+});
+
+test('Campvill bungalow, corrected POI photos and signature are consistent and offline', () => {
+  const a=app({filipinasJourneyModel:'8.7','done_13_Campville Riverside Carpark':'true','done_28_Vuelos de vuelta a Madrid':'true'});
+  const used=new Set();
+  for(const language of ['es','en']){
+    a.run(`setLanguage('${language}')`);
+    for(const id of [12,13,14]){
+      a.run(`selectDay(${id})`);
+      const accommodation=a.doc.querySelector('.accommodation-section');
+      assert.match(accommodation.textContent,/Campvill Riverside Car Camping/);
+      assert.match(accommodation.textContent,/Bungalow/);
+      assert.equal(accommodation.querySelector('a[href="undefined"]'),null);
+      assert.equal(a.doc.querySelector('#hero img').src.split('/').pop(),'campville-riverside.webp');
+    }
+  }
+  a.run('selectDay(13)');assert.equal(a.doc.querySelector('[data-done]').checked,true);
+  a.doc.querySelector('[data-done]').click();assert.equal(a.run('getActivityDone(13,dayById(13).activities[0])'),false);
+  a.run('selectDay(28)');
+  const idx=a.run('dayById(28).activities.findIndex(a=>a.flightNumber==="PR2528")');
+  const box=a.doc.querySelector(`[data-done="${idx}"]`);assert.equal(box.checked,true);box.click();
+  assert.equal(a.run('getActivityDone(28,dayById(28).activities.find(a=>a.flightNumber==="PR2528"))'),false);
+  assert.equal(a.run('dayById(28).activities.filter(a=>a.flightNumber).length'),1);
+  const mappings={'White Island':'white-island.webp','Sunken Cemetery':'sunken-cemetery.webp','Guiob Church Ruins':'guiob.webp','Manolo Fortich':'manolo-fortich.webp','Port of Cagayan de Oro':'cdo-port.webp','Cebu Heritage Monument':'cebu-heritage-monument.webp','Sumilon Sandbar':'sumilon-sandbar.webp','Tumalog Falls':'tumalog.webp','Simala Church':'simala.webp','Carcar Public Market':'carcar-market.webp','Amaya View':'amaya-view.webp','Seven Seas Waterpark':'seven-seas.webp'};
+  for(const [name,file] of Object.entries(mappings)){
+    const pois=a.run('tripData.days.flatMap(d=>d.pois||[])').filter(p=>p.name.en===name);
+    assert.ok(pois.length,name);assert.ok(pois.every(p=>p.image===`./images/${file}`),name);
+  }
+  for(let id=1;id<=29;id++){
+    a.run(`selectDay(${id})`);
+    for(const img of a.doc.querySelectorAll('img[src*="images/"]'))used.add(new URL(img.src).pathname.split('/').pop());
+    assert.equal(a.doc.querySelectorAll('#signatureLogo').length,1);
+    assert.equal(a.doc.querySelector('.gallery img[src*="firma_logo"]'),null);
+  }
+  for(const file of fs.readdirSync(path.join(root,'images'))){
+    assert.ok(used.has(file),`Unused image: ${file}`);
+    assert.ok(read('PHOTO-CREDITS.md').includes('`'+file+'`'),`Missing credit: ${file}`);
+    assert.ok(read('service-worker.js').includes('./images/'+file),`Not precached: ${file}`);
+  }
+  a.run('selectDay(7)');assert.equal(a.doc.querySelector('#hero img').src.split('/').pop(),'camiguin.webp');
+  a.win.close();
+});
+
+test('activity presses preserve focus, notes, expanded details and roll back on storage failure', () => {
+  const a=app();a.run('selectDay(13)');
+  input(a,'Diario conservado');
+  const note=a.doc.getElementById('journalText'),box=a.doc.querySelector('[data-done]'),details=a.doc.querySelector('details');
+  if(details)details.open=true;
+  box.focus();box.click();
+  assert.equal(a.doc.activeElement,box);assert.equal(a.doc.getElementById('journalText'),note);
+  assert.equal(note.value,'Diario conservado');if(details)assert.equal(details.open,true);
+  assert.match(a.doc.querySelector('.progress-copy').textContent,/1\/1/);
+  const stored=snapshot(a.win),original=a.win.Storage.prototype.setItem;
+  let alerts=0;a.win.alert=()=>alerts++;
+  a.win.Storage.prototype.setItem=function(key,value){if(key.startsWith('done_'))throw new Error('quota');return original.call(this,key,value);};
+  box.click();assert.equal(box.checked,true);assert.equal(alerts,1);assert.deepEqual(snapshot(a.win),stored);
+  a.win.close();
+});
+
+test('next/previous advance from selected day; Today scrolls once and respects reduced motion', () => {
+  const a=app({},'2026-10-05T12:00:00Z');
+  a.run('selectDay(10)');
+  a.doc.querySelector('[data-today-action="next"]').click();
+  a.doc.querySelector('[data-today-action="next"]').click();
+  assert.equal(a.run('state.selectedDay'),12);
+  a.doc.querySelector('[data-today-action="prev"]').click();assert.equal(a.run('state.selectedDay'),11);
+  assert.equal(a.doc.querySelector('[data-day="11"]').getAttribute('aria-current'),'date');
+  const scrolls=[];a.win.scrollTo=opts=>scrolls.push(['page',opts]);
+  a.win.HTMLElement.prototype.scrollIntoView=function(opts){scrolls.push([this.id,opts]);};
+  a.win.matchMedia=()=>({matches:true});a.doc.getElementById('todayButton').click();
+  assert.equal(a.run('state.selectedDay'),10);
+  assert.equal(scrolls.length,1);assert.equal(scrolls[0][0],'todayContext');assert.equal(scrolls[0][1].behavior,'instant');
+  a.win.close();
+});
+
+test('menu supports focus return, Escape, keyboard loop and itinerary pressed state', () => {
+  const a=app(),menu=a.doc.getElementById('menuButton'),panel=a.doc.getElementById('sidePanel');
+  assert.ok(panel.hasAttribute('inert'));menu.click();
+  assert.equal(menu.getAttribute('aria-expanded'),'true');assert.ok(!panel.hasAttribute('inert'));
+  const first=a.doc.getElementById('closeMenu');assert.equal(a.doc.activeElement,first);
+  a.doc.dispatchEvent(new a.win.KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true}));
+  assert.equal(a.doc.activeElement.id,'itineraryModeButton');
+  a.doc.dispatchEvent(new a.win.KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));assert.equal(a.doc.activeElement,first);
+  a.doc.getElementById('itineraryModeButton').click();assert.equal(a.doc.getElementById('itineraryModeButton').getAttribute('aria-pressed'),'true');
+  a.doc.dispatchEvent(new a.win.KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));
+  assert.equal(a.doc.activeElement,menu);assert.equal(menu.getAttribute('aria-expanded'),'false');assert.ok(panel.hasAttribute('inert'));
+  a.win.close();
 });

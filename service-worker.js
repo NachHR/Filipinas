@@ -1,5 +1,5 @@
-// V8.11.0 — Atomic shell install, explicit updates, app-owned caches only.
-const CACHE = "filipinas-v8-11-0";
+// V8.12.0 — Atomic shell install, explicit updates, app-owned caches only.
+const CACHE = "filipinas-v8-12-0";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -29,28 +29,42 @@ const APP_SHELL = [
 ];
 const LOCAL_IMAGES = [
   "./images/airport.webp",
+  "./images/amaya-view.webp",
   "./images/bukidnon.webp",
   "./images/camiguin.webp",
+  "./images/campville-riverside.webp",
+  "./images/carcar-market.webp",
+  "./images/cdo-night.webp",
+  "./images/cdo-port.webp",
   "./images/cdo.webp",
+  "./images/cebu-heritage-monument.webp",
   "./images/cebu.webp",
   "./images/ferry.webp",
+  "./images/firma_logo.webp",
   "./images/fort-san-pedro.webp",
   "./images/guiob.webp",
   "./images/iligan.webp",
   "./images/kawasan.webp",
   "./images/kitanglad.webp",
-  "./images/pearl-lounge.webp",
   "./images/madrid-barajas.webp",
   "./images/magellans-cross.webp",
+  "./images/manolo-fortich.webp",
   "./images/mantigue.webp",
   "./images/oslob.webp",
+  "./images/pearl-lounge.webp",
   "./images/santo-nino.webp",
+  "./images/seven-seas.webp",
   "./images/sheikh-zayed-mosque.webp",
+  "./images/simala.webp",
   "./images/sirao.webp",
+  "./images/sumilon-sandbar.webp",
+  "./images/sunken-cemetery.webp",
   "./images/taoist-temple.webp",
   "./images/temple-of-leah.webp",
   "./images/tuasan.webp",
-  "./images/zayed-airport.webp",
+  "./images/tumalog.webp",
+  "./images/white-island.webp",
+  "./images/zayed-airport.webp"
 ];
 self.addEventListener("install", (event) => {
   // Bypass HTTP cache so a new worker cannot precache an old shell.

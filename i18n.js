@@ -1,7 +1,7 @@
 /* V8.6.4 — Single source of truth for all interface translations. */
 const I18N = {
   es: {
-    photos: { credits: "Créditos de fotografías" },
+    photos: { credits: "Créditos de fotografías", signature: "Logo de NachHR", creator: "Creado por NachHR" },
     exports: { started: "Descarga solicitada. Comprueba tus descargas.", error: "No se ha podido exportar. Comprueba los datos guardados y vuelve a intentarlo." },
     journal: {
       title: "Mi diario",
@@ -164,6 +164,21 @@ const I18N = {
       manage: "Gestionar reserva en Etihad",
     },
     flights: {
+      outbound: "Vuelos de ida",
+      details: "Terminales, equipaje y conexiones",
+      departure: "Salida",
+      arrival: "Llegada",
+      airline: "Aerolínea",
+      operator: "Operado por",
+      terminal: "Terminal",
+      terminalUnknown: "Terminal no indicada",
+      noBags: "La tarifa no incluye maletas facturadas.",
+      oneBag: "Incluye 1 maleta facturada de hasta 25 kg.",
+      confirmed: "Confirmado",
+      connection: "Cambio de avión en",
+      terminalChange: "Cambio de terminal",
+      localTimes: "Fechas y horas locales de cada aeropuerto. Datos facilitados el 23/09/2026.",
+
       return: "Vuelos de vuelta",
       manage: "Gestionar reserva en Etihad",
       flight: "Vuelo",
@@ -179,7 +194,7 @@ const I18N = {
     },
   },
   en: {
-    photos: { credits: "Photo credits" },
+    photos: { credits: "Photo credits", signature: "NachHR logo", creator: "Created by NachHR" },
     exports: { started: "Download requested. Check your downloads.", error: "Export failed. Check your saved data and try again." },
     journal: {
       title: "My diary",
@@ -342,6 +357,21 @@ const I18N = {
       manage: "Manage booking on Etihad",
     },
     flights: {
+      outbound: "Outbound flights",
+      details: "Terminals, baggage and connections",
+      departure: "Departure",
+      arrival: "Arrival",
+      airline: "Airline",
+      operator: "Operated by",
+      terminal: "Terminal",
+      terminalUnknown: "Terminal not specified",
+      noBags: "The fare does not include checked baggage.",
+      oneBag: "Includes 1 checked bag up to 25 kg.",
+      confirmed: "Confirmed",
+      connection: "Change of aircraft at",
+      terminalChange: "Terminal change",
+      localTimes: "Dates and times are local to each airport. Details supplied on 23 September 2026.",
+
       return: "Return flights",
       manage: "Manage booking on Etihad",
       flight: "Flight",
@@ -426,6 +456,7 @@ function applyShellTranslations() {
       : t("shell.itinerary"),
     footerCredit: t("shell.footer"),
     photoCreditsLink: t("photos.credits"),
+    signatureCredit: t("photos.creator"),
     budgetDialogTitle: t("budget.title"),
     budgetDialogHelp: t("budget.help"),
     budgetDialogLabel: t("budget.label"),
@@ -438,6 +469,8 @@ function applyShellTranslations() {
   });
   const toggle = document.getElementById("languageToggle");
   if (toggle) toggle.textContent = lang === "es" ? "ES / EN" : "EN / ES";
+  document.getElementById("signatureLogo")?.setAttribute("alt", t("photos.signature"));
+  document.getElementById("itineraryModeButton")?.setAttribute("aria-pressed", String(state.itineraryOnly));
   const flag = document.getElementById("brandFlag");
   if (flag) flag.alt = t("app.flagAlt");
   document

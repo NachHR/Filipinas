@@ -487,8 +487,8 @@ const SHOOTING_PLANS = {
     ],
     "clips": [
       {
-        "es": "Si se acampa: montaje o cocina con permiso, secuencia de 3 × 10 s",
-        "en": "If camping: setup or cooking with permission, 3 × 10 s sequence"
+        "es": "En Campvill: bungalow o cocina con permiso, secuencia de 3 × 10 s",
+        "en": "At Campvill: bungalow or cooking with permission, 3 × 10 s sequence"
       },
       {
         "es": "Río: 60 s; campamento autorizado: 45 s de ambiente",
@@ -509,8 +509,8 @@ const SHOOTING_PLANS = {
       {
         "id": "campsite-routine-if-undertaken-preparation-and-ending",
         "text": {
-          "es": "Rutina del campamento, si se realiza: preparación y final",
-          "en": "Campsite routine, if undertaken: preparation and ending"
+          "es": "Rutina del bungalow: preparación y final",
+          "en": "Bungalow routine: preparation and ending"
         },
         "duration": "10–15 s"
       },

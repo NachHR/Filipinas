@@ -2,11 +2,13 @@
 
 > Referencia viva del estado real, decisiones y hoja de ruta. El repositorio y el código son la fuente de verdad técnica.
 
-**Última actualización:** 17/09/2026
+**Última actualización:** 23/09/2026
 
-**Versión del código:** **V8.11.0 — Fotografías y rendimiento**
+**Versión del código:** **V8.12.0 — Vuelos, Campvill y respuesta de la interfaz**
 
 **Última versión probada por el propietario:** **V8.11.0**, declarada probada y validada.
+
+**Estado V8.12.0:** implementada directamente en `main`; 32 pruebas automatizadas superadas. Pendiente de validación del propietario. No se declara todavía el release final V9.0.
 
 **Estado V8.11.0:** integrada directamente en `main` (`202643f`), versión servida comprobada. [Despliegue Pages](https://github.com/NachHR/Filipinas/actions/runs/35247903562). 27 pruebas superadas; probada y validada por el propietario. V9.0 sigue reservada para la validación final.
 
@@ -30,6 +32,19 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 - Alojamiento, POIs, Maps, fotos locales, instalación PWA e indicador online/offline.
 - Fotografías de Madrid, Zayed y Sheikh Zayed Grand Mosque dentro de la caché.
 
+### Implementado en V8.12.0 — Vuelos, Campvill y respuesta de la interfaz
+
+- Los seis tramos incorporan número, aerolínea, operador, fecha de llegada, terminales y equipaje según la actualización del propietario del 23/09/2026: ida sin maletas facturadas incluidas; vuelta con una de hasta 25 kg. Horas locales de cada aeropuerto, sin publicar localizadores.
+- Conexiones: AUH 15 h; Manila 5 h 10 min (T3 → T2) de ida, Manila 6 h 20 min (T2 → T3) y AUH 3 h 15 min de vuelta. Detalle disponible en Preparación y en los días de vuelo.
+- Bungalow previsto en **Campvill Riverside Car Camping**, Kisolon / Sumilao, noches del 7 al 9 de octubre, salida el 10 según el itinerario vigente. Sin inventar una confirmación de reserva ni horarios de entrada. Retirada la búsqueda genérica de alojamiento de esa estancia.
+- 36 fotografías y firma (`firma_logo.webp`): **3.361.694 bytes** en conjunto. Se conservan los WebP subidos sin recomprimir. White Island usa `white-island.webp`; Camiguin tiene su propia portada. Nuevas asociaciones a POI, dimensiones y caché actualizadas.
+- Firma NachHR discreta en el pie. Bandera superior e iconos PWA conservados.
+- Respuesta visual al pulsar, foco visible, controles táctiles de al menos 44 px de altura y respeto a movimiento reducido. Menú con foco, cierre con Escape, bucle de tabulación y controles inactivos cuando está cerrado.
+- Marcar actividades actualiza progreso sin reconstruir la vista ni cerrar los detalles; ante fallo de guardado se revierte la casilla y se avisa. Anterior/Siguiente avanzan desde el día consultado. Hoy evita desplazamientos verticales simultáneos.
+- Se consolidó la actividad duplicada de vuelo de vuelta, conservando casillas antiguas por sus claves previas. Notas, gastos, P1, fechas e identificador de migración `8.7` intactos.
+
+**English:** All six flights now include flight numbers, terminals, carriers, operators, local arrival dates and checked baggage. Manila transfers are explicit (T3 → T2 outbound; T2 → T3 return). The Kisolon stay uses a planned Campvill bungalow for 7–10 October, with arrival time still to be arranged. Updated POI photos, White Island mapping, offline image inventory and NachHR footer signature. Button feedback, keyboard focus, selected-day navigation and in-place activity progress improve interaction while preserving saved data.
+
 ### Implementado en V8.11.0
 
 - Fotografías reemplazadas por el propietario y conservadas en WebP reducido. Antes de esta intervención ya pesaban 2.134.926 bytes (20 archivos), frente a 9.143.271 bytes en V8.10.0: reducción del 76,65 %, atribuida a su actualización.
@@ -42,12 +57,12 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 ### Implementado en V8.10.0
 
 - Iconos PNG de instalación/arranque/favicon derivados del SVG existente, con tamaños 192/512 y versión maskable. No modificar `flag-ph.svg` ni tamaño/posición de la bandera superior. Nuevos nombres de archivo; PNG antiguos retirados.
-- Alojamiento flexible sin reserva en las noches del 01/10, 06–11/10 y 13–19/10. Esto incluye Kisolon: el campamento sigue siendo opción, no reserva confirmada. No añadir hoteles ficticios ni enlaces de reserva inexistentes. No convertir noches de vuelo/ferry en noches de hotel.
-- Buscar alojamiento pendiente al inicio de cada estancia (días 6, 11, 12, 15, 18). No duplicar diariamente.
+- Alojamiento flexible sin reserva en las noches del 01/10, 06/10, 10–11/10 y 13–19/10. V8.12.0 sustituye la situación anterior de Kisolon por bungalow previsto en Campvill para las noches 07–09/10, sin afirmar reserva confirmada. No añadir hoteles ficticios ni enlaces de reserva inexistentes. No convertir noches de vuelo/ferry en noches de hotel.
+- Buscar alojamiento pendiente al inicio de cada estancia (días 6, 11, 15, 18 desde V8.12.0). No duplicar diariamente.
 - P1: tres casillas por fecha con IDs estables y dos clips complementarios de solo lectura. Almacenamiento `filipinasP1_YYYY-MM-DD`: objeto `{id: boolean}`; leer fresco, guardar al marcar, revertir checkbox y avisar si falla. Datos inválidos no se sobrescriben. No exportar automáticamente casillas con el diario.
 - `shooting-data.js` adapta la guía suministrada a las preferencias vigentes: 16:9, ND8 polarizado, tres P1 realizables, Cebú condicional y alojamientos flexibles.
 - Revisión bilingüe de pautas detalladas: eliminar duración antigua de 26 días, alojamiento familiar supuesto y afirmaciones geográficas superlativas no necesarias; mantener seguridad y permisos.
-- Actividades renombradas usan ID estable y `legacyTitle` solo para leer progreso existente. Si el nuevo valor está guardado, prevalece incluso cuando es falso. No ejecutar otra migración 8.7. La nueva búsqueda de alojamiento no hereda una casilla antigua.
+- Actividades renombradas usan ID estable y `legacyTitle` / `legacyTitles` solo para leer progreso existente. Si el nuevo valor está guardado, prevalece incluso cuando es falso. No ejecutar otra migración 8.7. La nueva búsqueda de alojamiento no hereda una casilla antigua.
 - Exportaciones UTF-8 con BOM (`EF BB BF`) para mejorar autodetección. No transformar el texto guardado ni prometer compatibilidad con lectores que fuerzan otra codificación.
 - Retirados Ver Día 1, traducciones, controlador y regla CSS adyacente sin uso.
 
@@ -84,8 +99,8 @@ Viaje puerta a puerta de **29 días**, Madrid **26/09/2026** → Madrid **24/10/
 
 ### Estado técnico
 
-- Badge y CSS/JS: `8.11.0`; Service Worker: `filipinas-v8-11-0`.
-- README, CHANGELOG y este documento reflejan V8.11.0 implementada y V8.11.0 validada por el propietario.
+- Badge y CSS/JS: `8.12.0`; Service Worker: `filipinas-v8-12-0`.
+- README, CHANGELOG y este documento reflejan V8.12.0 implementada y V8.11.0 validada por el propietario.
 - Migración de 26 a 29 días: **mantener identificador interno `8.7`**. No volver a desplazar gastos/checklists/actividades en equipos ya migrados.
 - Las notas nuevas no necesitan migrar IDs: usan fechas ISO.
 - Sin backend, framework, subida multimedia ni dependencias de ejecución. Node/jsdom solo se usan para pruebas.
@@ -118,12 +133,12 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 
 ### Arquitectura estable
 
-- `data.js`: alojamiento, actividades y pautas detalladas revisados en V8.10.0; vuelos y reservas existentes conservados. `documentary-data.js` mantiene presets y aclara contexto de estancia.
+- `data.js`: alojamiento Campvill, actividades y enlaces de alojamiento revisados en V8.12.0. `flights.js` centraliza los seis tramos y enriquece las actividades tras componer los 29 días; no publica localizadores. `documentary-data.js` mantiene presets y aclara contexto de estancia.
 - `journey.js`: composición de 29 días y migración heredada; no modificado en V8.8.0.
 - `i18n.js`: única fuente de textos de interfaz ES/EN.
 - `script.js`: coordinador de estado, navegación y render, no un módulo monolítico.
 - `images/`: fotos locales actualizadas; fuentes y licencias revisadas en PHOTO-CREDITS.
-- `photos.js` resuelve las rutas históricas de imágenes presentes en `data.js` antes de renderizar. La revisión comprueba el modelo compuesto, no solo cadenas de archivos aislados: Referencias y dimensiones comprobadas en los 29 días. `PHOTO_VERSION='8.11.0'` identifica la capa fotográfica vigente.
+- `photos.js` resuelve las rutas históricas de imágenes presentes en `data.js` antes de renderizar. La revisión comprueba el modelo compuesto, no solo cadenas de archivos aislados: Referencias y dimensiones comprobadas en los 29 días. `PHOTO_VERSION='8.12.0'` identifica la capa fotográfica vigente.
 - El nombre heredado `itineraryOnly` y la clave de checklist `macro` permanecen para compatibilidad; sus etiquetas/UI se aclaran.
 
 ## 3. Archivos y responsabilidades
@@ -149,6 +164,8 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 | `service-worker.js` | Shell, caché y actualización con confirmación |
 | `manifest.json` | Instalación PWA |
 | `tests/app.test.cjs` | Regresión DOM y worker simulado |
+| `tests/QA_V8.12.0.md` | QA de vuelos, Campvill, imágenes, firma y controles |
+| `tests/QA_V8.11.0.md` | Evidencia histórica de fotografías y rendimiento |
 | `tests/QA_V8.10.0.md` | QA de iconos, alojamientos, P1 y bytes UTF-8 con BOM |
 | `tests/QA_V8.9.0.md` | Evidencia histórica de exportación y presupuesto |
 | `tests/QA_V8.8.0.md` / `tests/QA_V8.8.1.md` | Evidencia histórica |
@@ -160,6 +177,10 @@ Desde Hoy, escribir una nota y consultar preset/seguridad rápidamente. No se pr
 Carga: datos → composición del viaje → módulos existentes → datos documentales/diario/render documental → coordinador. No modificar IDs para acoplar la guía.
 
 ## 4. QA y publicación
+
+### V8.12.0
+
+32 pruebas superadas, incluidas cinco nuevas regresiones de vuelos, Campvill/fotos/firma, conservación de foco y estado al marcar actividades, navegación sucesiva y teclado del menú. Archivos de imagen inspeccionados visualmente; medidas, créditos y caché comprobados. Sin prueba real de smartphone en esta intervención. Ver [QA V8.12.0](tests/QA_V8.12.0.md).
 
 ### V8.11.0
 
@@ -214,7 +235,7 @@ El worker precarga con `cache: reload`, espera confirmación en clientes existen
 
 ### Siguiente paso inmediato
 
-V8.11.0 publicada y validada por el propietario. Preparar la auditoría final V9.0 y cerrar las verificaciones de licencia indicadas en PHOTO-CREDITS. La validación comunicada no detalla resultados por dispositivo, modo avión o actualización; conservar esas comprobaciones en el cierre final. Mantener marcador de migración `8.7`.
+Validar V8.12.0 en el smartphone y preparar la auditoría final V9.0. Conservar los créditos y sus límites documentados; el propietario ha pospuesto la investigación adicional de licencias. La validación comunicada no detalla resultados por dispositivo, modo avión o actualización; conservar esas comprobaciones en el cierre final. Mantener marcador de migración `8.7`.
 
 ### Protección de datos pendiente
 
@@ -234,7 +255,7 @@ Confirmar reparto/alojamiento de Cebú, ferris, accesos, operadores y actividade
 
 Auditoría UX móvil/offline/accesibilidad, limpieza de duplicados restantes, revisión de fechas/vuelos/alojamientos/enlaces, optimización y congelación de funciones no esenciales antes del viaje.
 
-Mantenimiento: licencias de imágenes, tamaño offline, duplicidad de datos de vuelos y comportamiento de fechas locales. Cualquier cambio de lógica temporal o migración requiere pruebas propias, no ocultarlo en una limpieza.
+Mantenimiento: atribuciones disponibles de imágenes, tamaño offline, duplicidad de datos de vuelos y comportamiento de fechas locales. Cualquier cambio de lógica temporal o migración requiere pruebas propias, no ocultarlo en una limpieza.
 
 ## 6. Criterio para futuras versiones
 

@@ -1,14 +1,27 @@
 # Filipinas Travel PWA
 
-**Versión del código: V8.11.0 — Fotografías y rendimiento** · 17/09/2026
+**Versión del código: V8.12.0 — Vuelos, Campvill y respuesta de la interfaz** · 23/09/2026
 
-**Estado:** integrada en `main` (`202643f`) y V8.11.0 comprobada en la web publicada. [Despliegue Pages](https://github.com/NachHR/Filipinas/actions/runs/35247903562). V8.11.0 probada y validada por el propietario. Consultar [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.11.0](tests/QA_V8.11.0.md).
+**Estado:** V8.12.0 implementada directamente en `main`; 32 pruebas automatizadas superadas. Última validación del propietario: V8.11.0. Ver [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.12.0](tests/QA_V8.12.0.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 
 ## Aplicación
 
 [Filipinas Travel PWA](https://nachhr.github.io/Filipinas/)
+
+## V8.12.0 — Vuelos, Campvill y respuesta de la interfaz
+
+- Los seis tramos incorporan número, aerolínea, operador, fecha de llegada, terminales y equipaje según la actualización del propietario del 23/09/2026: ida sin maletas facturadas incluidas; vuelta con una de hasta 25 kg. Horas locales de cada aeropuerto, sin publicar localizadores.
+- Conexiones: AUH 15 h; Manila 5 h 10 min (T3 → T2) de ida, Manila 6 h 20 min (T2 → T3) y AUH 3 h 15 min de vuelta. Detalle disponible en Preparación y en los días de vuelo.
+- Bungalow previsto en **Campvill Riverside Car Camping**, Kisolon / Sumilao, noches del 7 al 9 de octubre, salida el 10 según el itinerario vigente. Sin inventar una confirmación de reserva ni horarios de entrada. Retirada la búsqueda genérica de alojamiento de esa estancia.
+- 36 fotografías y firma (`firma_logo.webp`): **3.361.694 bytes** en conjunto. Se conservan los WebP subidos sin recomprimir. White Island usa `white-island.webp`; Camiguin tiene su propia portada. Nuevas asociaciones a POI, dimensiones y caché actualizadas.
+- Firma NachHR discreta en el pie. Bandera superior e iconos PWA conservados.
+- Respuesta visual al pulsar, foco visible, controles táctiles de al menos 44 px de altura y respeto a movimiento reducido. Menú con foco, cierre con Escape, bucle de tabulación y controles inactivos cuando está cerrado.
+- Marcar actividades actualiza progreso sin reconstruir la vista ni cerrar los detalles; ante fallo de guardado se revierte la casilla y se avisa. Anterior/Siguiente avanzan desde el día consultado. Hoy evita desplazamientos verticales simultáneos.
+- Se consolidó la actividad duplicada de vuelo de vuelta, conservando casillas antiguas por sus claves previas. Notas, gastos, P1, fechas e identificador de migración `8.7` intactos.
+
+**English:** All six flights now include flight numbers, terminals, carriers, operators, local arrival dates and checked baggage. Manila transfers are explicit (T3 → T2 outbound; T2 → T3 return). The Kisolon stay uses a planned Campvill bungalow for 7–10 October, with arrival time still to be arranged. Updated POI photos, White Island mapping, offline image inventory and NachHR footer signature. Button feedback, keyboard focus, selected-day navigation and in-place activity progress improve interaction while preserving saved data.
 
 ## V8.11.0 — Fotografías y rendimiento
 
@@ -22,7 +35,7 @@ Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, de
 ## V8.10.0 — Rodaje diario y ajustes de viaje
 
 - Iconos de instalación, arranque y favicon derivados de la bandera circular existente, con variante adaptable a Android. **La bandera de la barra superior no cambia**: mismo SVG, tamaño y posición.
-- Alojamiento flexible sin reserva confirmada el 1 de octubre, en Manolo/Kisolon, Iligan y Cebú. Buscar alojamiento aparece como tarea pendiente al inicio de cada estancia, sin repetirla todos los días.
+- Alojamiento flexible sin reserva confirmada el 1 de octubre, en Manolo, Iligan y Cebú (Kisolon pasa a bungalow previsto en V8.12.0). Buscar alojamiento aparece como tarea pendiente al inicio de cada estancia, sin repetirla todos los días.
 - Tres tomas **P1** con casillas por fecha y dos recomendaciones de clips/sonido por día. Las casillas antiguas se conservan. P1 y clips se ocultan en Solo itinerario.
 - Pautas detalladas revisadas: itinerario de 29 días, 16:9, ND8 polarizado contextual, alojamientos flexibles y Cebú condicional.
 - Eliminado «Ver Día 1» de Preparación; se conservan vuelos y check-ins.
@@ -197,13 +210,13 @@ Usa **Exportar presupuesto (.md)** para descargar el registro completo. Los impo
 
 ## Pruebas
 
-Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **27 pruebas** pasan en la revisión del 17/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, operaciones de gastos, exportaciones UTF-8, visibilidad de POI, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.11.0.md](tests/QA_V8.11.0.md).
+Con Node >=22.19, ejecutar `npm ci` y `npm test`. Las **32 pruebas** pasan en la revisión del 23/09/2026: cubren los 29 días/idiomas, persistencia, compatibilidad, errores, operaciones de gastos, exportaciones UTF-8, visibilidad de POI, versiones y caché simulada. El registro distingue estas pruebas de la validación del propietario y de las comprobaciones específicas de dispositivos: véase [QA_V8.12.0.md](tests/QA_V8.12.0.md).
 
 No hace falta Node, instalar paquetes ni compilar para usar o servir la app.
 
 ## Despliegue
 
-La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. El propietario autoriza integrar V8.11.0 directamente en `main`, sin rama nueva.
+La publicación activa es **GitHub Pages**, desde la rama `main` y la carpeta raíz, sin compilación. El propietario autoriza integrar V8.12.0 directamente en `main`, sin rama nueva.
 
 Antes de publicar cambios funcionales, ejecutar las pruebas y revisar la PWA en móvil. Después del merge, comprobar el workflow de Pages y la versión servida, y actualizar el estado de README, CHANGELOG y PROJECT_MASTER.
 
@@ -217,7 +230,7 @@ El sistema operativo puede tardar en actualizar el icono de una PWA ya instalada
 
 ## Créditos
 
-23 fotografías locales: **2,36 MB** en total, incluidas las tres incorporaciones.
+36 fotografías y firma NachHR locales: **3,36 MB** en total.
 
 Aplicación creada con la ayuda de ChatGPT.
 

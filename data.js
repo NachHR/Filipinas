@@ -40,7 +40,7 @@ const tripData = {
           "es": "Avida Towers Aspira T2 · 28 sep – 1 oct",
           "en": "Avida Towers Aspira T2 · 28 Sep – 1 Oct"
         },
-        "booking": "https://www.booking.com/hotel/ph/vinyce-studio.html?label=gen173bo-10CAsotAFCDXZpbnljZS1zdHVkaW9IMVgDaEaIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGYAgSoAgG4AuS9ptUGwAIB0gIkMWRkMDExZWItZTI2OC00ZWI4LTg3YmUtOTJjNDZkMTkyY2Rm2AIB4AIB&sid=95e9a5f76f170b552252c40b439c7b6c&dist=0&group_adults=2&no_rooms=1&sb_price_type=total&type=total",
+        "booking": "https://www.booking.com/hotel/ph/vinyce-studio.html",
         "mapQuery": "Vinyce Studio, Avida Towers Aspira T2, Ramon Chavez Street, Barangay 30, Cagayan de Oro City, Misamis Oriental 9000, Philippines",
         "map": "https://www.google.com/maps/search/?api=1&query=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Cagayan+de+Oro",
         "directions": "https://www.google.com/maps/dir/?api=1&destination=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Cagayan+de+Oro",
@@ -62,7 +62,7 @@ const tripData = {
           "es": "Mambajao · 2 – 6 oct",
           "en": "Mambajao · 2 – 6 Oct"
         },
-        "booking": "https://www.airbnb.com/rooms/1441778154446105929?source_impression_id=p3_1789501206_P3O_3_pXyZ-vGU22",
+        "booking": "https://www.airbnb.com/rooms/1441778154446105929",
         "mapQuery": "Turtle Nest Guest House (Tinian Villa), Baylao, Mambajao, Camiguin, Philippines",
         "map": "https://www.google.com/maps/search/?api=1&query=Turtle+Nest+Guest+House+(Tinian+Villa),+Baylao,+Mambajao,+Camiguin",
         "directions": "https://www.google.com/maps/dir/?api=1&destination=Turtle+Nest+Guest+House+(Tinian+Villa),+Baylao,+Mambajao,+Camiguin",
@@ -84,7 +84,7 @@ const tripData = {
           "es": "Cagayan de Oro · 20 – 23 oct",
           "en": "Cagayan de Oro · 20 – 23 Oct"
         },
-        "booking": "https://www.airbnb.com/rooms/1560151212378269394?source_impression_id=p3_1789501269_P35GrgWtix1fb2md",
+        "booking": "https://www.airbnb.com/rooms/1560151212378269394",
         "mapQuery": "CK Haven Suites - Tuscania CDO, FJVQ+5H4, Saint Ignatius St, Cagayan de Oro, 9000, Philippines",
         "map": "https://www.google.com/maps/search/?api=1&query=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ%2B5H4,+Saint+Ignatius+St,+Cagayan+de+Oro",
         "directions": "https://www.google.com/maps/dir/?api=1&destination=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ%2B5H4,+Saint+Ignatius+St,+Cagayan+de+Oro",
@@ -96,6 +96,27 @@ const tripData = {
           "es": "Check-out el 23 de octubre antes de las 12:00",
           "en": "Check out on 23 October before 12:00"
         }
+      },
+      "kisolon": {
+        "name": {
+          "es": "Campvill Riverside Car Camping",
+          "en": "Campvill Riverside Car Camping"
+        },
+        "subtitle": {
+          "es": "Bungalow · Kisolon / Sumilao · 7–10 oct",
+          "en": "Bungalow · Kisolon / Sumilao · 7–10 Oct"
+        },
+        "checkin": {
+          "es": "Llegada prevista el 7 de octubre · horario por acordar",
+          "en": "Planned arrival on 7 October · time to be arranged"
+        },
+        "checkout": {
+          "es": "Salida prevista el 10 de octubre hacia Iligan",
+          "en": "Planned departure on 10 October for Iligan"
+        },
+        "map": "https://www.google.com/maps/search/?api=1&query=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
+        "image": "./images/campville-riverside.webp"
       }
     }
   },
@@ -1560,18 +1581,18 @@ const tripData = {
             "en": "Travel to Kisolon"
           },
           "description": {
-            "es": "Trayecto de pocos minutos.",
-            "en": "A short local transfer."
+            "es": "Traslado a Kisolon / Sumilao y llegada al bungalow de Campvill Riverside Car Camping.",
+            "en": "Transfer to Kisolon / Sumilao and arrival at the Campvill Riverside Car Camping bungalow."
           },
           "notes": {
-            "es": "",
-            "en": ""
+            "es": "Acordar la hora de llegada con el camping.",
+            "en": "Arrange arrival time with the campsite."
           },
-          "place": "Kisolon, Bukidnon",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Kisolon,+Bukidnon",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Kisolon,+Bukidnon",
+          "place": "Campvill Riverside Car Camping",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
           "status": "planned",
-          "duration": "Pocos minutos",
+          "duration": null,
           "transport": {
             "es": "Traslado local",
             "en": "Local transfer"
@@ -1587,36 +1608,6 @@ const tripData = {
               "Ambient sound"
             ]
           }
-        },
-        {
-          "id": "find-accommodation",
-          "time": {
-            "es": "Antes de la estancia",
-            "en": "Before the stay"
-          },
-          "title": {
-            "es": "Buscar alojamiento",
-            "en": "Find accommodation"
-          },
-          "description": {
-            "es": "Elegir y confirmar alojamiento según la ruta, disponibilidad y presupuesto. Todavía no hay reserva confirmada.",
-            "en": "Choose and confirm accommodation based on route, availability and budget. No booking is confirmed yet."
-          },
-          "notes": {
-            "es": "Confirmar ubicación, precio y hora de llegada antes de desplazarse.",
-            "en": "Confirm location, price and arrival time before travelling."
-          },
-          "status": "pending",
-          "place": null,
-          "maps": "",
-          "directions": "",
-          "duration": null,
-          "transport": {
-            "es": "",
-            "en": ""
-          },
-          "budget": 0,
-          "recording": {}
         }
       ],
       "pois": [
@@ -1635,7 +1626,8 @@ const tripData = {
           "image": null
         }
       ],
-      "accommodationStatus": "flexible"
+      "accommodationStatus": "planned",
+      "accommodationKey": "kisolon"
     },
     {
       "id": 11,
@@ -1650,8 +1642,8 @@ const tripData = {
       },
       "locationKey": "bukidnon",
       "title": {
-        "es": "Campville Riverside Carpark",
-        "en": "Campville Riverside Carpark"
+        "es": "Campvill Riverside Car Camping",
+        "en": "Campvill Riverside Car Camping"
       },
       "status": "planned",
       "budget": 0,
@@ -1664,20 +1656,20 @@ const tripData = {
         {
           "time": "Día",
           "title": {
-            "es": "Campville Riverside Carpark",
-            "en": "Campville Riverside Carpark"
+            "es": "Campvill Riverside Car Camping",
+            "en": "Campvill Riverside Car Camping"
           },
           "description": {
-            "es": "Jornada centrada en el campamento y el río.",
-            "en": "Day focused on the camp and river."
+            "es": "Estancia en bungalow junto al río; tiempo para descansar y grabar el entorno.",
+            "en": "Riverside bungalow stay; time to rest and film the surroundings."
           },
           "notes": {
             "es": "Plano fijo largo del río; grabar el ambiente por separado.",
             "en": "Long locked-off river shot; record ambient sound separately."
           },
-          "place": "Campville Riverside Carpark, Kisolon",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Campville+Riverside+Carpark,+Kisolon",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Campville+Riverside+Carpark,+Kisolon",
+          "place": "Campvill Riverside Car Camping",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
           "status": "planned",
           "duration": null,
           "transport": {
@@ -1694,26 +1686,29 @@ const tripData = {
               "Long locked-off shot",
               "Separate ambient sound"
             ]
-          }
+          },
+          "legacyTitle": "Campville Riverside Carpark",
+          "id": "campvill-stay"
         }
       ],
       "pois": [
         {
           "name": {
-            "es": "Campville Riverside Carpark",
-            "en": "Campville Riverside Carpark"
+            "es": "Campvill Riverside Car Camping",
+            "en": "Campvill Riverside Car Camping"
           },
           "description": {
-            "es": "Localización principal del campamento.",
-            "en": "Main camp location."
+            "es": "Camping junto al río donde se encuentra el bungalow de la estancia.",
+            "en": "Riverside campsite with the bungalow for this stay."
           },
-          "place": "Campville Riverside Carpark, Kisolon",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Campville+Riverside+Carpark,+Kisolon",
+          "place": "Campvill Riverside Car Camping",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
           "optional": false,
           "image": null
         }
       ],
-      "accommodationStatus": "flexible"
+      "accommodationStatus": "planned",
+      "accommodationKey": "kisolon"
     },
     {
       "id": 12,
@@ -1742,20 +1737,20 @@ const tripData = {
         {
           "time": "Día",
           "title": {
-            "es": "Campville Riverside Carpark",
-            "en": "Campville Riverside Carpark"
+            "es": "Campvill Riverside Car Camping",
+            "en": "Campvill Riverside Car Camping"
           },
           "description": {
-            "es": "Continuar la jornada de campamento.",
-            "en": "Continue the camp day."
+            "es": "Estancia en bungalow junto al río; tiempo para descansar y grabar el entorno.",
+            "en": "Riverside bungalow stay; time to rest and film the surroundings."
           },
           "notes": {
             "es": "Priorizar paciencia y sonido de ambiente.",
             "en": "Prioritise patience and ambient sound."
           },
-          "place": "Campville Riverside Carpark, Kisolon",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Campville+Riverside+Carpark,+Kisolon",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Campville+Riverside+Carpark,+Kisolon",
+          "place": "Campvill Riverside Car Camping",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Campvill+Riverside+Car+Camping,+Sumilao,+Bukidnon",
           "status": "planned",
           "duration": null,
           "transport": {
@@ -1772,7 +1767,9 @@ const tripData = {
               "Long locked-off shot",
               "Separate ambient sound"
             ]
-          }
+          },
+          "legacyTitle": "Campville Riverside Carpark",
+          "id": "campvill-stay"
         }
       ],
       "pois": [
@@ -1791,7 +1788,8 @@ const tripData = {
           "image": null
         }
       ],
-      "accommodationStatus": "flexible"
+      "accommodationStatus": "planned",
+      "accommodationKey": "kisolon"
     },
     {
       "id": 13,
@@ -1859,8 +1857,8 @@ const tripData = {
             "en": "Travel to Iligan"
           },
           "description": {
-            "es": "Trayecto desde Manolo Fortich de unas 3 horas.",
-            "en": "Around 3 hours from Manolo Fortich."
+            "es": "Salida del bungalow en Campvill y traslado desde Kisolon / Sumilao a Iligan. Confirmar duración y transporte localmente.",
+            "en": "Leave the Campvill bungalow and travel from Kisolon / Sumilao to Iligan. Confirm journey time and transport locally."
           },
           "notes": {
             "es": "",
@@ -1872,8 +1870,8 @@ const tripData = {
           "status": "planned",
           "duration": "≈ 3 h",
           "transport": {
-            "es": "Manolo Fortich → Iligan",
-            "en": "Manolo Fortich → Iligan"
+            "es": "Kisolon / Sumilao → Iligan",
+            "en": "Kisolon / Sumilao → Iligan"
           },
           "budget": 1000,
           "recording": {}

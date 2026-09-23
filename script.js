@@ -141,22 +141,25 @@ function renderDayNav() {
     .querySelectorAll(".day-button")
     .forEach((b) => (b.onclick = () => selectDay(Number(b.dataset.day))));
 }
-function goToday() {
-  selectDay(todayDay().id);
-  $("#todayContext")?.scrollIntoView({ behavior: "smooth", block: "start" });
+function motionBehavior() {
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth";
 }
-function selectDay(id) {
-  state.selectedDay = id;
+function goToday() {
+  selectDay(todayDay().id, "today");
+}
+function selectDay(id, target = "top") {
+  state.selectedDay = dayById(id).id;
   persist();
-  renderDay(id);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  document
-    .querySelector(`[data-day="${id}"]`)
-    ?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
+  renderDay(state.selectedDay);
+  // Move only the horizontal strip: scrollIntoView can also move the page.
+  const nav = $("#dayNavigation"), button = nav.querySelector(`[data-day="${state.selectedDay}"]`);
+  if (button) {
+    const left = button.offsetLeft - (nav.clientWidth - button.offsetWidth) / 2;
+    if (nav.scrollTo) nav.scrollTo({ left: Math.max(0, left), behavior: motionBehavior() });
+    else nav.scrollLeft = Math.max(0, left);
+  }
+  if (target === "today") $("#todayContext")?.scrollIntoView({ behavior: motionBehavior(), block: "start" });
+  else window.scrollTo({ top: 0, behavior: motionBehavior() });
 }
 function renderHero(day) {
   const lm = locationMeta(day.locationKey),
@@ -169,7 +172,12 @@ function renderDay(id) {
   renderHero(day);
   document
     .querySelectorAll(".day-button")
-    .forEach((b) => b.classList.toggle("active", Number(b.dataset.day) === id));
+    .forEach((b) => {
+      const active = Number(b.dataset.day) === id;
+      b.classList.toggle("active", active);
+      if (active) b.setAttribute("aria-current", "date");
+      else b.removeAttribute("aria-current");
+    });
   document
     .querySelectorAll(".location-link")
     .forEach((b) =>
@@ -200,8 +208,9 @@ function renderDay(id) {
 }
 function getActivityDone(dayId, act) {
   const saved = localStorage.getItem(`done_${dayId}_${act.id || act.title.es}`);
-  return (saved === null && act.legacyTitle
-    ? localStorage.getItem(`done_${dayId}_${act.legacyTitle}`) : saved) === "true";
+  if (saved !== null) return saved === "true";
+  return (act.legacyTitles || [act.legacyTitle]).filter(Boolean)
+    .some(title => localStorage.getItem(`done_${dayId}_${title}`) === "true");
 }
 function setActivityDone(dayId, act, val) {
   localStorage.setItem(`done_${dayId}_${act.id || act.title.es}`, String(val));
@@ -226,7 +235,7 @@ function accommodationSection(day) {
   const key = day.accommodationKey || day.locationKey,
     a = tripData.meta.accommodations?.[key];
   if (!a) return "";
-  return `<section class="accommodation-section"><div class="section-head"><h2>🏠 ${t("day.accommodation")}</h2><span>${tr(a.subtitle)}</span></div><div class="card accommodation-card"><div><h3>${tr(a.name)}</h3><p class="muted">${tr(a.checkin)}<br>${tr(a.checkout)}</p></div><div class="actions"><a class="action primary" target="_blank" rel="noopener" href="${a.booking}">↗ ${t("day.booking")}</a><a class="action" target="_blank" rel="noopener" href="${a.map}">⌖ ${t("day.maps")}</a><a class="action" target="_blank" rel="noopener" href="${a.directions}">↗ ${t("day.directions")}</a></div></div></section>`;
+  return `<section class="accommodation-section"><div class="section-head"><h2>🏠 ${t("day.accommodation")}</h2><span>${tr(a.subtitle)}</span></div><div class="card accommodation-card">${a.image ? `<img class="accommodation-photo" ${photoAttributes(a.image)} src="${imageSrc(a.image)}" alt="${tr(a.name)}">` : ""}<div><h3>${tr(a.name)}</h3><p class="muted">${tr(a.checkin)}<br>${tr(a.checkout)}</p></div><div class="actions">${a.booking ? `<a class="action primary" target="_blank" rel="noopener" href="${a.booking}">↗ ${t("day.booking")}</a>` : ""}<a class="action" target="_blank" rel="noopener" href="${a.map}">⌖ ${t("day.maps")}</a><a class="action" target="_blank" rel="noopener" href="${a.directions}">↗ ${t("day.directions")}</a></div></div></section>`;
 }
 function locationGallery(key) {
   const lm = locationMeta(key);
@@ -237,12 +246,23 @@ function bindDayEvents(day) {
   document.querySelectorAll("[data-done]").forEach(
     (box) =>
       (box.onchange = (e) => {
-        setActivityDone(
-          day.id,
-          day.activities[Number(box.dataset.done)],
-          e.target.checked,
-        );
-        renderDay(day.id);
+        try {
+          setActivityDone(day.id, day.activities[Number(box.dataset.done)], e.target.checked);
+        } catch {
+          box.checked = !box.checked;
+          alert(t("field.saveError"));
+          return;
+        }
+        box.nextElementSibling.textContent = box.checked ? "✓" : "";
+        const completed = day.activities.filter(a => getActivityDone(day.id, a)).length;
+        const total = day.activities.length, pct = total ? Math.round(completed / total * 100) : 0;
+        $(".progress-line span").style.width = `${pct}%`;
+        $(".progress-copy").textContent = `${t("day.progress")}: ${completed}/${total} · ${pct}%`;
+        const todayProgress = $(".today-progress");
+        if (todayProgress) {
+          todayProgress.querySelector("span").textContent = `${t("today.progress")}: ${completed}/${total} · ${pct}%`;
+          todayProgress.querySelector("i").style.width = `${pct}%`;
+        }
       }),
   );
 }
@@ -315,10 +335,11 @@ function watchSW(reg) {
   });
 }
 function bindGlobal() {
+  document.addEventListener("keydown", handleMenuKeyboard);
   $("#menuExportJournal").onclick = Journal.exportAll;
   $("#menuBudget").onclick = () => {
-    openBudgetEditor();
     closeMenu();
+    openBudgetEditor();
   };
   $("#menuToday").onclick = () => {
     goToday();
@@ -372,14 +393,38 @@ function bindGlobal() {
   });
 }
 function openMenu() {
+  $("#sidePanel").inert = false;
+  $("#sidePanel").removeAttribute("inert");
   $("#sidePanel").classList.add("open");
   $("#overlay").classList.add("open");
   $("#sidePanel").setAttribute("aria-hidden", "false");
+  $("#menuButton").setAttribute("aria-expanded", "true");
+  document.body.classList.add("menu-open");
+  $("#closeMenu").focus({ preventScroll: true });
 }
 function closeMenu() {
-  $("#sidePanel").classList.remove("open");
+  const panel = $("#sidePanel");
+  if (panel.contains(document.activeElement)) $("#menuButton").focus({ preventScroll: true });
+  panel.classList.remove("open");
+  panel.setAttribute("aria-hidden", "true");
+  panel.inert = true;
+  panel.setAttribute("inert", "");
   $("#overlay").classList.remove("open");
-  $("#sidePanel").setAttribute("aria-hidden", "true");
+  $("#menuButton").setAttribute("aria-expanded", "false");
+  document.body.classList.remove("menu-open");
+}
+function handleMenuKeyboard(event) {
+  if (!$("#sidePanel").classList.contains("open")) return;
+  if (event.key === "Escape") { event.preventDefault(); closeMenu(); return; }
+  if (event.key !== "Tab") return;
+  const items = [...$("#sidePanel").querySelectorAll('button:not([disabled]), a[href]')]
+    .filter(el => !el.hidden && !el.closest('[hidden]'));
+  const first = items[0], last = items[items.length - 1];
+  if (event.shiftKey && (document.activeElement === first || !$("#sidePanel").contains(document.activeElement))) {
+    event.preventDefault(); last?.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !$("#sidePanel").contains(document.activeElement))) {
+    event.preventDefault(); first?.focus();
+  }
 }
 async function registerSW() {
   if (!("serviceWorker" in navigator)) return;

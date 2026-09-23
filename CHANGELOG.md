@@ -1,5 +1,17 @@
 # Changelog
 
+## V8.12.0 — 23/09/2026
+
+- Actualizados seis vuelos ES/EN con números, aerolíneas, operadores, terminales, fechas locales y equipaje; conexiones de Manila explícitas. Datos suministrados por el propietario, sin localizador público.
+- Bungalow previsto en Campvill Riverside Car Camping para Kisolon (7–10 oct); alojamiento y rodaje coherentes, sin búsqueda genérica para esa estancia ni horarios de reserva inventados.
+- Integradas nuevas fotografías y sustituciones, White Island independiente de Camiguin y firma NachHR en el pie. Créditos corregidos sin heredar las licencias de las imágenes sustituidas.
+- 37 WebP locales, incluida la firma: 3.361.694 bytes, sin recomprimir. Dimensiones, asociaciones y precarga offline actualizadas; presupuesto de regresión ajustado de 3 a 4 MB por la ampliación del inventario.
+- Botones con respuesta al pulsar, foco y objetivos táctiles; menú con Escape, tabulación y foco restaurado. Movimiento reducido respetado.
+- Actividades marcadas actualizan progreso sin reconstruir la vista; fallo de escritura revierte y avisa. Anterior/Siguiente parten del día seleccionado; Hoy evita scrolls verticales en conflicto.
+- Retirados render/CSS de vuelo obsoletos, actividad de vuelta duplicada y parámetros de seguimiento de alojamientos. Compatibilidad con claves de casillas anteriores; migración `8.7` conservada.
+- README, PROJECT_MASTER, créditos, metadatos de versión y QA actualizados. 32 pruebas automatizadas superadas; comprobación real de móvil pendiente. Última versión validada por el propietario: V8.11.0.
+
+
 ## Mantenimiento documental — 2026-09-17 · Validación V8.11.0
 
 - El propietario confirma V8.11.0 probada y validada. README, PROJECT_MASTER y QA registran esta validación general sin atribuir pruebas específicas no detalladas.

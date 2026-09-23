@@ -14,10 +14,10 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="icon-flag-192.png" />
     <link rel="apple-touch-icon" href="icon-flag-192.png" />
-    <link rel="stylesheet" href="style.css?v=8.11.0" />
-    <link rel="stylesheet" href="today.css?v=8.11.0" />
-    <link rel="stylesheet" href="budget.css?v=8.11.0" />
-    <link rel="stylesheet" href="field-notes.css?v=8.11.0" />
+    <link rel="stylesheet" href="style.css?v=8.12.0" />
+    <link rel="stylesheet" href="today.css?v=8.12.0" />
+    <link rel="stylesheet" href="budget.css?v=8.12.0" />
+    <link rel="stylesheet" href="field-notes.css?v=8.12.0" />
     <style>
       .brand-mark {
         width: 28px;
@@ -58,7 +58,7 @@
   </head>
   <body>
     <header class="topbar">
-      <button id="menuButton" class="icon-button" aria-label="Abrir menú">
+      <button id="menuButton" aria-controls="sidePanel" aria-expanded="false" class="icon-button" aria-label="Abrir menú">
         ☰
       </button>
       <div class="brand">
@@ -78,7 +78,7 @@
         ><button id="languageToggle" class="lang-button">ES / EN</button>
       </div>
     </header>
-    <aside id="sidePanel" class="side-panel" aria-hidden="true">
+    <aside id="sidePanel" class="side-panel" aria-hidden="true" inert>
       <div class="side-head">
         <strong id="navTitle">Navegación</strong
         ><button id="closeMenu" class="icon-button" aria-label="Cerrar">
@@ -119,6 +119,7 @@
       <section id="dayContent" class="day-content"></section>
     </main>
     <footer class="footer">
+      <div class="signature"><img id="signatureLogo" src="./images/firma_logo.webp" width="512" height="512" loading="lazy" decoding="async" alt="Logo de NachHR"><span id="signatureCredit">Creado por NachHR</span></div>
       <div id="footerYear">Filipinas · 2026</div>
       <div id="footerCredit" class="creator-credit">
         Creado con la ayuda de ChatGPT
@@ -162,19 +163,19 @@
       </form>
       <section id="globalBudget" class="global-budget"></section>
     </dialog>
-    <div class="version-badge">V8.11.0</div>
-    <script src="data.js?v=8.11.0"></script>
-    <script src="journey.js?v=8.11.0"></script>
-    <script src="i18n.js?v=8.11.0"></script>
-    <script src="flights.js?v=8.11.0"></script>
-    <script src="photos.js?v=8.11.0"></script>
-    <script src="today.js?v=8.11.0"></script>
-    <script src="exports.js?v=8.11.0"></script>
-    <script src="budget.js?v=8.11.0"></script>
-    <script src="documentary-data.js?v=8.11.0"></script>
-    <script src="journal.js?v=8.11.0"></script>
-    <script src="shooting-data.js?v=8.11.0"></script>
-    <script src="documentary.js?v=8.11.0"></script>
-    <script src="script.js?v=8.11.0"></script>
+    <div class="version-badge">V8.12.0</div>
+    <script src="data.js?v=8.12.0"></script>
+    <script src="journey.js?v=8.12.0"></script>
+    <script src="i18n.js?v=8.12.0"></script>
+    <script src="flights.js?v=8.12.0"></script>
+    <script src="photos.js?v=8.12.0"></script>
+    <script src="today.js?v=8.12.0"></script>
+    <script src="exports.js?v=8.12.0"></script>
+    <script src="budget.js?v=8.12.0"></script>
+    <script src="documentary-data.js?v=8.12.0"></script>
+    <script src="journal.js?v=8.12.0"></script>
+    <script src="shooting-data.js?v=8.12.0"></script>
+    <script src="documentary.js?v=8.12.0"></script>
+    <script src="script.js?v=8.12.0"></script>
   </body>
 </html>

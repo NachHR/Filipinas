@@ -15,4 +15,28 @@
 @media(max-width:520px){.topbar{grid-template-columns:38px 1fr auto;gap:7px;padding-left:12px;padding-right:12px}.brand{gap:7px}.brand-mark{width:31px;height:31px}.brand-title{font-size:11px}.brand-subtitle{font-size:9px}.connection-status{font-size:7px}.top-actions{gap:4px}.small-button,.lang-button{padding:6px 8px;font-size:10px}}
 @media(min-width:760px){.topbar{padding-left:30px;padding-right:30px;grid-template-columns:44px 1fr auto}.hero,.day-content{width:min(100% - 60px,var(--max))}.day-navigation{padding-left:30px;padding-right:30px;top:64px;justify-content:center}.grid.two{grid-template-columns:1fr 1fr}.recording-grid{grid-template-columns:1fr 1fr}.recording-grid .full{grid-column:1/-1}.poi-card img{height:180px}}
 @media(max-width:699px){.accommodation-card{align-items:flex-start;flex-direction:column}.accommodation-card .actions{width:100%}.accommodation-card .action{flex:1 1 auto;text-align:center}}
-.flight-section{margin-top:22px}.flight-card{display:grid;gap:8px}.flight-row{display:flex;justify-content:space-between;gap:12px;padding:10px 11px;border:1px solid var(--line);background:var(--soft);border-radius:10px;font-size:11px}.flight-row span{white-space:nowrap;color:var(--muted)}
+.flight-section{margin-top:22px}.flight-card{display:grid;gap:8px}
+
+/* V8.12.0: immediate press feedback without persistent touch hover or layout jumps. */
+button,.action,summary,input[type="checkbox"]{touch-action:manipulation}
+button,.action,summary{transition:background-color .12s,box-shadow .12s,filter .12s}
+button:not(:disabled):active,.action:active,summary:active{filter:brightness(.84);box-shadow:inset 0 0 0 2px var(--accent)}
+button:disabled{cursor:default;opacity:.45}
+a:focus-visible,summary:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.check:focus-within{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+@media(hover:hover){button:not(:disabled):hover,.action:hover{filter:brightness(.94)}}
+.menu-open{overflow:hidden}
+#todayContext{scroll-margin-top:calc(150px + env(safe-area-inset-top))}
+.signature{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:14px;font-size:12px}
+.signature img{width:80px;height:80px;object-fit:contain;border-radius:12px}
+.accommodation-photo{width:160px;max-width:100%;height:auto;border-radius:12px}
+.accommodation-card{flex-wrap:wrap}
+.flight-detail{padding:12px 0;border-bottom:1px solid var(--line)}
+.flight-detail h3{margin:0 0 6px;font-size:15px}
+.flight-detail p,.flight-detail dl{font-size:12px;margin:6px 0}
+.flight-detail dl div{display:flex;flex-wrap:wrap;gap:4px 12px}
+.flight-detail dt{font-weight:700;min-width:90px}
+.flight-detail dd{margin:0;overflow-wrap:anywhere}
+.flight-connection{padding:10px;border-radius:8px;background:var(--bg);font-size:12px}
+@media(pointer:coarse){button,.action,summary{min-height:44px}.check{min-width:44px;min-height:44px;display:grid;place-items:center}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
