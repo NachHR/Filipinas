@@ -28,3 +28,7 @@ No se ha realizado una prueba visual interactiva de navegador ni instalación re
 6. Validar los vuelos con la información del propietario y la estancia en Campvill; no se ha consultado una reserva privada ni verificado cambios operativos de aerolíneas.
 
 V8.11.0 sigue siendo la última versión probada y validada expresamente por el propietario. V8.12.0 no se presenta como release final V9.0.
+
+## Publicación
+
+Código integrado en `main`: `a8f0997749c7c695d68ba39bf2fd1cf2bc149b2d`. [GitHub Pages](https://github.com/NachHR/Filipinas/actions/runs/35910632226) completado con éxito. HTML público muestra V8.12.0 y firma. `index.html`, `service-worker.js`, `flights.js` y `photos.js` descargados desde Pages y comparados por SHA-256 con los archivos locales: coinciden. Cierre documental posterior sin cambiar versión ni caché.

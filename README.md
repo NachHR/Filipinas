@@ -2,7 +2,7 @@
 
 **Versión del código: V8.12.0 — Vuelos, Campvill y respuesta de la interfaz** · 23/09/2026
 
-**Estado:** V8.12.0 implementada directamente en `main`; 32 pruebas automatizadas superadas. Última validación del propietario: V8.11.0. Ver [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.12.0](tests/QA_V8.12.0.md).
+**Estado:** V8.12.0 publicada en `main` (`a8f0997`); [GitHub Pages](https://github.com/NachHR/Filipinas/actions/runs/35910632226) completado correctamente y archivos servidos comprobados. 32 pruebas automatizadas superadas. Última validación del propietario: V8.11.0. Ver [PROJECT_MASTER.md](PROJECT_MASTER.md) y [QA V8.12.0](tests/QA_V8.12.0.md).
 
 Diario e itinerario bilingüe (ES/EN) para un viaje completo de **29 días**, desde la salida de Madrid el **26/09/2026** hasta la llegada a Madrid el **24/10/2026**. Aplicación web móvil, instalable como PWA y preparada para funcionar offline.
 

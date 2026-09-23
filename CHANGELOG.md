@@ -2,6 +2,8 @@
 
 ## V8.12.0 — 23/09/2026
 
+Publicada en `main` (`a8f0997`); [Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35910632226) y recursos servidos comprobados. Cierre documental sin cambio de versión/caché.
+
 - Actualizados seis vuelos ES/EN con números, aerolíneas, operadores, terminales, fechas locales y equipaje; conexiones de Manila explícitas. Datos suministrados por el propietario, sin localizador público.
 - Bungalow previsto en Campvill Riverside Car Camping para Kisolon (7–10 oct); alojamiento y rodaje coherentes, sin búsqueda genérica para esa estancia ni horarios de reserva inventados.
 - Integradas nuevas fotografías y sustituciones, White Island independiente de Camiguin y firma NachHR en el pie. Créditos corregidos sin heredar las licencias de las imágenes sustituidas.

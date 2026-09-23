@@ -8,7 +8,7 @@
 
 **Última versión probada por el propietario:** **V8.11.0**, declarada probada y validada.
 
-**Estado V8.12.0:** implementada directamente en `main`; 32 pruebas automatizadas superadas. Pendiente de validación del propietario. No se declara todavía el release final V9.0.
+**Estado V8.12.0:** publicada directamente en `main` (`a8f0997`), [GitHub Pages](https://github.com/NachHR/Filipinas/actions/runs/35910632226) correcto; HTML, worker, vuelos y fotografías servidos coinciden byte a byte con el código. 32 pruebas automatizadas superadas. Pendiente de validación del propietario. No se declara todavía el release final V9.0.
 
 **Estado V8.11.0:** integrada directamente en `main` (`202643f`), versión servida comprobada. [Despliegue Pages](https://github.com/NachHR/Filipinas/actions/runs/35247903562). 27 pruebas superadas; probada y validada por el propietario. V9.0 sigue reservada para la validación final.
 
