@@ -1,5 +1,7 @@
 # QA — V8.10.0 Rodaje diario y ajustes de viaje
 
+> Registro de esta entrega, no validación de cambios posteriores. [Índice de QA](README.md).
+
 17/09/2026, sobre `9e7a6da`. Integración directa en main autorizada; despliegue pendiente de verificar.
 
 ## Verificado

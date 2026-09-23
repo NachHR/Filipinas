@@ -1,5 +1,7 @@
 # QA V8.11.0 — Fotografías y rendimiento
 
+> Registro de esta entrega, no validación de cambios posteriores. [Índice de QA](README.md).
+
 Fecha: 17/09/2026. Base: V8.10.0 validada por el propietario, con sustituciones fotográficas posteriores.
 
 ## Comprobaciones automatizadas

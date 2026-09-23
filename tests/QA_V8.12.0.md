@@ -1,5 +1,7 @@
 # QA — V8.12.0
 
+> Registro de esta entrega, no validación de cambios posteriores. [Índice de QA](README.md).
+
 Fecha: 23/09/2026. Base: `main` con imágenes subidas por el propietario (`7bfffcf`).
 
 ## Alcance y evidencia

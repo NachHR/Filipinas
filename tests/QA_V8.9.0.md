@@ -1,5 +1,7 @@
 # QA — V8.9.0 Diario exportable y presupuesto global
 
+> Registro de esta entrega, no validación de cambios posteriores. [Índice de QA](README.md).
+
 Implementación: 17/09/2026 sobre `5ecffe5` (V8.8.1 validada por el propietario). Integración directa en main autorizada. Integrada como `9e7a6da`; [Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35184193889). El propietario la ha probado y validado; posteriormente comunica caracteres mal interpretados al abrir los Markdown. V8.10.0 añade BOM como medida de compatibilidad.
 
 ## Automatizado

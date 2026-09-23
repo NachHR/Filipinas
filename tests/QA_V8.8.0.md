@@ -1,5 +1,7 @@
 # QA — V8.8.0 Cuaderno de campo
 
+> Registro de esta entrega, no validación de cambios posteriores. [Índice de QA](README.md).
+
 Implementación: 16/09/2026, sobre `96829cd` (V8.7.1). Revisión posterior al merge: 17/09/2026, sobre `3bb4ccd` (V8.8.0 en `main`).
 
 ## Estado de la versión

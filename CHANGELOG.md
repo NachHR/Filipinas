@@ -1,97 +1,70 @@
 # Changelog
 
-## V8.12.0 — 23/09/2026
+Historial de cambios. Para el uso de la app, consulta [README](README.md); para resultados y límites de las pruebas, los [registros QA](tests/README.md).
 
-Publicada en `main` (`a8f0997`); [Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35910632226) y recursos servidos comprobados. Cierre documental sin cambio de versión/caché.
+## Mantenimiento documental — 2026-09-23
 
-- Actualizados seis vuelos ES/EN con números, aerolíneas, operadores, terminales, fechas locales y equipaje; conexiones de Manila explícitas. Datos suministrados por el propietario, sin localizador público.
-- Bungalow previsto en Campvill Riverside Car Camping para Kisolon (7–10 oct); alojamiento y rodaje coherentes, sin búsqueda genérica para esa estancia ni horarios de reserva inventados.
-- Integradas nuevas fotografías y sustituciones, White Island independiente de Camiguin y firma NachHR en el pie. Créditos corregidos sin heredar las licencias de las imágenes sustituidas.
-- 37 WebP locales, incluida la firma: 3.361.694 bytes, sin recomprimir. Dimensiones, asociaciones y precarga offline actualizadas; presupuesto de regresión ajustado de 3 a 4 MB por la ampliación del inventario.
-- Botones con respuesta al pulsar, foco y objetivos táctiles; menú con Escape, tabulación y foco restaurado. Movimiento reducido respetado.
-- Actividades marcadas actualizan progreso sin reconstruir la vista; fallo de escritura revierte y avisa. Anterior/Siguiente parten del día seleccionado; Hoy evita scrolls verticales en conflicto.
-- Retirados render/CSS de vuelo obsoletos, actividad de vuelta duplicada y parámetros de seguimiento de alojamientos. Compatibilidad con claves de casillas anteriores; migración `8.7` conservada.
-- README, PROJECT_MASTER, créditos, metadatos de versión y QA actualizados. 32 pruebas automatizadas superadas; comprobación real de móvil pendiente. Última versión validada por el propietario: V8.11.0.
+- README centrado en uso, instalación y datos personales; historial separado en este archivo.
+- Créditos unificados y ordenados por archivo, conservando fuentes, atribuciones, licencias y adaptaciones relevantes.
+- PROJECT_MASTER centrado en estado vigente, decisiones, arquitectura y próximos pasos; retiradas cronologías y copias de informes QA.
+- Registros QA indexados y diferenciados de la documentación actual. Sin cambios de código, versión ni caché; sin nuevas pruebas funcionales.
 
+## Corrección de contenido — 2026-09-23 · V8.12.0
 
-## Mantenimiento documental — 2026-09-17 · Validación V8.11.0
+- Incorporada `high-ridge.webp`, con fuente y crédito; corregidos mapa y ruta a High Ridge Resort and Restaurant.
+- Actualizada la caché interna para distribuir la foto y los enlaces, conservando la versión visible. No se ejecutaron pruebas, por indicación del propietario.
 
-- El propietario confirma V8.11.0 probada y validada. README, PROJECT_MASTER y QA registran esta validación general sin atribuir pruebas específicas no detalladas.
-- Confirmado despliegue Pages correcto para `202643f`. Sin cambios de código, versión, caché o datos personales.
+## V8.12.0 — 2026-09-23
 
-## V8.11.0 — 2026-09-17 · Publicada y validada
+- Seis vuelos actualizados en ES/EN: números, operadores, terminales, equipaje y conexiones de Manila explícitas.
+- Bungalow previsto en Campvill Riverside Car Camping para la estancia en Kisolon; retirada la búsqueda genérica de alojamiento de esos días.
+- Nuevas fotos y sustituciones asociadas a sus POI, White Island separada de Camiguin y firma NachHR en el pie.
+- Respuesta al pulsar botones, foco, controles táctiles y movimiento reducido; menú con Escape y navegación de teclado.
+- Marcar actividades conserva la vista y revierte ante errores de guardado. Anterior/Siguiente parten del día seleccionado; Hoy evita desplazamientos simultáneos.
+- Consolidado el vuelo de vuelta duplicado preservando casillas antiguas; retirados estilos obsoletos y seguimiento en URLs de alojamientos.
+- Publicación y comprobaciones: [QA V8.12.0](tests/QA_V8.12.0.md).
 
-- Incorporadas las sustituciones fotográficas subidas por el propietario; ya optimizadas, sin nueva recompresión con pérdida. Nuevas fuentes contrastadas y licencias corregidas; limitaciones de verificación explícitas en PHOTO-CREDITS.
-- Galería oculta en Solo itinerario, con preferencia persistida. En vista completa conserva las proporciones originales.
-- Carga diferida de POI/galería, decodificación asíncrona y dimensiones reales. Portada con carga inmediata y prioridad alta.
-- Corregidas asociaciones de Santo Niño, Madrid-Barajas, Magellan’s Cross, Pearl Lounge y Kitanglad; las tres fotos nuevas también se precargan para uso offline.
-- Créditos enlazados desde el pie ES/EN y precargados para consulta offline.
-- Recursos, badge, paquetes y caché a 8.11.0; migración 8.7 y datos personales intactos. Se documenta validación de V8.10.0 por el propietario.
-- 27 pruebas de regresión; ver tests/QA_V8.11.0.md. Integrada en `main` (`202643f`); V8.11.0 comprobada en la web. [Despliegue Pages](https://github.com/NachHR/Filipinas/actions/runs/35247903562).
+## V8.11.0 — 2026-09-17
 
-## V8.10.0 — 2026-09-17 · Validada por el propietario
+- Fotografías sustituidas por el propietario, conservadas en WebP reducido; nuevas fuentes y créditos documentados.
+- Galería oculta en Solo itinerario y con proporciones completas en Vista completa.
+- Imágenes secundarias con carga diferida y dimensiones intrínsecas; portada prioritaria.
+- Corregidas asociaciones de Santo Niño y Barajas; añadidas fotos de Magellan’s Cross, Pearl Lounge y Kitanglad.
+- Créditos accesibles desde el pie ES/EN y disponibles offline.
+- Publicada y validada por el propietario: [QA V8.11.0](tests/QA_V8.11.0.md).
 
-- Sustituida la estrella de instalación/arranque/favicon por PNG de la bandera circular (192/512 y variante maskable). SVG y presentación de la bandera superior intactos. Eliminados PNG antiguos sin referencias; generador reproducible en scripts.
-- Alojamiento flexible donde no existe reserva, incluyendo noche del 1 de octubre, Manolo/Kisolon, Iligan y Cebú. Añadida tarea Buscar alojamiento al inicio de cada estancia.
-- Eliminadas referencias visibles a alojamiento familiar; compatibilidad de casilla de llegada mediante ID estable y lectura de su clave histórica, sin reescribir datos.
-- Tres tomas P1 y dos clips complementarios/sonido para cada uno de los 29 días. Progreso por fecha e ID, sin duplicar ni migrar checklist heredada; errores de guardado visibles.
-- Pautas detalladas del destino revisadas en ES/EN: 29 días, 16:9, ND8 contextual, horarios de ferry condicionados y Cebú como propuesta.
-- Eliminado botón Ver Día 1 y traducciones/controlador/CSS sin uso.
-- Diario y presupuesto exportados en UTF-8 con BOM; prueba binaria de firma y conservación de acentos/símbolos/emojis. No se modifica el contenido guardado.
-- Badge, recursos, caché, manifest y paquetes a 8.10.0; sin cambios de dependencias ni de migración 8.7. 25 pruebas superadas.
-- Integración directa en main autorizada; despliegue pendiente de verificar.
+## V8.10.0 — 2026-09-17
 
+- Iconos PWA derivados de la bandera circular; bandera superior intacta.
+- Alojamiento flexible donde no hay reserva y tarea de búsqueda al iniciar cada estancia; retiradas referencias a alojamiento familiar.
+- Tres tomas P1 y dos clips por fecha, con persistencia y tratamiento de errores.
+- Pautas bilingües revisadas para 29 días, 16:9, ND8 contextual y Cebú condicional.
+- Retirado «Ver Día 1» de Preparación; exportaciones Markdown con UTF-8+BOM.
+- Validada por el propietario; comprobaciones: [QA V8.10.0](tests/QA_V8.10.0.md).
 
-## V8.9.0 — 2026-09-17 · Publicada y probada
+## V8.9.0 — 2026-09-17
 
-- Exportación local de todas las notas a un único Markdown por día/fecha/lugar; texto intacto, días vacíos omitidos y borradores recuperables incluidos.
-- Exportación bloqueada con aviso ante datos ilegibles; no se genera una copia parcial ni se modifica el almacenamiento.
-- Solo itinerario oculta POI y pautas de grabación; nuevas etiquetas ES/EN Solo itinerario / Vista completa.
-- Presupuesto global accesible desde el menú, con total editable, saldo real, categorías y lista plegable de gastos agrupados por día/categoría con subtotales.
-- Editor compartido entre vistas diaria/global; altas, cambios de fecha/categoría, edición y eliminación confirmada. Importes en PHP con céntimos y cálculos en unidades menores.
-- Exportación del presupuesto y todos los conceptos a un único Markdown UTF-8. Normalización heredada en memoria: consultar/exportar no reescribe los gastos.
-- Fallos de guardado conservan el formulario; datos corruptos no se sobrescriben. Se elimina el lector duplicado de gastos del coordinador.
-- Nuevo `exports.js` precargado offline; badge, recursos, caché y paquetes a 8.9.0. Sin dependencias nuevas, migración `8.7` intacta.
-- 20 pruebas superadas. Integrada como `9e7a6da`; [Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35184193889). Probada por el propietario; incidencia de lectura de caracteres en Markdown tratada en V8.10.0.
+- Exportación de todas las notas a un Markdown ordenado por día; aviso ante datos ilegibles.
+- Solo itinerario oculta POI y pautas de grabación.
+- Presupuesto global con gastos por día/categoría, subtotales, saldo, edición y eliminación; editor compartido con la vista diaria.
+- Exportación del presupuesto completo a Markdown; tratamiento de decimales y conservación del formulario ante fallos.
+- Publicada y probada por el propietario: [QA V8.9.0](tests/QA_V8.9.0.md). La lectura de caracteres exportados se corrigió en V8.10.0.
 
+## V8.8.1 — 2026-09-17
 
-## V8.8.1 — 2026-09-17 · Publicada y validada
+- Lugares ordenados por primera fecha; arranque en el día actual local y navegación manual conservada.
+- Presets en 16:9 y recomendaciones contextuales del ND8 polarizado en ES/EN.
+- Publicada y validada por el propietario: [QA V8.8.1](tests/QA_V8.8.1.md).
 
-- Navegación de lugares ordenada por su primera fecha en el itinerario completo; destinos de ida y vuelta mantienen sus claves.
-- Arranque en el día actual local en lugar del último día consultado; límites antes/después del viaje y navegación manual preservados.
-- Seis presets explícitamente en 16:9 y recomendaciones diarias coherentes en ES/EN.
-- Indicación visible sobre el ND8 polarizado: uso opcional contextual, exposición/reflejos y retirada en poca luz o bajo el agua.
-- Badge, recursos, paquetes de pruebas y caché actualizados a 8.8.1 / `filipinas-v8-8-1`; migración `8.7` intacta.
-- 14 pruebas automatizadas, incluidas regresiones de navegación, arranque, presets y limpieza de la caché anterior.
-- Exportación conjunta del diario a Markdown especificada para V8.9, sin implementarla en este parche.
-- Integrada directamente en `main` (`5ecffe5`); [Pages correcto](https://github.com/NachHR/Filipinas/actions/runs/35182425077). El propietario confirma funcionamiento correcto.
+## V8.8.0 — 2026-09-16
 
-
-## Mantenimiento documental — 2026-09-17
-
-- Confirmados el merge del PR #1 (`3bb4ccd`, 16/09/2026), el despliegue satisfactorio de Pages y la versión V8.8.0 servida.
-- README y PROJECT_MASTER pasan de estado de revisión a versión publicada; se retiran los bloqueos de publicación ya superados.
-- Actualizado el registro QA: prueba y merge comunicados por el propietario, 11 pruebas automatizadas repetidas y comprobación HTTP de recursos publicados. No se atribuyen al propietario verificaciones específicas que no detalló.
-- Completada la documentación de privacidad, almacenamiento y actualización del diario, así como las reglas para cambios documentales y futuras publicaciones.
-- Revisión de 50 archivos versionados y 176 referencias de imágenes en el modelo compuesto: sin temporales versionados ni imágenes inexistentes tras aplicar `photos.js`. Se documenta la capa fotográfica heredada; no se eliminan archivos utilizados ni se modifica el comportamiento de la app.
-- Se mantienen V8.8.0, caché `filipinas-v8-8-0`, migración `8.7` y todos los datos del viaje.
-
-## V8.8.0 — 2026-09-16 · Publicada
-
-- Probada por el propietario, fusionada mediante [PR #1](https://github.com/NachHR/Filipinas/pull/1) y [desplegada en GitHub Pages](https://github.com/NachHR/Filipinas/actions/runs/35145442952).
-
-- Añadido diario personal por fecha ISO para los 29 días, con autoguardado inmediato, última edición y funcionamiento local/offline.
-- Tratamiento del texto como texto plano; no se envía ni sincroniza. Los errores de almacenamiento muestran aviso y conservan un borrador en memoria; los esquemas corruptos o desconocidos no se sobrescriben.
-- Incorporados `documentary-data.js`, `documentary.js`, `journal.js` y `field-notes.css`; `script.js` sigue como coordinador.
-- Guía rápida ES/EN con preset, excepción y seguridad por día; técnica y checklist plegables. El contenido documental permanece de solo lectura.
-- Cebú, días 18–24: `editorial-proposal`, sin modificar actividades pendientes ni confirmar reservas.
-- Notas y guía bajo el contexto Hoy; acceso rápido desde el botón existente, sin nuevos controles en la cabecera.
-- Renombrado el control a Mostrar/Ocultar rodaje. Ya no oculta presupuesto, diario, galería ni POIs.
-- Checklist heredada preservada, incluyendo clave `macro`; etiquetas y pautas corregidas a detalle desde 0,4 m, sin macro real. Advertencia expresa de no introducir la Action 4 en aguas termales.
-- Eliminados el adaptador de traducción `L()` sin uso y el antiguo render/formulario de presupuesto sustituido por `budget.js`; movido el render documental fuera del coordinador.
-- Cache-busting y badge `8.8.0`; caché `filipinas-v8-8-0` incluye nuevos módulos. Worker con activación explícita, precarga evitando caché HTTP y limpieza solo de cachés de esta app.
-- Se mantienen el identificador de migración `8.7`, fechas, vuelos, check-ins y datos de gastos/progreso existentes.
-- Añadidas 11 pruebas automatizadas de regresión y guía de QA manual; README y PROJECT_MASTER actualizados. La implementación se entregó inicialmente en borrador; la validación del propietario y el despliegue posterior constan en el registro QA.
+- Diario personal por fecha con autoguardado, última edición y borrador ante fallos; protección de formatos desconocidos.
+- Guía documental ES/EN con preset, excepción y seguridad, detalle técnico y checklist heredada.
+- Notas y guía accesibles desde Hoy; Cebú permanece como propuesta editorial.
+- Control Mostrar/Ocultar rodaje, tratamiento del detalle desde 0,4 m y pautas de seguridad de cámara revisadas.
+- Separados módulos documentales; eliminados adaptador de traducción y formulario de presupuesto obsoletos.
+- Actualización PWA con confirmación y preservación de datos locales.
+- Probada por el propietario, fusionada y publicada: [QA V8.8.0](tests/QA_V8.8.0.md).
 
 ## V8.7.1 — 2026-09-16
 - Sustituido el placeholder genérico `images/airport.webp` de los días internacionales por fotografías locales específicas.
