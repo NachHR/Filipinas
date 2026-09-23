@@ -366,7 +366,7 @@ const tripData = {
             "en": "Urban viewpoint proposed for the CDO chapter."
           },
           "place": "High Ridge, Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=High+Ridge,+Cagayan+de+Oro",
+          "maps": "https://www.google.com/maps/place/High+Ridge+Resort+and+Restaurant/@8.4625349,124.6452065,17z/data=!3m1!4b1!4m14!1m7!3m6!1s0x32ff8d2f1866bd89:0xffb74be8cbb645b0!2sHigh+Ridge!8m2!3d8.4625432!4d124.6477994!16s%2Fg%2F11bycg0fc8!3m5!1s0x32ff8d2ec4308277:0xb21070207f06a513!8m2!3d8.4625349!4d124.6477814!16s%2Fg%2F1tj5n7ql",
           "optional": false,
           "image": null
         },
@@ -501,7 +501,7 @@ const tripData = {
             "en": "Urban viewpoint for CDO views."
           },
           "place": "High Ridge, Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=High+Ridge,+Cagayan+de+Oro",
+          "maps": "https://www.google.com/maps/place/High+Ridge+Resort+and+Restaurant/@8.4625349,124.6452065,17z/data=!3m1!4b1!4m14!1m7!3m6!1s0x32ff8d2f1866bd89:0xffb74be8cbb645b0!2sHigh+Ridge!8m2!3d8.4625432!4d124.6477994!16s%2Fg%2F11bycg0fc8!3m5!1s0x32ff8d2ec4308277:0xb21070207f06a513!8m2!3d8.4625349!4d124.6477814!16s%2Fg%2F1tj5n7ql",
           "optional": false,
           "image": null
         },
@@ -587,8 +587,8 @@ const tripData = {
             "en": ""
           },
           "place": "High Ridge, Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=High+Ridge,+Cagayan+de+Oro",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=High+Ridge,+Cagayan+de+Oro",
+          "maps": "https://www.google.com/maps/place/High+Ridge+Resort+and+Restaurant/@8.4625349,124.6452065,17z/data=!3m1!4b1!4m14!1m7!3m6!1s0x32ff8d2f1866bd89:0xffb74be8cbb645b0!2sHigh+Ridge!8m2!3d8.4625432!4d124.6477994!16s%2Fg%2F11bycg0fc8!3m5!1s0x32ff8d2ec4308277:0xb21070207f06a513!8m2!3d8.4625349!4d124.6477814!16s%2Fg%2F1tj5n7ql",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=8.4625349,124.6477814",
           "status": "planned",
           "duration": null,
           "transport": {
@@ -610,7 +610,7 @@ const tripData = {
             "en": "Viewpoint and key location for the urban chapter."
           },
           "place": "High Ridge, Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=High+Ridge,+Cagayan+de+Oro",
+          "maps": "https://www.google.com/maps/place/High+Ridge+Resort+and+Restaurant/@8.4625349,124.6452065,17z/data=!3m1!4b1!4m14!1m7!3m6!1s0x32ff8d2f1866bd89:0xffb74be8cbb645b0!2sHigh+Ridge!8m2!3d8.4625432!4d124.6477994!16s%2Fg%2F11bycg0fc8!3m5!1s0x32ff8d2ec4308277:0xb21070207f06a513!8m2!3d8.4625349!4d124.6477814!16s%2Fg%2F1tj5n7ql",
           "optional": false,
           "image": null
         },

@@ -11,6 +11,7 @@ const PHOTO_OVERRIDES={
   departure:{cover:'./images/airport.webp',gallery:['./images/airport.webp']}
 };
 const POI_PHOTOS=[
+  ['High Ridge','./images/high-ridge.webp'],
   ['Sunken Cemetery','./images/sunken-cemetery.webp'],
   ['Campvill','./images/campville-riverside.webp'],
   ['Manolo Fortich','./images/manolo-fortich.webp'],
@@ -67,6 +68,7 @@ if(typeof tripData!=='undefined' && tripData){
 
 // Intrinsic dimensions reserve image space before decoding; update when replacing a photo.
 window.PHOTO_DIMENSIONS = {
+  "high-ridge.webp": [1216, 1161],
   "airport.webp": [
     1280,
     960

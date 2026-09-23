@@ -40,6 +40,7 @@ Las imágenes fueron seleccionadas, convertidas y subidas por el propietario. «
 
 | Archivo / File | Imagen y fuente / Image and source | Crédito / Credit | Licencia / License | Revisión / Review |
 |---|---|---|---|---|
+| `high-ridge.webp` | [High Ridge Resort and Restaurant — Reservations](https://highridgecdo.com/reservations/) | Web oficial de High Ridge / Official High Ridge website; fotógrafo no identificado / photographer unidentified | No documentada / Not documented | Fuente consultada / Source consulted |
 | `campville-riverside.webp` | [Campvill Riverside Car Camping](https://ecency.com/@nu3be14/a-hidden-gem-in-sumilao-bukidnon-campvill-riverside-car-camping) | Publicación / post: @nu3be14, vía Ecency / Hive | No documentada / Not documented | Fuente consultada / Source consulted |
 | `cdo-night.webp` | [Cagayan de Oro de noche / at night](https://luminarc.su/res/gemini-2026.html) | Autor no identificado / Photographer unidentified | No documentada / Not documented | Fuente aportada; no accesible en revisión / Supplied source; inaccessible during review |
 | `camiguin.webp` | [Camiguin vista desde el mar / from the sea](https://vamosarema.com/) | Autor no identificado / Photographer unidentified | No documentada / Not documented | URL genérica; imagen exacta no identificada / General URL; exact image not identified |
@@ -69,3 +70,5 @@ Las imágenes fueron seleccionadas, convertidas y subidas por el propietario. «
 - La fotografía de la mezquita procede originalmente de [Guilhem Vellut en Flickr](https://www.flickr.com/photos/22539273@N00/15856602738); su ficha de Commons documenta CC BY 2.0.
 
 En V8.12.0 se conservan sin cambios los binarios subidos por el propietario: 36 fotografías y una firma. `white-island.webp` conserva la antigua foto y crédito de `camiguin.webp`; los créditos previos de Guiob y Kawasan se retiran porque ya no corresponden a las imágenes actuales. / V8.12.0 keeps the uploaded image files unchanged: 36 photos and one signature. The previous Camiguin photo and credit now belong to `white-island.webp`; former Guiob and Kawasan credits no longer apply.
+
+Adición puntual sin cambio de versión: `high-ridge.webp` (1216 × 1161; 104.842 bytes). El inventario pasa a 37 fotografías y una firma. / Content-only addition, same app version: `high-ridge.webp`; the inventory now contains 37 photos and one signature.

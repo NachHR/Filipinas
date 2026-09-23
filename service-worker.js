@@ -1,5 +1,6 @@
 // V8.12.0 — Atomic shell install, explicit updates, app-owned caches only.
-const CACHE = "filipinas-v8-12-0";
+// Content-only cache refresh; the app version remains V8.12.0.
+const CACHE = "filipinas-v8-12-0-high-ridge";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -28,6 +29,7 @@ const APP_SHELL = [
   "./icon-flag-maskable-512.png",
 ];
 const LOCAL_IMAGES = [
+  "./images/high-ridge.webp",
   "./images/airport.webp",
   "./images/amaya-view.webp",
   "./images/bukidnon.webp",

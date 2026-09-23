@@ -310,7 +310,7 @@ test("service worker waits for consent and deletes only old app caches", async (
         "filipinas-v8-8-0",
         "filipinas-v8-8-1",
         "filipinas-v8-9-0",
-        "filipinas-v8-12-0",
+        "filipinas-v8-12-0-high-ridge",
       ],
       delete: async (key) => deleted.push(key),
     },
