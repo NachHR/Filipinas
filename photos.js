@@ -1,5 +1,5 @@
 /* Final photo layer — all destination and POI photography is local. */
-window.PHOTO_VERSION='8.12.0';
+window.PHOTO_VERSION='8.12.1';
 const PHOTO_OVERRIDES={
   cdo:{cover:'./images/cdo.webp',gallery:['./images/cdo.webp','./images/cdo-night.webp']},
   camiguin:{cover:'./images/camiguin.webp',gallery:['./images/camiguin.webp','./images/white-island.webp','./images/mantigue.webp','./images/guiob.webp','./images/sunken-cemetery.webp','./images/tuasan.webp']},

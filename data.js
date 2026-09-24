@@ -42,8 +42,8 @@ const tripData = {
         },
         "booking": "https://www.booking.com/hotel/ph/vinyce-studio.html",
         "mapQuery": "Vinyce Studio, Avida Towers Aspira T2, Ramon Chavez Street, Barangay 30, Cagayan de Oro City, Misamis Oriental 9000, Philippines",
-        "map": "https://www.google.com/maps/search/?api=1&query=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Cagayan+de+Oro",
-        "directions": "https://www.google.com/maps/dir/?api=1&destination=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Cagayan+de+Oro",
+        "map": "https://www.google.com/maps/place/Avida+Tower+2/@8.4806836,124.6491086,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff3003072e7b5:0x402e2e5e9839e41f!8m2!3d8.4806836!4d124.6491086!16s%2Fg%2F11ms2f3xs7",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=8.4806836,124.6491086",
         "checkin": {
           "es": "Desde las 14:00 · revisar instrucciones de la reserva",
           "en": "From 14:00 · check the booking instructions"
@@ -86,8 +86,8 @@ const tripData = {
         },
         "booking": "https://www.airbnb.com/rooms/1560151212378269394",
         "mapQuery": "CK Haven Suites - Tuscania CDO, FJVQ+5H4, Saint Ignatius St, Cagayan de Oro, 9000, Philippines",
-        "map": "https://www.google.com/maps/search/?api=1&query=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ%2B5H4,+Saint+Ignatius+St,+Cagayan+de+Oro",
-        "directions": "https://www.google.com/maps/dir/?api=1&destination=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ%2B5H4,+Saint+Ignatius+St,+Cagayan+de+Oro",
+        "map": "https://www.google.com/maps/place/St+Ignatius+St%2C+Kauswagan%2C+Cagayan+De+Oro+City%2C+Misamis+Oriental%2C+Philippines/@8.4947692,124.6371742,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff31c14731c1f:0x34748dd956d33b42!8m2!3d8.4947692!4d124.6371742!16s%2Fg%2F1tj86zbm",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=8.4947692,124.6371742",
         "checkin": {
           "es": "Check-in después de las 14:00",
           "en": "Check-in after 14:00"
@@ -95,6 +95,10 @@ const tripData = {
         "checkout": {
           "es": "Check-out el 23 de octubre antes de las 12:00",
           "en": "Check out on 23 October before 12:00"
+        },
+        "mapNote": {
+          "es": "Referencia en St Ignatius St; confirmar el acceso exacto con el alojamiento.",
+          "en": "Reference on St Ignatius St; confirm the exact entrance with the accommodation."
         }
       },
       "kisolon": {
@@ -317,8 +321,8 @@ const tripData = {
             "en": "Tel. +63 917 314 6193"
           },
           "place": "Vinyce Studio, Avida Towers Aspira T2",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Barangay+30,+Cagayan+de+Oro+City,+Misamis+Oriental+9000,+Philippines",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Barangay+30,+Cagayan+de+Oro+City,+Misamis+Oriental+9000,+Philippines",
+          "maps": "https://www.google.com/maps/place/Avida+Tower+2/@8.4806836,124.6491086,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff3003072e7b5:0x402e2e5e9839e41f!8m2!3d8.4806836!4d124.6491086!16s%2Fg%2F11ms2f3xs7",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=8.4806836,124.6491086",
           "status": "planned",
           "duration": "—",
           "transport": {
@@ -379,10 +383,12 @@ const tripData = {
             "es": "Opción para la noche de exploración y comida.",
             "en": "Option for the evening exploration and food."
           },
-          "place": "Cagayan de Oro night cafe",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Cagayan+de+Oro+night+cafe",
+          "place": null,
+          "maps": "",
           "optional": false,
-          "image": null
+          "image": null,
+          "directions": "",
+          "kind": "plan"
         }
       ],
       "accommodationKey": "cdo"
@@ -514,10 +520,12 @@ const tripData = {
             "es": "Mercado para observar actividad urbana y comida.",
             "en": "Market for urban activity and food scenes."
           },
-          "place": "Cagayan de Oro Public Market",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Cagayan+de+Oro+Public+Market",
+          "place": null,
+          "maps": "",
           "optional": false,
-          "image": null
+          "image": null,
+          "directions": "",
+          "kind": "plan"
         }
       ],
       "accommodationKey": "cdo"
@@ -696,8 +704,8 @@ const tripData = {
             "en": ""
           },
           "place": "Vinyce Studio, Avida Towers Aspira T2",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Barangay+30,+Cagayan+de+Oro+City,+Misamis+Oriental+9000,+Philippines",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Vinyce+Studio,+Avida+Towers+Aspira+T2,+Ramon+Chavez+Street,+Barangay+30,+Cagayan+de+Oro+City,+Misamis+Oriental+9000,+Philippines",
+          "maps": "https://www.google.com/maps/place/Avida+Tower+2/@8.4806836,124.6491086,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff3003072e7b5:0x402e2e5e9839e41f!8m2!3d8.4806836!4d124.6491086!16s%2Fg%2F11ms2f3xs7",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=8.4806836,124.6491086",
           "status": "planned",
           "duration": "—",
           "transport": {
@@ -749,7 +757,7 @@ const tripData = {
             "en": "CDO accommodation."
           },
           "place": "Avida Towers Aspira T2, Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Avida+Towers+Aspira+T2,+Cagayan+de+Oro",
+          "maps": "https://www.google.com/maps/place/Avida+Tower+2/@8.4806836,124.6491086,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff3003072e7b5:0x402e2e5e9839e41f!8m2!3d8.4806836!4d124.6491086!16s%2Fg%2F11ms2f3xs7",
           "optional": false,
           "image": null
         }
@@ -907,7 +915,7 @@ const tripData = {
             "en": "Sandbar off Camiguin; main hero-shot candidate."
           },
           "place": "White Island, Camiguin",
-          "maps": "https://www.google.com/maps/search/?api=1&query=White+Island,+Camiguin",
+          "maps": "https://www.google.com/maps/place/White+Island/@9.2579805,124.6555547,17z/data=!3m1!4b1!4m6!3m5!1s0x33007b1da1f0c8e9:0x549a82c91de23a06!8m2!3d9.2579805!4d124.6555547!16s%2Fg%2F11c1s4b_pb",
           "optional": false,
           "image": "images/camiguin-detail.png"
         },
@@ -963,7 +971,7 @@ const tripData = {
             "en": "Marine sanctuary and underwater filming candidate."
           },
           "place": "Mantigue Island Nature Park, Camiguin",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Mantigue+Island+Nature+Park,+Camiguin",
+          "maps": "https://www.google.com/maps/place/Mantigue+Island/@9.1717898,124.8233886,17z/data=!3m1!4b1!4m6!3m5!1s0x33006ecf32d99dad:0xffbd679a0fc8b309!8m2!3d9.1717898!4d124.8233886!16s%2Fg%2F11bzvx1qg9",
           "optional": false,
           "image": null
         }
@@ -1256,8 +1264,8 @@ const tripData = {
             "en": "Ideal hero shot: wide locked-off frame with few or no visitors at first."
           },
           "place": "White Island, Camiguin",
-          "maps": "https://www.google.com/maps/search/?api=1&query=White+Island,+Camiguin",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=White+Island,+Camiguin",
+          "maps": "https://www.google.com/maps/place/White+Island/@9.2579805,124.6555547,17z/data=!3m1!4b1!4m6!3m5!1s0x33007b1da1f0c8e9:0x549a82c91de23a06!8m2!3d9.2579805!4d124.6555547!16s%2Fg%2F11c1s4b_pb",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=9.2579805,124.6555547",
           "status": "planned",
           "duration": null,
           "transport": {
@@ -1295,8 +1303,8 @@ const tripData = {
             "en": "Use the underwater housing for underwater footage."
           },
           "place": "Mantigue Island Nature Park, Camiguin",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Mantigue+Island+Nature+Park,+Camiguin",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Mantigue+Island+Nature+Park,+Camiguin",
+          "maps": "https://www.google.com/maps/place/Mantigue+Island/@9.1717898,124.8233886,17z/data=!3m1!4b1!4m6!3m5!1s0x33006ecf32d99dad:0xffbd679a0fc8b309!8m2!3d9.1717898!4d124.8233886!16s%2Fg%2F11bzvx1qg9",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=9.1717898,124.8233886",
           "status": "planned",
           "duration": null,
           "transport": {
@@ -1329,7 +1337,7 @@ const tripData = {
             "en": "Bare sandbar with no vegetation or permanent infrastructure; check tides and conditions before going."
           },
           "place": "White Island, Camiguin",
-          "maps": "https://www.google.com/maps/search/?api=1&query=White+Island,+Camiguin",
+          "maps": "https://www.google.com/maps/place/White+Island/@9.2579805,124.6555547,17z/data=!3m1!4b1!4m6!3m5!1s0x33007b1da1f0c8e9:0x549a82c91de23a06!8m2!3d9.2579805!4d124.6555547!16s%2Fg%2F11c1s4b_pb",
           "optional": false,
           "image": null
         },
@@ -1343,7 +1351,7 @@ const tripData = {
             "en": "Marine sanctuary for snorkelling and underwater filming."
           },
           "place": "Mantigue Island Nature Park, Camiguin",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Mantigue+Island+Nature+Park,+Camiguin",
+          "maps": "https://www.google.com/maps/place/Mantigue+Island/@9.1717898,124.8233886,17z/data=!3m1!4b1!4m6!3m5!1s0x33006ecf32d99dad:0xffbd679a0fc8b309!8m2!3d9.1717898!4d124.8233886!16s%2Fg%2F11bzvx1qg9",
           "optional": false,
           "image": null
         }
@@ -2187,8 +2195,8 @@ const tripData = {
             "en": "3 passages. Film departure, lights and sunrise."
           },
           "place": "Port of Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Port+of+Cagayan+de+Oro",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Port+of+Cagayan+de+Oro",
+          "maps": "https://www.google.com/maps/place/Cagayan+De+Oro/@8.49127,124.66429,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff294a7020c6f:0x1f2989d007a021e8!8m2!3d8.49127!4d124.66429!16s%2Fg%2F11sf9n4vfw",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=8.49127,124.66429",
           "status": "planned",
           "duration": "≈ 10–12 h",
           "transport": {
@@ -2223,7 +2231,7 @@ const tripData = {
             "en": "Departure point for the overnight ferry."
           },
           "place": "Port of Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Port+of+Cagayan+de+Oro",
+          "maps": "https://www.google.com/maps/place/Cagayan+De+Oro/@8.49127,124.66429,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff294a7020c6f:0x1f2989d007a021e8!8m2!3d8.49127!4d124.66429!16s%2Fg%2F11sf9n4vfw",
           "optional": false,
           "image": null
         }
@@ -2440,7 +2448,7 @@ const tripData = {
             "en": "Historic fort."
           },
           "place": "Fort San Pedro, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Fort+San+Pedro,+Cebu",
+          "maps": "https://www.google.com/maps/place/Fort+San+Pedro/@10.292457,123.905636,17z/data=!3m1!4b1!4m6!3m5!1s0x33a99be0deb18889:0xcd7afbb07d30a902!8m2!3d10.292457!4d123.905636!16zL20vMDVfbjI0",
           "optional": true,
           "image": null
         },
@@ -2468,7 +2476,7 @@ const tripData = {
             "en": "South Cebu option; film from a respectful distance."
           },
           "place": "Oslob Whale Shark Watching",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Oslob+Whale+Shark+Watching",
+          "maps": "https://www.google.com/maps/place/Oslob+Whale+Shark+Watching/@9.4633589,123.3797338,17z/data=!3m1!4b1!4m6!3m5!1s0x33ab744452b80907:0x443d13a88e1123d7!8m2!3d9.4633589!4d123.3797338!16s%2Fg%2F1th7kfn3",
           "optional": true,
           "image": null
         },
@@ -2509,8 +2517,8 @@ const tripData = {
             "es": "Opción cultural del sur.",
             "en": "Cultural option in the south."
           },
-          "place": "Simala Shrine",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Simala+Shrine",
+          "place": "Simala Parish Church",
+          "maps": "https://www.google.com/maps/place/Simala+Parish+Church/@9.979449,123.5996641,17z/data=!3m1!4b1!4m6!3m5!1s0x33abd0760ce7ccb5:0x3741939ed4d0da63!8m2!3d9.979449!4d123.5996641!16s%2Fg%2F11gwmjrr3n",
           "optional": true,
           "image": null
         },
@@ -2538,7 +2546,7 @@ const tripData = {
             "en": "Pasalubong shopping."
           },
           "place": "Shamrock Pasalubong Center, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Shamrock+Pasalubong+Center,+Cebu",
+          "maps": "https://www.google.com/maps/place/Shamrock+Pasalubong+Center/@10.2972401,123.9036791,17z/data=!3m1!4b1!4m6!3m5!1s0x33a9995f43a9f9bb:0xd960cf10c31dcc7b!8m2!3d10.2972401!4d123.9036791!16s%2Fg%2F1tx_3xd0",
           "optional": true,
           "image": null
         }
@@ -2691,7 +2699,7 @@ const tripData = {
             "en": "Historic fort."
           },
           "place": "Fort San Pedro, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Fort+San+Pedro,+Cebu",
+          "maps": "https://www.google.com/maps/place/Fort+San+Pedro/@10.292457,123.905636,17z/data=!3m1!4b1!4m6!3m5!1s0x33a99be0deb18889:0xcd7afbb07d30a902!8m2!3d10.292457!4d123.905636!16zL20vMDVfbjI0",
           "optional": true,
           "image": null
         },
@@ -2719,7 +2727,7 @@ const tripData = {
             "en": "South Cebu option; film from a respectful distance."
           },
           "place": "Oslob Whale Shark Watching",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Oslob+Whale+Shark+Watching",
+          "maps": "https://www.google.com/maps/place/Oslob+Whale+Shark+Watching/@9.4633589,123.3797338,17z/data=!3m1!4b1!4m6!3m5!1s0x33ab744452b80907:0x443d13a88e1123d7!8m2!3d9.4633589!4d123.3797338!16s%2Fg%2F1th7kfn3",
           "optional": true,
           "image": null
         },
@@ -2760,8 +2768,8 @@ const tripData = {
             "es": "Opción cultural del sur.",
             "en": "Cultural option in the south."
           },
-          "place": "Simala Shrine",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Simala+Shrine",
+          "place": "Simala Parish Church",
+          "maps": "https://www.google.com/maps/place/Simala+Parish+Church/@9.979449,123.5996641,17z/data=!3m1!4b1!4m6!3m5!1s0x33abd0760ce7ccb5:0x3741939ed4d0da63!8m2!3d9.979449!4d123.5996641!16s%2Fg%2F11gwmjrr3n",
           "optional": true,
           "image": null
         },
@@ -2789,7 +2797,7 @@ const tripData = {
             "en": "Pasalubong shopping."
           },
           "place": "Shamrock Pasalubong Center, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Shamrock+Pasalubong+Center,+Cebu",
+          "maps": "https://www.google.com/maps/place/Shamrock+Pasalubong+Center/@10.2972401,123.9036791,17z/data=!3m1!4b1!4m6!3m5!1s0x33a9995f43a9f9bb:0xd960cf10c31dcc7b!8m2!3d10.2972401!4d123.9036791!16s%2Fg%2F1tx_3xd0",
           "optional": true,
           "image": null
         }
@@ -2942,7 +2950,7 @@ const tripData = {
             "en": "Historic fort."
           },
           "place": "Fort San Pedro, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Fort+San+Pedro,+Cebu",
+          "maps": "https://www.google.com/maps/place/Fort+San+Pedro/@10.292457,123.905636,17z/data=!3m1!4b1!4m6!3m5!1s0x33a99be0deb18889:0xcd7afbb07d30a902!8m2!3d10.292457!4d123.905636!16zL20vMDVfbjI0",
           "optional": true,
           "image": null
         },
@@ -2970,7 +2978,7 @@ const tripData = {
             "en": "South Cebu option; film from a respectful distance."
           },
           "place": "Oslob Whale Shark Watching",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Oslob+Whale+Shark+Watching",
+          "maps": "https://www.google.com/maps/place/Oslob+Whale+Shark+Watching/@9.4633589,123.3797338,17z/data=!3m1!4b1!4m6!3m5!1s0x33ab744452b80907:0x443d13a88e1123d7!8m2!3d9.4633589!4d123.3797338!16s%2Fg%2F1th7kfn3",
           "optional": true,
           "image": null
         },
@@ -3011,8 +3019,8 @@ const tripData = {
             "es": "Opción cultural del sur.",
             "en": "Cultural option in the south."
           },
-          "place": "Simala Shrine",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Simala+Shrine",
+          "place": "Simala Parish Church",
+          "maps": "https://www.google.com/maps/place/Simala+Parish+Church/@9.979449,123.5996641,17z/data=!3m1!4b1!4m6!3m5!1s0x33abd0760ce7ccb5:0x3741939ed4d0da63!8m2!3d9.979449!4d123.5996641!16s%2Fg%2F11gwmjrr3n",
           "optional": true,
           "image": null
         },
@@ -3040,7 +3048,7 @@ const tripData = {
             "en": "Pasalubong shopping."
           },
           "place": "Shamrock Pasalubong Center, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Shamrock+Pasalubong+Center,+Cebu",
+          "maps": "https://www.google.com/maps/place/Shamrock+Pasalubong+Center/@10.2972401,123.9036791,17z/data=!3m1!4b1!4m6!3m5!1s0x33a9995f43a9f9bb:0xd960cf10c31dcc7b!8m2!3d10.2972401!4d123.9036791!16s%2Fg%2F1tx_3xd0",
           "optional": true,
           "image": null
         }
@@ -3193,7 +3201,7 @@ const tripData = {
             "en": "Historic fort."
           },
           "place": "Fort San Pedro, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Fort+San+Pedro,+Cebu",
+          "maps": "https://www.google.com/maps/place/Fort+San+Pedro/@10.292457,123.905636,17z/data=!3m1!4b1!4m6!3m5!1s0x33a99be0deb18889:0xcd7afbb07d30a902!8m2!3d10.292457!4d123.905636!16zL20vMDVfbjI0",
           "optional": true,
           "image": null
         },
@@ -3221,7 +3229,7 @@ const tripData = {
             "en": "South Cebu option; film from a respectful distance."
           },
           "place": "Oslob Whale Shark Watching",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Oslob+Whale+Shark+Watching",
+          "maps": "https://www.google.com/maps/place/Oslob+Whale+Shark+Watching/@9.4633589,123.3797338,17z/data=!3m1!4b1!4m6!3m5!1s0x33ab744452b80907:0x443d13a88e1123d7!8m2!3d9.4633589!4d123.3797338!16s%2Fg%2F1th7kfn3",
           "optional": true,
           "image": null
         },
@@ -3262,8 +3270,8 @@ const tripData = {
             "es": "Opción cultural del sur.",
             "en": "Cultural option in the south."
           },
-          "place": "Simala Shrine",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Simala+Shrine",
+          "place": "Simala Parish Church",
+          "maps": "https://www.google.com/maps/place/Simala+Parish+Church/@9.979449,123.5996641,17z/data=!3m1!4b1!4m6!3m5!1s0x33abd0760ce7ccb5:0x3741939ed4d0da63!8m2!3d9.979449!4d123.5996641!16s%2Fg%2F11gwmjrr3n",
           "optional": true,
           "image": null
         },
@@ -3291,7 +3299,7 @@ const tripData = {
             "en": "Pasalubong shopping."
           },
           "place": "Shamrock Pasalubong Center, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Shamrock+Pasalubong+Center,+Cebu",
+          "maps": "https://www.google.com/maps/place/Shamrock+Pasalubong+Center/@10.2972401,123.9036791,17z/data=!3m1!4b1!4m6!3m5!1s0x33a9995f43a9f9bb:0xd960cf10c31dcc7b!8m2!3d10.2972401!4d123.9036791!16s%2Fg%2F1tx_3xd0",
           "optional": true,
           "image": null
         }
@@ -3444,7 +3452,7 @@ const tripData = {
             "en": "Historic fort."
           },
           "place": "Fort San Pedro, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Fort+San+Pedro,+Cebu",
+          "maps": "https://www.google.com/maps/place/Fort+San+Pedro/@10.292457,123.905636,17z/data=!3m1!4b1!4m6!3m5!1s0x33a99be0deb18889:0xcd7afbb07d30a902!8m2!3d10.292457!4d123.905636!16zL20vMDVfbjI0",
           "optional": true,
           "image": null
         },
@@ -3472,7 +3480,7 @@ const tripData = {
             "en": "South Cebu option; film from a respectful distance."
           },
           "place": "Oslob Whale Shark Watching",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Oslob+Whale+Shark+Watching",
+          "maps": "https://www.google.com/maps/place/Oslob+Whale+Shark+Watching/@9.4633589,123.3797338,17z/data=!3m1!4b1!4m6!3m5!1s0x33ab744452b80907:0x443d13a88e1123d7!8m2!3d9.4633589!4d123.3797338!16s%2Fg%2F1th7kfn3",
           "optional": true,
           "image": null
         },
@@ -3513,8 +3521,8 @@ const tripData = {
             "es": "Opción cultural del sur.",
             "en": "Cultural option in the south."
           },
-          "place": "Simala Shrine",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Simala+Shrine",
+          "place": "Simala Parish Church",
+          "maps": "https://www.google.com/maps/place/Simala+Parish+Church/@9.979449,123.5996641,17z/data=!3m1!4b1!4m6!3m5!1s0x33abd0760ce7ccb5:0x3741939ed4d0da63!8m2!3d9.979449!4d123.5996641!16s%2Fg%2F11gwmjrr3n",
           "optional": true,
           "image": null
         },
@@ -3542,7 +3550,7 @@ const tripData = {
             "en": "Pasalubong shopping."
           },
           "place": "Shamrock Pasalubong Center, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Shamrock+Pasalubong+Center,+Cebu",
+          "maps": "https://www.google.com/maps/place/Shamrock+Pasalubong+Center/@10.2972401,123.9036791,17z/data=!3m1!4b1!4m6!3m5!1s0x33a9995f43a9f9bb:0xd960cf10c31dcc7b!8m2!3d10.2972401!4d123.9036791!16s%2Fg%2F1tx_3xd0",
           "optional": true,
           "image": null
         }
@@ -3695,7 +3703,7 @@ const tripData = {
             "en": "Historic fort."
           },
           "place": "Fort San Pedro, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Fort+San+Pedro,+Cebu",
+          "maps": "https://www.google.com/maps/place/Fort+San+Pedro/@10.292457,123.905636,17z/data=!3m1!4b1!4m6!3m5!1s0x33a99be0deb18889:0xcd7afbb07d30a902!8m2!3d10.292457!4d123.905636!16zL20vMDVfbjI0",
           "optional": true,
           "image": null
         },
@@ -3723,7 +3731,7 @@ const tripData = {
             "en": "South Cebu option; film from a respectful distance."
           },
           "place": "Oslob Whale Shark Watching",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Oslob+Whale+Shark+Watching",
+          "maps": "https://www.google.com/maps/place/Oslob+Whale+Shark+Watching/@9.4633589,123.3797338,17z/data=!3m1!4b1!4m6!3m5!1s0x33ab744452b80907:0x443d13a88e1123d7!8m2!3d9.4633589!4d123.3797338!16s%2Fg%2F1th7kfn3",
           "optional": true,
           "image": null
         },
@@ -3764,8 +3772,8 @@ const tripData = {
             "es": "Opción cultural del sur.",
             "en": "Cultural option in the south."
           },
-          "place": "Simala Shrine",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Simala+Shrine",
+          "place": "Simala Parish Church",
+          "maps": "https://www.google.com/maps/place/Simala+Parish+Church/@9.979449,123.5996641,17z/data=!3m1!4b1!4m6!3m5!1s0x33abd0760ce7ccb5:0x3741939ed4d0da63!8m2!3d9.979449!4d123.5996641!16s%2Fg%2F11gwmjrr3n",
           "optional": true,
           "image": null
         },
@@ -3793,7 +3801,7 @@ const tripData = {
             "en": "Pasalubong shopping."
           },
           "place": "Shamrock Pasalubong Center, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Shamrock+Pasalubong+Center,+Cebu",
+          "maps": "https://www.google.com/maps/place/Shamrock+Pasalubong+Center/@10.2972401,123.9036791,17z/data=!3m1!4b1!4m6!3m5!1s0x33a9995f43a9f9bb:0xd960cf10c31dcc7b!8m2!3d10.2972401!4d123.9036791!16s%2Fg%2F1tx_3xd0",
           "optional": true,
           "image": null
         }
@@ -3946,7 +3954,7 @@ const tripData = {
             "en": "Historic fort."
           },
           "place": "Fort San Pedro, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Fort+San+Pedro,+Cebu",
+          "maps": "https://www.google.com/maps/place/Fort+San+Pedro/@10.292457,123.905636,17z/data=!3m1!4b1!4m6!3m5!1s0x33a99be0deb18889:0xcd7afbb07d30a902!8m2!3d10.292457!4d123.905636!16zL20vMDVfbjI0",
           "optional": true,
           "image": null
         },
@@ -3974,7 +3982,7 @@ const tripData = {
             "en": "South Cebu option; film from a respectful distance."
           },
           "place": "Oslob Whale Shark Watching",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Oslob+Whale+Shark+Watching",
+          "maps": "https://www.google.com/maps/place/Oslob+Whale+Shark+Watching/@9.4633589,123.3797338,17z/data=!3m1!4b1!4m6!3m5!1s0x33ab744452b80907:0x443d13a88e1123d7!8m2!3d9.4633589!4d123.3797338!16s%2Fg%2F1th7kfn3",
           "optional": true,
           "image": null
         },
@@ -4015,8 +4023,8 @@ const tripData = {
             "es": "Opción cultural del sur.",
             "en": "Cultural option in the south."
           },
-          "place": "Simala Shrine",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Simala+Shrine",
+          "place": "Simala Parish Church",
+          "maps": "https://www.google.com/maps/place/Simala+Parish+Church/@9.979449,123.5996641,17z/data=!3m1!4b1!4m6!3m5!1s0x33abd0760ce7ccb5:0x3741939ed4d0da63!8m2!3d9.979449!4d123.5996641!16s%2Fg%2F11gwmjrr3n",
           "optional": true,
           "image": null
         },
@@ -4044,7 +4052,7 @@ const tripData = {
             "en": "Pasalubong shopping."
           },
           "place": "Shamrock Pasalubong Center, Cebu",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Shamrock+Pasalubong+Center,+Cebu",
+          "maps": "https://www.google.com/maps/place/Shamrock+Pasalubong+Center/@10.2972401,123.9036791,17z/data=!3m1!4b1!4m6!3m5!1s0x33a9995f43a9f9bb:0xd960cf10c31dcc7b!8m2!3d10.2972401!4d123.9036791!16s%2Fg%2F1tx_3xd0",
           "optional": true,
           "image": null
         }
@@ -4160,8 +4168,8 @@ const tripData = {
             "en": ""
           },
           "place": "CK Haven Suites - Tuscania CDO, FJVQ+5H4, Saint Ignatius St, Cagayan de Oro, 9000, Philippines",
-          "maps": "https://www.google.com/maps/search/?api=1&query=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ+5H4,+Saint+Ignatius+St,+Cagayan+de+Oro,+9000,+Philippines",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=CK+Haven+Suites+-+Tuscania+CDO,+FJVQ+5H4,+Saint+Ignatius+St,+Cagayan+de+Oro,+9000,+Philippines",
+          "maps": "https://www.google.com/maps/place/St+Ignatius+St%2C+Kauswagan%2C+Cagayan+De+Oro+City%2C+Misamis+Oriental%2C+Philippines/@8.4947692,124.6371742,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff31c14731c1f:0x34748dd956d33b42!8m2!3d8.4947692!4d124.6371742!16s%2Fg%2F1tj86zbm",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=8.4947692,124.6371742",
           "status": "planned",
           "duration": "—",
           "transport": {
@@ -4169,7 +4177,11 @@ const tripData = {
             "en": "Local transfer"
           },
           "budget": 0,
-          "recording": {}
+          "recording": {},
+          "mapNote": {
+            "es": "Referencia en St Ignatius St; confirmar el acceso exacto con el alojamiento.",
+            "en": "Reference on St Ignatius St; confirm the exact entrance with the accommodation."
+          }
         }
       ],
       "pois": [
@@ -4197,9 +4209,13 @@ const tripData = {
             "en": "Planned accommodation."
           },
           "place": "CK Haven Suites - Tuscania CDO",
-          "maps": "https://www.google.com/maps/search/?api=1&query=CK+Haven+Suites+-+Tuscania+CDO",
+          "maps": "https://www.google.com/maps/place/St+Ignatius+St%2C+Kauswagan%2C+Cagayan+De+Oro+City%2C+Misamis+Oriental%2C+Philippines/@8.4947692,124.6371742,17z/data=!3m1!4b1!4m6!3m5!1s0x32fff31c14731c1f:0x34748dd956d33b42!8m2!3d8.4947692!4d124.6371742!16s%2Fg%2F1tj86zbm",
           "optional": false,
-          "image": null
+          "image": null,
+          "mapNote": {
+            "es": "Referencia en St Ignatius St; confirmar el acceso exacto con el alojamiento.",
+            "en": "Reference on St Ignatius St; confirm the exact entrance with the accommodation."
+          }
         }
       ],
       "accommodationKey": "return-cdo"
@@ -4363,7 +4379,7 @@ const tripData = {
             "en": "Farther alternative; the itinerary warns about travel time."
           },
           "place": "Malaybalay Zoo",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Malaybalay+Zoo",
+          "maps": "https://www.google.com/maps/place/Bukidnon+Zoological+Park/@8.1557023,125.1344363,17z/data=!3m1!4b1!4m6!3m5!1s0x32ffaa2e92828b29:0xc01e1145f367016d!8m2!3d8.1557023!4d125.1344363!16s%2Fg%2F11hd5d_st5",
           "optional": true,
           "image": null
         }
@@ -4528,7 +4544,7 @@ const tripData = {
             "en": "Farther option; the itinerary warns it is tight for the airport deadline."
           },
           "place": "Malaybalay Zoo",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Malaybalay+Zoo",
+          "maps": "https://www.google.com/maps/place/Bukidnon+Zoological+Park/@8.1557023,125.1344363,17z/data=!3m1!4b1!4m6!3m5!1s0x32ffaa2e92828b29:0xc01e1145f367016d!8m2!3d8.1557023!4d125.1344363!16s%2Fg%2F11hd5d_st5",
           "optional": true,
           "image": null
         }

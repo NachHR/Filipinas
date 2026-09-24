@@ -2,7 +2,7 @@
 
 Diario e itinerario personal bilingüe (ES/EN) para el viaje a Filipinas del **26 de septiembre al 24 de octubre de 2026**. Aplicación móvil instalable, con consulta offline y datos personales guardados en el dispositivo.
 
-**[Abrir la app](https://nachhr.github.io/Filipinas/)** · Versión **8.12.0**
+**[Abrir la app](https://nachhr.github.io/Filipinas/)** · Versión **8.12.1**
 
 ## Qué puedes hacer
 

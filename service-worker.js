@@ -1,6 +1,5 @@
-// V8.12.0 — Atomic shell install, explicit updates, app-owned caches only.
-// Content-only cache refresh; the app version remains V8.12.0.
-const CACHE = "filipinas-v8-12-0-high-ridge";
+// V8.12.1 — Atomic shell install, explicit updates, app-owned caches only.
+const CACHE = "filipinas-v8-12-1";
 const APP_SHELL = [
   "./",
   "./index.html",

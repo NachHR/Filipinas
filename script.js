@@ -190,7 +190,7 @@ function renderDay(id) {
     pct = total ? Math.round((completed / total) * 100) : 0,
     tripBudget = getTripBudget();
   $("#dayContent").innerHTML =
-    `<div class="day-head"><div class="day-meta"><span class="eyebrow">${t("day.day")} ${day.id} / ${tripData.meta.totalDays}</span>${isToday(day.date) ? `<span class="pill done">${t("day.todayBanner")}</span>` : ""}<span class="pill ${day.status}">${statusLabel(day.status)}</span></div><h1 class="day-title">${tr(day.title)}</h1><div class="date-line">${formatDate(day.date)} · ${tr(day.location)}</div><div class="progress-wrap"><div class="progress-line"><span style="width:${pct}%"></span></div><div class="progress-copy">${t("day.progress")}: ${completed}/${total} · ${pct}%</div></div><div class="card budget-box"><div class="budget-row"><span>${t("day.totalBudget")}</span><strong>${money(tripBudget)}</strong></div><div class="budget-row"><span>${t("day.spent")}</span><strong>${spent === null ? "—" : money(spent)}</strong></div><div class="budget-row"><span>${t("day.remaining")}</span><strong>${spent === null ? "—" : money(Math.round((tripBudget - spent) * 100) / 100)}</strong></div><div class="budget-quick"><button class="action primary" id="openBudgetEditor" type="button">✎ ${t("day.editBudget")}</button><span class="saved-budget">${t("day.savedDevice")}</span></div></div></div>${accommodationSection(day)}<div class="grid">${day.activities.map((act, i) => activityCard(day, act, i)).join("")}</div>${day.pois?.length ? `<section class="documentary poi-section"><div class="section-head"><h2>${t("day.poi")}</h2><span>${day.pois.length}</span></div><div class="grid two">${day.pois.map(poiCard).join("")}</div></section>` : ""}${day.loc ? recordingSection(day) : ""}${locationGallery(day.locationKey)}<section class="budget-section"></section>`;
+    `<div class="day-head"><div class="day-meta"><span class="eyebrow">${t("day.day")} ${day.id} / ${tripData.meta.totalDays}</span>${isToday(day.date) ? `<span class="pill done">${t("day.todayBanner")}</span>` : ""}<span class="pill ${day.status}">${statusLabel(day.status)}</span></div><h1 class="day-title">${tr(day.title)}</h1><div class="date-line">${formatDate(day.date)} · ${tr(day.location)}</div><div class="progress-wrap"><div class="progress-line"><span style="width:${pct}%"></span></div><div class="progress-copy">${t("day.progress")}: ${completed}/${total} · ${pct}%</div></div><div class="card budget-box"><div class="budget-row"><span>${t("day.totalBudget")}</span><strong>${money(tripBudget)}</strong></div><div class="budget-row"><span>${t("day.spent")}</span><strong>${spent === null ? "—" : money(spent)}</strong></div><div class="budget-row"><span>${t("day.remaining")}</span><strong>${spent === null ? "—" : money(Math.round((tripBudget - spent) * 100) / 100)}</strong></div><div class="budget-quick"><button class="action primary" id="openBudgetEditor" type="button">✎ ${t("day.editBudget")}</button><span class="saved-budget">${t("day.savedDevice")}</span></div></div></div>${accommodationSection(day)}<div class="grid">${day.activities.map((act, i) => activityCard(day, act, i)).join("")}</div>${day.pois?.length ? `<section class="documentary poi-section"><div class="section-head"><h2>${t("day.poi")}</h2><span>${day.pois.length}</span></div><div class="grid two">${day.pois.map(poiCard).join("")}</div></section>` : ""}${day.loc ? recordingSection(day) : ""}${locationGallery(day)}<section class="budget-section"></section>`;
   if (typeof renderTodayContext === "function") renderTodayContext();
   const fieldNotes = document.createElement("div");
   fieldNotes.className = "field-notes";
@@ -221,13 +221,13 @@ function activityCard(day, act, i) {
       act.status === "optional" ? t("day.optional") : statusLabel(act.status);
   const actionHtml = act.externalUrl
     ? `<div class="actions"><a class="action primary" target="_blank" rel="noopener" href="${act.externalUrl}">↗ ${tr(act.externalLabel)}</a></div>`
-    : act.place
+    : act.place && act.maps
       ? `<div class="actions"><a class="action primary" target="_blank" rel="noopener" href="${act.maps}">⌖ ${t("day.maps")}</a><a class="action" target="_blank" rel="noopener" href="${act.directions}">↗ ${t("day.directions")}</a></div>`
       : "";
   return `<article class="card activity-card ${act.status === "pending" ? "pending" : ""}"><div class="activity-top"><div><div class="time">${tr(act.time)}</div><h2>${tr(act.title)}</h2></div><label class="check" title="${t("day.check")}"><input type="checkbox" data-done="${i}" ${done ? "checked" : ""}> <span>${done ? "✓" : ""}</span></label></div><p class="activity-description">${tr(act.description)}</p><div class="chips"><span class="chip">${st}</span>${act.duration ? `<span class="chip">⏱ ${tr(act.duration)}</span>` : ""}</div>${actionHtml}${act.notes?.es || act.notes?.en ? `<div class="notes"><strong>${t("day.notes")}</strong><p>${tr(act.notes)}</p></div>` : ""}${act.transport?.es || act.transport?.en ? `<div class="transport"><b>↔ ${t("day.transport")}</b><br>${tr(act.transport)}</div>` : ""}${act.recording?.es || act.recording?.en ? `<div class="notes activity-recording"><strong>🎥 ${t("day.recording")}</strong><p>${(tr(act.recording) || []).join(" · ")}</p></div>` : ""}</article>`;
 }
 function poiCard(p) {
-  return `<article class="card poi-card">${p.image ? `<img ${photoAttributes(p.image)} src="${imageSrc(p.image)}" alt="${tr(p.name)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">` : ""}<div class="poi-body"><div class="chips"><span class="chip">${p.optional ? t("day.optional") : "POI"}</span></div><h3>${tr(p.name)}</h3><p>${tr(p.description)}</p><a class="action primary" target="_blank" rel="noopener" href="${p.maps}">⌖ ${t("day.maps")}</a></div></article>`;
+  return `<article class="card poi-card">${p.image ? `<img ${photoAttributes(p.image)} src="${imageSrc(p.image)}" alt="${tr(p.name)}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">` : ""}<div class="poi-body"><div class="chips"><span class="chip">${p.kind === "plan" ? t("day.plan") : p.optional ? t("day.optional") : "POI"}</span></div><h3>${tr(p.name)}</h3><p>${tr(p.description)}</p>${p.maps ? `<a class="action primary" target="_blank" rel="noopener" href="${p.maps}">⌖ ${t("day.maps")}</a>` : ""}${p.mapNote ? `<p class="muted">${tr(p.mapNote)}</p>` : ""}</div></article>`;
 }
 function accommodationSection(day) {
   if (day.accommodationStatus === "flexible")
@@ -235,11 +235,22 @@ function accommodationSection(day) {
   const key = day.accommodationKey || day.locationKey,
     a = tripData.meta.accommodations?.[key];
   if (!a) return "";
-  return `<section class="accommodation-section"><div class="section-head"><h2>🏠 ${t("day.accommodation")}</h2><span>${tr(a.subtitle)}</span></div><div class="card accommodation-card">${a.image ? `<img class="accommodation-photo" ${photoAttributes(a.image)} src="${imageSrc(a.image)}" alt="${tr(a.name)}">` : ""}<div><h3>${tr(a.name)}</h3><p class="muted">${tr(a.checkin)}<br>${tr(a.checkout)}</p></div><div class="actions">${a.booking ? `<a class="action primary" target="_blank" rel="noopener" href="${a.booking}">↗ ${t("day.booking")}</a>` : ""}<a class="action" target="_blank" rel="noopener" href="${a.map}">⌖ ${t("day.maps")}</a><a class="action" target="_blank" rel="noopener" href="${a.directions}">↗ ${t("day.directions")}</a></div></div></section>`;
+  return `<section class="accommodation-section"><div class="section-head"><h2>🏠 ${t("day.accommodation")}</h2><span>${tr(a.subtitle)}</span></div><div class="card accommodation-card">${a.image ? `<img class="accommodation-photo" ${photoAttributes(a.image)} src="${imageSrc(a.image)}" alt="${tr(a.name)}">` : ""}<div><h3>${tr(a.name)}</h3><p class="muted">${tr(a.checkin)}<br>${tr(a.checkout)}</p>${a.mapNote ? `<p class="muted">${tr(a.mapNote)}</p>` : ""}</div><div class="actions">${a.booking ? `<a class="action primary" target="_blank" rel="noopener" href="${a.booking}">↗ ${t("day.booking")}</a>` : ""}<a class="action" target="_blank" rel="noopener" href="${a.map}">⌖ ${t("day.maps")}</a><a class="action" target="_blank" rel="noopener" href="${a.directions}">↗ ${t("day.directions")}</a></div></div></section>`;
 }
-function locationGallery(key) {
-  const lm = locationMeta(key);
-  return `<section class="gallery-section"><div class="section-head"><h2>${t("day.gallery")}</h2><span>${tr(lm.name)}</span></div><div class="gallery">${lm.gallery.map((x, i) => `<img ${photoAttributes(x)} src="${imageSrc(x)}" alt="${tr(lm.name)} ${i + 1}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">`).join("")}</div></section>`;
+function dayGalleryPhotos(day) {
+  const lm = locationMeta(day.locationKey);
+  const stay = day.accommodationStatus === "flexible" ? null
+    : tripData.meta.accommodations?.[day.accommodationKey || day.locationKey];
+  return [...new Set([
+    day.loc?.cover || lm.cover,
+    ...(day.loc?.gallery || []), ...(lm.gallery || []),
+    stay?.image, ...(day.activities || []).map(a => a.image),
+    ...(day.pois || []).map(p => p.image),
+  ].filter(Boolean))];
+}
+function locationGallery(day) {
+  const lm = locationMeta(day.locationKey);
+  return `<section class="gallery-section"><div class="section-head"><h2>${t("day.gallery")}</h2><span>${tr(lm.name)}</span></div><div class="gallery">${dayGalleryPhotos(day).map((x, i) => `<img ${photoAttributes(x)} src="${imageSrc(x)}" alt="${tr(lm.name)} ${i + 1}" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">`).join("")}</div></section>`;
 }
 function bindDayEvents(day) {
   $("#openBudgetEditor")?.addEventListener("click", openBudgetEditor);

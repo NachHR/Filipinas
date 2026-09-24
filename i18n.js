@@ -74,6 +74,7 @@ const I18N = {
       optional: "Opcional",
     },
     day: {
+      plan: "Plan",
       day: "Día",
       poi: "Puntos de interés",
       recording: "Grabación",
@@ -267,6 +268,7 @@ const I18N = {
       optional: "Optional",
     },
     day: {
+      plan: "Suggested plan",
       day: "Day",
       poi: "Points of interest",
       recording: "Filming",

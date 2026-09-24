@@ -2,6 +2,13 @@
 
 Historial de cambios. Para el uso de la app, consulta [README](README.md); para resultados y límites de las pruebas, los [registros QA](tests/README.md).
 
+## V8.12.1 — 2026-09-24
+
+- Corregidos los destinos de Google Maps facilitados por el propietario en actividades, POI y alojamientos, junto con sus rutas.
+- Night Café y Public Market de Cagayan de Oro tratados como planes sin ubicación concreta; retirada su navegación a un lugar ficticio. CK Haven indica que el mapa es una referencia de calle.
+- Galería reúne las fotos asociadas a cada día y destino, incluidos alojamiento, actividades y POI, sin duplicados. Sigue oculta en Solo itinerario.
+- Metadatos y caché alineados; registrada la validación de V8.12.0 por el propietario. QA de esta corrección no completado por indicación expresa; véase [estado de pruebas](tests/README.md).
+
 ## Mantenimiento documental — 2026-09-23
 
 - README centrado en uso, instalación y datos personales; historial separado en este archivo.

@@ -9,6 +9,10 @@ npm test
 
 Las pruebas automatizadas cubren lógica, DOM, datos locales y caché simulada. La instalación PWA, los gestos, el aspecto visual y el modo avión deben comprobarse en un dispositivo real.
 
+## Estado de V8.12.1
+
+No se completó la ejecución de QA: se interrumpió al recibir la indicación del propietario de omitirla para esta corrección. No se atribuyen resultados nuevos a esta entrega. V8.12.0 fue validada por el propietario el 24/09/2026.
+
 ## Registros por entrega
 
 Cada informe recoge las comprobaciones realizadas, sus límites y los pasos manuales pendientes en esa fecha. Conservarlos como evidencia; no actualizar sus resultados históricos al cambiar el código.

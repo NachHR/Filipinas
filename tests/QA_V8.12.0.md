@@ -34,3 +34,7 @@ V8.11.0 sigue siendo la última versión probada y validada expresamente por el 
 ## Publicación
 
 Código integrado en `main`: `a8f0997749c7c695d68ba39bf2fd1cf2bc149b2d`. [GitHub Pages](https://github.com/NachHR/Filipinas/actions/runs/35910632226) completado con éxito. HTML público muestra V8.12.0 y firma. `index.html`, `service-worker.js`, `flights.js` y `photos.js` descargados desde Pages y comparados por SHA-256 con los archivos locales: coinciden. Cierre documental posterior sin cambiar versión ni caché.
+
+## Confirmación posterior del propietario — 2026-09-24
+
+El propietario comunica que V8.12.0 está validada, sin detallar comprobaciones individuales. Esta confirmación corresponde a V8.12.0 y no valida los cambios posteriores de V8.12.1.

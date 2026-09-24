@@ -4,9 +4,9 @@ Referencia para mantener y continuar el proyecto. El código define el comportam
 
 ## Estado vigente
 
-- **Versión:** V8.12.0, integrada en `main` y publicada en [GitHub Pages](https://nachhr.github.io/Filipinas/).
-- **Última versión validada por el propietario:** V8.11.0. Validación de V8.12.0 en smartphone pendiente.
-- **Última evidencia automatizada:** 32 pruebas sobre la entrega inicial de V8.12.0; detalle en [QA V8.12.0](tests/QA_V8.12.0.md). La incorporación posterior de High Ridge no ejecutó pruebas por indicación del propietario.
+- **Versión:** V8.12.1, con distribución desde `main` en [GitHub Pages](https://nachhr.github.io/Filipinas/).
+- **Última versión validada por el propietario:** V8.12.0. V8.12.1 pendiente de validación del propietario.
+- **Última evidencia automatizada:** 32 pruebas sobre la entrega inicial de V8.12.0; detalle en [QA V8.12.0](tests/QA_V8.12.0.md). La incorporación posterior de High Ridge no ejecutó pruebas. En V8.12.1 no se completó QA por indicación del propietario; los resultados anteriores no validan esta corrección.
 - **Objetivo inmediato:** consolidación para el viaje y cierre V9.0, sin ampliar funciones innecesariamente.
 - **Repositorio:** [NachHR/Filipinas](https://github.com/NachHR/Filipinas). Trabajar directamente en `main`, según autorización del propietario.
 
@@ -42,6 +42,7 @@ Enlazar la fuente correspondiente en lugar de copiar listas de cambios, horarios
 - Campvill: bungalow previsto para las noches del 7–9 de octubre, salida el 10 según el itinerario. Sin confirmación documental de reserva ni horarios de entrada inventados.
 - Alojamiento flexible el 01/10, 06/10, 10–11/10 y 13–19/10; búsqueda al comienzo de cada estancia. No asignar hoteles a noches de vuelo o ferry.
 - Recordatorios de check-in configurados a 48 horas del primer vuelo de cada sentido. Cualquier cambio de esta lógica o de zona horaria requiere revisión específica.
+- Los planes sin ubicación concreta no muestran enlaces de mapa. CK Haven usa una referencia de calle, con aviso para confirmar el acceso exacto.
 - Mantener las fuentes y límites conocidos de las fotografías. Investigación adicional de licencias pospuesta por decisión del propietario; no inventar autoría ni permisos.
 
 ## Arquitectura y mantenimiento
@@ -62,6 +63,8 @@ El orden de scripts de `index.html` es significativo: datos, composición del vi
 | `service-worker.js`, `manifest.json` | Caché, actualización e instalación |
 | `scripts/build-icons.cjs` | Generación de iconos con Sharp disponible en desarrollo |
 | `tests/app.test.cjs` | Regresión DOM y worker simulado |
+
+Galería reúne, sin duplicados, portada, fotos del destino y del día, alojamiento asignado, actividades y POI.
 
 Las fotos secundarias usan carga diferida; la portada tiene prioridad. La caché precarga todas las imágenes: su peso determina la descarga offline, aunque sean lazy. Al incorporar una foto, actualizar asociación, dimensiones, créditos y precarga.
 
@@ -90,7 +93,7 @@ GitHub Pages sirve `main` desde la raíz, sin build. Node >=22.19 y `npm ci` / `
 
 ## Próximos pasos
 
-1. Validar V8.12.0 en el smartphone: navegación, foco, fotos, notas, gastos y actualización conservando datos.
+1. Confirmar en uso los enlaces de mapas y la Galería de V8.12.1; conservar la validación de V8.12.0 como referencia anterior.
 2. Para V9.0, revisar coherencia del itinerario con las fuentes vigentes, resolver pendientes de viaje y comprobar offline real, persistencia y exportaciones.
 3. Cerrar el release cuando no queden incidencias bloqueantes; congelar nuevas funciones y priorizar correcciones necesarias durante el viaje.
 
