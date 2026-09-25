@@ -119,38 +119,38 @@ const SHOOTING_PLANS = {
   "2026-09-29": {
     "p1": [
       {
-        "id": "cdo-street-wide-shot-with-traffic",
+        "id": "diyandi-cathedral-wide",
         "text": {
-          "es": "Calle de CDO: plano general con tráfico",
-          "en": "CDO street: wide shot with traffic"
+          "es": "Catedral y ambiente festivo: plano general respetando el culto",
+          "en": "Cathedral and festive atmosphere: wide shot respecting worship"
         },
         "duration": "10–15 s"
       },
       {
-        "id": "market-exchange-with-permission",
+        "id": "diyandi-community-detail",
         "text": {
-          "es": "Mercado: intercambio con permiso",
-          "en": "Market: exchange with permission"
+          "es": "Detalles del festival y comida; permiso para primeros planos de personas",
+          "en": "Festival and food details; permission for close-ups of people"
         },
         "duration": "10–15 s"
       },
       {
-        "id": "food-hands-completing-a-preparation-action",
+        "id": "diyandi-fireworks-wide",
         "text": {
-          "es": "Comida: manos preparando una acción completa",
-          "en": "Food: hands completing a preparation action"
+          "es": "Esplanade y fuegos: plano general apoyado desde zona habilitada, si se celebran",
+          "en": "Esplanade and fireworks: supported wide shot from a designated area, if held"
         },
         "duration": "10–15 s"
       }
     ],
     "clips": [
       {
-        "es": "Fruta, vapor o lluvia sobre asfalto: detalle desde 0,4 m, 10 s",
-        "en": "Fruit, steam or rain on asphalt: detail from 0.4 m, 10 s"
+        "es": "Ambiente del festival: 30–60 s de sonido, sin interrumpir actos",
+        "en": "Festival ambience: 30–60 s of sound without disrupting events"
       },
       {
-        "es": "Mercado o cocina: 30–60 s de sonido desde un punto fijo",
-        "en": "Market or kitchen: 30–60 s of sound from a fixed position"
+        "es": "Transición día/noche y luces de la Esplanade: dos planos de 10 s",
+        "en": "Day/night transition and Esplanade lights: two 10 s shots"
       }
     ]
   },

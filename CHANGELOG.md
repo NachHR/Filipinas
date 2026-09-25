@@ -2,6 +2,13 @@
 
 Historial de cambios. Para el uso de la app, consulta [README](README.md); para resultados y límites de las pruebas, los [registros QA](tests/README.md).
 
+## V8.12.2 — 2026-09-25
+
+- Día 4 (29/09): excursión a Diyandi en Iligan con ida y vuelta en coche y alojamiento conservado en Cagayan de Oro, en ES/EN.
+- Catedral de San Miguel, comida y paseo, Fiesta Park opcional y fuegos en la Esplanade; horarios y accesos pendientes identificados, con fuentes enlazadas.
+- Pautas de grabación y checklist adaptados al festival. Nuevas actividades y tomas con IDs propios para evitar heredar casillas de planes sustituidos.
+- Conservados notas, gastos y estimación previa de presupuesto, marcada como pendiente de revisar. Caché y metadatos actualizados.
+
 ## V8.12.1 — 2026-09-24
 
 - Corregidos los destinos de Google Maps facilitados por el propietario en actividades, POI y alojamientos, junto con sus rutas.

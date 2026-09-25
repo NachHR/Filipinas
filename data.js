@@ -401,131 +401,245 @@ const tripData = {
         "en": "29 September"
       },
       "location": {
-        "es": "Cagayan de Oro",
-        "en": "Cagayan de Oro"
+        "es": "Cagayan de Oro → Iligan → Cagayan de Oro",
+        "en": "Cagayan de Oro → Iligan → Cagayan de Oro"
       },
       "locationKey": "cdo",
       "title": {
-        "es": "Primer día en CDO",
-        "en": "First day in CDO"
+        "es": "Diyandi: excursión a Iligan",
+        "en": "Diyandi: day trip to Iligan"
       },
       "status": "planned",
       "budget": 2000,
       "budgetNote": {
-        "es": "Compra de esenciales y desplazamientos locales.",
-        "en": "Essentials and local transport."
+        "es": "Estimación anterior de 2.000 PHP pendiente de revisar para combustible, aparcamiento y comidas. No son gastos registrados.",
+        "en": "Previous PHP 2,000 estimate to be reviewed for fuel, parking and meals. Not recorded expenses."
       },
       "loc": null,
       "activities": [
         {
+          "id": "diyandi-outbound",
           "time": "Mañana",
           "title": {
-            "es": "Comprar esenciales",
-            "en": "Buy essentials"
+            "es": "Desayuno y salida en coche a Iligan",
+            "en": "Breakfast and drive to Iligan"
           },
           "description": {
-            "es": "Shorts, chanclas, cargadores y chubasquero.",
-            "en": "Shorts, slippers, chargers and raincoat."
+            "es": "Salir de Cagayan de Oro después de despertarse y desayunar. Dejar margen para tráfico y aparcamiento durante el festival.",
+            "en": "Leave Cagayan de Oro after waking up and having breakfast. Allow time for festival traffic and parking."
           },
           "notes": {
             "es": "",
             "en": ""
           },
-          "place": "Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Cagayan+de+Oro",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Cagayan+de+Oro",
           "status": "planned",
-          "duration": "—",
+          "duration": null,
           "transport": {
-            "es": "A pie / transporte local",
-            "en": "Walk / local transport"
+            "es": "Coche",
+            "en": "Car"
           },
-          "budget": 2000,
-          "recording": {}
+          "budget": 0,
+          "recording": {},
+          "place": "St. Michael the Archangel Cathedral, Iligan City",
+          "maps": "https://www.google.com/maps/search/?api=1&query=St.%20Michael%20the%20Archangel%20Cathedral%2C%20Iligan%20City",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=St.%20Michael%20the%20Archangel%20Cathedral%2C%20Iligan%20City&travelmode=driving"
         },
         {
+          "id": "diyandi-feast",
+          "time": "Al llegar",
+          "title": {
+            "es": "Fiesta de San Miguel Arcángel",
+            "en": "Feast of St. Michael the Archangel"
+          },
+          "description": {
+            "es": "Visitar la catedral y disfrutar del ambiente del Diyandi. El 29 de septiembre es la festividad patronal; consultar el programa religioso antes de elegir misa o acto.",
+            "en": "Visit the cathedral and enjoy the Diyandi atmosphere. September 29 is the patronal feast; check the religious programme before choosing a service or event."
+          },
+          "notes": {
+            "es": "Horarios de misas y procesión pendientes de confirmar para 2026. No se presupone que haya un acto concreto al llegar.",
+            "en": "Mass and procession times remain unconfirmed for 2026. No specific event is assumed to be taking place on arrival."
+          },
+          "status": "planned",
+          "duration": null,
+          "transport": {
+            "es": "A pie / coche según acceso",
+            "en": "Walk / car depending on access"
+          },
+          "budget": 0,
+          "recording": {},
+          "place": "St. Michael the Archangel Cathedral, Iligan City",
+          "maps": "https://www.google.com/maps/search/?api=1&query=St.%20Michael%20the%20Archangel%20Cathedral%2C%20Iligan%20City",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=St.%20Michael%20the%20Archangel%20Cathedral%2C%20Iligan%20City&travelmode=driving",
+          "externalUrl": "https://pia.gov.ph/news/mindanao/nm/120k-devotees-join-pagpakanaug-prayer-vow-devotion-to-senor-san-miguel/",
+          "externalLabel": {
+            "es": "Fuente / programa",
+            "en": "Source / programme"
+          }
+        },
+        {
+          "id": "diyandi-lunch",
           "time": "Mediodía",
           "title": {
-            "es": "Explorar la ciudad",
-            "en": "Explore the city"
+            "es": "Comida y paseo por Iligan",
+            "en": "Lunch and a walk around Iligan"
           },
           "description": {
-            "es": "Explorar CDO y probar comida callejera.",
-            "en": "Explore CDO and try street food."
+            "es": "Comer y recorrer el ambiente festivo con calma; ajustar el paseo a los actos y accesos del día.",
+            "en": "Have lunch and explore the festive atmosphere at a relaxed pace; adapt to the day’s events and access arrangements."
           },
           "notes": {
             "es": "",
             "en": ""
           },
-          "place": "Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Cagayan+de+Oro",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Cagayan+de+Oro",
           "status": "planned",
           "duration": null,
           "transport": {
-            "es": "",
-            "en": ""
+            "es": "A pie / coche según acceso",
+            "en": "Walk / car depending on access"
           },
           "budget": 0,
-          "recording": {}
+          "recording": {},
+          "place": null,
+          "maps": "",
+          "directions": ""
         },
         {
-          "time": "Noche",
+          "id": "diyandi-park",
+          "time": "Tarde",
           "title": {
-            "es": "Café nocturno y cocinar",
-            "en": "Night café and cooking"
+            "es": "Opcional: Diyandi Fiesta Park",
+            "en": "Optional: Diyandi Fiesta Park"
           },
           "description": {
-            "es": "Café por la noche y cocinar en el alojamiento.",
-            "en": "Night café and cooking at the accommodation."
+            "es": "Visitar los puestos y ambiente del festival en Ludo Grounds, Barangay Santiago, si está abierto.",
+            "en": "Visit the festival stalls and atmosphere at Ludo Grounds, Barangay Santiago, if open."
+          },
+          "notes": {
+            "es": "Horario de apertura de ese día pendiente de confirmar.",
+            "en": "Opening hours for this day remain to be confirmed."
+          },
+          "status": "planned",
+          "duration": null,
+          "transport": {
+            "es": "A pie / coche según acceso",
+            "en": "Walk / car depending on access"
+          },
+          "budget": 0,
+          "recording": {},
+          "place": "Diyandi Fiesta Park, Ludo Grounds, Santiago, Iligan City",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Diyandi%20Fiesta%20Park%2C%20Ludo%20Grounds%2C%20Santiago%2C%20Iligan%20City",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Diyandi%20Fiesta%20Park%2C%20Ludo%20Grounds%2C%20Santiago%2C%20Iligan%20City&travelmode=driving",
+          "externalUrl": "https://pia.gov.ph/news/iligan-diyandi-fiesta-park-opens-to-public/",
+          "externalLabel": {
+            "es": "Fuente / programa",
+            "en": "Source / programme"
+          }
+        },
+        {
+          "id": "diyandi-fireworks",
+          "time": "Noche",
+          "title": {
+            "es": "Fuegos artificiales del Diyandi",
+            "en": "Diyandi fireworks"
+          },
+          "description": {
+            "es": "Acudir a Iligan River Esplanade, Barangay Santiago. Espectáculo anunciado para el 29 de septiembre; hora y acceso de espectadores pendientes de confirmar.",
+            "en": "Head to Iligan River Esplanade, Barangay Santiago. Show announced for September 29; time and spectator access remain to be confirmed."
+          },
+          "notes": {
+            "es": "Consultar Turismo Iligan y avisos municipales. Llegar con margen y seguir las zonas habilitadas. La referencia de Maps es una búsqueda del recinto, no una entrada verificada.",
+            "en": "Check Turismo Iligan and city announcements. Arrive with time to spare and follow designated viewing areas. Maps searches for the venue; it is not a verified entrance."
+          },
+          "status": "planned",
+          "duration": null,
+          "transport": {
+            "es": "A pie / coche según acceso",
+            "en": "Walk / car depending on access"
+          },
+          "budget": 0,
+          "recording": {},
+          "place": "Iligan City River Esplanade, Santiago, Iligan City",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Iligan%20City%20River%20Esplanade%2C%20Santiago%2C%20Iligan%20City",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Iligan%20City%20River%20Esplanade%2C%20Santiago%2C%20Iligan%20City&travelmode=driving",
+          "externalUrl": "https://goiligan.com/diyandi-festival-2026-remaining-events-schedule/",
+          "externalLabel": {
+            "es": "Fuente / programa",
+            "en": "Source / programme"
+          }
+        },
+        {
+          "id": "diyandi-return",
+          "time": "Después",
+          "title": {
+            "es": "Regreso en coche y noche en Cagayan de Oro",
+            "en": "Drive back and stay overnight in Cagayan de Oro"
+          },
+          "description": {
+            "es": "Volver tras los fuegos y descansar en el alojamiento de Cagayan de Oro. Sin hora de llegada fijada; prever la salida del evento y parar si hay cansancio.",
+            "en": "Return after the fireworks and rest at the Cagayan de Oro accommodation. No fixed arrival time; allow for traffic leaving the event and stop if tired."
           },
           "notes": {
             "es": "",
             "en": ""
           },
-          "place": "Cagayan de Oro",
-          "maps": "https://www.google.com/maps/search/?api=1&query=Cagayan+de+Oro",
-          "directions": "https://www.google.com/maps/dir/?api=1&destination=Cagayan+de+Oro",
           "status": "planned",
           "duration": null,
           "transport": {
-            "es": "",
-            "en": ""
+            "es": "Coche",
+            "en": "Car"
           },
           "budget": 0,
-          "recording": {}
+          "recording": {},
+          "place": "Avida Tower 2, Cagayan de Oro",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Avida%20Tower%202%2C%20Cagayan%20de%20Oro",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=8.4806836,124.6491086"
         }
       ],
       "pois": [
         {
           "name": {
-            "es": "High Ridge",
-            "en": "High Ridge"
+            "es": "St. Michael the Archangel Cathedral, Iligan City",
+            "en": "St. Michael the Archangel Cathedral, Iligan City"
           },
           "description": {
-            "es": "Mirador urbano para vistas de CDO.",
-            "en": "Urban viewpoint for CDO views."
+            "es": "Referencia para la festividad patronal. Programa religioso pendiente.",
+            "en": "Reference for the patronal feast. Religious programme pending."
           },
-          "place": "High Ridge, Cagayan de Oro",
-          "maps": "https://www.google.com/maps/place/High+Ridge+Resort+and+Restaurant/@8.4625349,124.6452065,17z/data=!3m1!4b1!4m14!1m7!3m6!1s0x32ff8d2f1866bd89:0xffb74be8cbb645b0!2sHigh+Ridge!8m2!3d8.4625432!4d124.6477994!16s%2Fg%2F11bycg0fc8!3m5!1s0x32ff8d2ec4308277:0xb21070207f06a513!8m2!3d8.4625349!4d124.6477814!16s%2Fg%2F1tj5n7ql",
           "optional": false,
-          "image": null
+          "image": null,
+          "place": "St. Michael the Archangel Cathedral, Iligan City",
+          "maps": "https://www.google.com/maps/search/?api=1&query=St.%20Michael%20the%20Archangel%20Cathedral%2C%20Iligan%20City",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=St.%20Michael%20the%20Archangel%20Cathedral%2C%20Iligan%20City&travelmode=driving"
         },
         {
           "name": {
-            "es": "Cagayan de Oro Public Market",
-            "en": "Cagayan de Oro Public Market"
+            "es": "Iligan City River Esplanade, Santiago, Iligan City",
+            "en": "Iligan City River Esplanade, Santiago, Iligan City"
           },
           "description": {
-            "es": "Mercado para observar actividad urbana y comida.",
-            "en": "Market for urban activity and food scenes."
+            "es": "Recinto anunciado para los fuegos; acceso exacto pendiente.",
+            "en": "Announced fireworks venue; exact access pending."
           },
-          "place": null,
-          "maps": "",
           "optional": false,
           "image": null,
-          "directions": "",
-          "kind": "plan"
+          "place": "Iligan City River Esplanade, Santiago, Iligan City",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Iligan%20City%20River%20Esplanade%2C%20Santiago%2C%20Iligan%20City",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Iligan%20City%20River%20Esplanade%2C%20Santiago%2C%20Iligan%20City&travelmode=driving"
+        },
+        {
+          "name": {
+            "es": "Diyandi Fiesta Park, Ludo Grounds, Santiago, Iligan City",
+            "en": "Diyandi Fiesta Park, Ludo Grounds, Santiago, Iligan City"
+          },
+          "description": {
+            "es": "Opción de paseo y puestos del festival.",
+            "en": "Optional festival stalls and walk."
+          },
+          "optional": true,
+          "image": null,
+          "place": "Diyandi Fiesta Park, Ludo Grounds, Santiago, Iligan City",
+          "maps": "https://www.google.com/maps/search/?api=1&query=Diyandi%20Fiesta%20Park%2C%20Ludo%20Grounds%2C%20Santiago%2C%20Iligan%20City",
+          "directions": "https://www.google.com/maps/dir/?api=1&destination=Diyandi%20Fiesta%20Park%2C%20Ludo%20Grounds%2C%20Santiago%2C%20Iligan%20City&travelmode=driving"
         }
       ],
       "accommodationKey": "cdo"

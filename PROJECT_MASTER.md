@@ -4,9 +4,10 @@ Referencia para mantener y continuar el proyecto. El código define el comportam
 
 ## Estado vigente
 
-- **Versión:** V8.12.1, con distribución desde `main` en [GitHub Pages](https://nachhr.github.io/Filipinas/).
-- **Última versión validada por el propietario:** V8.12.0. V8.12.1 pendiente de validación del propietario.
-- **Última evidencia automatizada:** 32 pruebas sobre la entrega inicial de V8.12.0; detalle en [QA V8.12.0](tests/QA_V8.12.0.md). La incorporación posterior de High Ridge no ejecutó pruebas. En V8.12.1 no se completó QA por indicación del propietario; los resultados anteriores no validan esta corrección.
+- **Versión:** V8.12.2, con distribución desde `main` en [GitHub Pages](https://nachhr.github.io/Filipinas/).
+- **Última versión validada por el propietario:** V8.12.0. V8.12.2 pendiente de validación del propietario.
+- **Comprobación de V8.12.2:** sintaxis y composición del día revisadas de forma puntual; sin QA completo ni validación en smartphone. Detalle en [registros](tests/README.md).
+- **Última ejecución completa de regresión:** 32 pruebas sobre la entrega inicial de V8.12.0; detalle en [QA V8.12.0](tests/QA_V8.12.0.md). La incorporación posterior de High Ridge no ejecutó pruebas. En V8.12.1 no se completó QA por indicación del propietario; los resultados anteriores no validan esta corrección.
 - **Objetivo inmediato:** consolidación para el viaje y cierre V9.0, sin ampliar funciones innecesariamente.
 - **Repositorio:** [NachHR/Filipinas](https://github.com/NachHR/Filipinas). Trabajar directamente en `main`, según autorización del propietario.
 
@@ -38,6 +39,7 @@ Enlazar la fuente correspondiente en lugar de copiar listas de cambios, horarios
 ### Estado de los datos del viaje
 
 - 29 días: 26/09/2026–24/10/2026. `data.js` y `journey.js` definen el itinerario; `flights.js` recoge la actualización de vuelos facilitada el 23/09/2026. Horas locales de cada aeropuerto.
+- 29/09: excursión en coche a Iligan para Diyandi, con regreso al alojamiento de CDO. Horarios religiosos, fuegos y accesos pendientes; fuentes enlazadas en las actividades.
 - Cebú, días 18–24, sigue como `editorial-proposal`. No convertir propuestas, opciones o accesos en reservas confirmadas.
 - Campvill: bungalow previsto para las noches del 7–9 de octubre, salida el 10 según el itinerario. Sin confirmación documental de reserva ni horarios de entrada inventados.
 - Alojamiento flexible el 01/10, 06/10, 10–11/10 y 13–19/10; búsqueda al comienzo de cada estancia. No asignar hoteles a noches de vuelo o ferry.

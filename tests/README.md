@@ -9,6 +9,10 @@ npm test
 
 Las pruebas automatizadas cubren lógica, DOM, datos locales y caché simulada. La instalación PWA, los gestos, el aspecto visual y el modo avión deben comprobarse en un dispositivo real.
 
+## Comprobación puntual de V8.12.2 — 2026-09-25
+
+Sintaxis de los tres archivos de contenido modificados y composición del modelo comprobadas: 29 días, 29/09 como día 4, seis actividades con títulos ES/EN, tres POI y alojamiento CDO conservado. Sin QA completo, pruebas en smartphone ni verificación de horarios o accesos del festival. Esta revisión no sustituye la validación del propietario.
+
 ## Estado de V8.12.1
 
 No se completó la ejecución de QA: se interrumpió al recibir la indicación del propietario de omitirla para esta corrección. No se atribuyen resultados nuevos a esta entrega. V8.12.0 fue validada por el propietario el 24/09/2026.

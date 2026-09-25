@@ -267,12 +267,12 @@ test("Today phases, independent check-ins, and quick access use the actual trip 
 
 test("versioned scripts/styles, offline shell and local images all exist", () => {
   const sw = read("service-worker.js");
-  assert.match(html, /V8\.12\.1/);
-  assert.match(sw, /filipinas-v8-12-1/);
+  assert.match(html, /V8\.12\.2/);
+  assert.match(sw, /filipinas-v8-12-2/);
   for (const match of html.matchAll(
     /(?:src|href)="([^"?]+\.(?:js|css))\?v=([^"&]+)/g,
   )) {
-    assert.equal(match[2], "8.12.1");
+    assert.equal(match[2], "8.12.2");
     assert.ok(sw.includes(`'./${match[1]}'`) || sw.includes(`"./${match[1]}"`), match[1]);
   }
   for (const match of sw.matchAll(/["']\.\/([^"']+)["']/g))
@@ -310,7 +310,7 @@ test("service worker waits for consent and deletes only old app caches", async (
         "filipinas-v8-8-0",
         "filipinas-v8-8-1",
         "filipinas-v8-9-0",
-        "filipinas-v8-12-1",
+        "filipinas-v8-12-2",
       ],
       delete: async (key) => deleted.push(key),
     },
